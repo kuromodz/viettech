@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10.14
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Host: localhost:3306
--- Generation Time: Dec 05, 2016 at 10:49 AM
--- Server version: 5.6.26-cll-lve
--- PHP Version: 5.4.31
+-- Host: 127.0.0.1
+-- Generation Time: Dec 06, 2016 at 07:14 AM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `tuanvt_viettech`
+-- Database: `viettech`
 --
 
 -- --------------------------------------------------------
@@ -369,11 +369,9 @@ CREATE TABLE IF NOT EXISTS `vt_data` (
 --
 
 INSERT INTO `vt_data` (`id`, `hide`, `pos`, `time`, `menu`, `data_parent`, `view`, `type`, `title`, `tag`, `des`, `keywords`, `img`, `content`, `link`, `file`, `lang`, `phone`, `email`, `password`, `count`, `cart`, `address`, `company`, `name`, `vip`, `hot`, `f1`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `f10`, `price`, `start`, `sale`) VALUES
-(1, 0, 0, '04/12/2016 09:25:18', 928, 0, 40, '', 'cac', '', '', '', '2-02-12-2016-12-38-53.png', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, 'icon-googleplus-01-12-2016-17-50-04.png', '', 'icon-phone-01-12-2016-17-57-39.png', '', '', '', '', '', '', '', 0, '', 0),
-(2, 0, 0, '02/12/2016 12:38:53', 0, 1, 0, '', '123', '', '', '', '', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0),
-(3, 0, 0, '02/12/2016 12:38:53', 0, 1, 0, '', 'sdfdsfdsf', '', '', '', '', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0),
+(1, 0, 0, '06/12/2016 11:49:59', 928, 0, 45, '', 'cac', '', '', '', '2-02-12-2016-12-38-53.png', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, 'icon-googleplus-01-12-2016-17-50-04.png', '', 'icon-phone-01-12-2016-17-57-39.png', '', '', '', '', '', '', '', 0, '', 0),
 (4, 0, 0, '04/12/2016 09:24:28', 928, 0, 7, '', 'None', '', '', '', 'test-02-12-2016-12-38-47.png', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0),
-(5, 0, 0, '04/12/2016 09:24:23', 928, 0, 12, '', 'None', '', '', '', '1-02-12-2016-12-38-36.jpg', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0);
+(5, 0, 0, '06/12/2016 12:37:25', 928, 0, 15, '', 'None', '', '', '', '1-02-12-2016-12-38-36.jpg', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0);
 
 -- --------------------------------------------------------
 
@@ -399,6 +397,8 @@ CREATE TABLE IF NOT EXISTS `vt_file` (
   `slide` tinyint(1) NOT NULL,
   `orderProduct` tinyint(1) NOT NULL,
   `tab` tinyint(1) NOT NULL,
+  `maxWidth` int(11) NOT NULL,
+  `maxHeight` int(11) NOT NULL,
   `listHtml` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `boxHtml` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
@@ -408,26 +408,26 @@ CREATE TABLE IF NOT EXISTS `vt_file` (
 -- Dumping data for table `vt_file`
 --
 
-INSERT INTO `vt_file` (`headHtml`, `footerHtml`, `id`, `title`, `file`, `hide`, `type`, `customTemplate`, `customHtml`, `onlyContent`, `showList`, `multiMenu`, `showImage`, `showImageMenu`, `slide`, `orderProduct`, `tab`, `listHtml`, `boxHtml`) VALUES
-('', '', 1, 'Hiển thị sản phẩm', 'product', 0, '', 0, '', 0, 1, 0, 0, 0, 0, 0, 1, '&#60;?php include(''views/include/contentList.php''); ?&#62;', ''),
-('&#60;div class="row"&#62;', '    &#60;/ul&#62;\r\n&#60;/div&#62;', 2, 'Hiển thị tin tức', 'news', 0, '', 0, '', 0, 0, 0, 0, 1, 0, 0, 0, '&#60;div class="col-xs-12 col-sm-4"&#62;\r\n    &#60;div class="news-item"&#62;\r\n        &#60;a class="news-thumbnail" &#60;?=linkId($data,$name)?&#62; &#62;\r\n        	&#60;img class="img-responsive" &#60;?=srcImg($data)?&#62; &#62;\r\n        &#60;/a&#62;\r\n        &#60;h2 class="news-title"&#62;&#60;a &#60;?=linkId($data,$name)?&#62;&#62;&#60;?=$data-&#62;title?&#62;&#60;/a&#62;&#60;/h2&#62;\r\n        &#60;div class="description" style="text-align:justify;"&#62;&#60;?=$data-&#62;des?&#62;&#60;/div&#62;\r\n        &#60;div class="clearfix"&#62;&#60;/div&#62;\r\n    &#60;/div&#62;\r\n&#60;/div&#62;', '&#60;?=$page-&#62;content?&#62;'),
-('', '', 3, 'Hiển thị nội dung', 'content', 0, '', 0, '&#225;dsad', 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
-('', '', 4, 'Liên hệ', 'contact', 0, 'custom', 1, '&#60;?php\r\n  $boxHead = "?&#62; ".html_entity_decode($config-&#62;boxHead)." &#60;?php ";\r\n  $contentHead = "?&#62; ".html_entity_decode($config-&#62;contentHead)." &#60;?php ";\r\n  $contentFooter = "?&#62; ".html_entity_decode($config-&#62;contentFooter)." &#60;?php ";\r\n  eval($boxHead);\r\n  $db-&#62;breadcrumbMenu($menuPage);\r\n  eval($contentHead);\r\n?&#62;\r\n&#60;div class="col-md-12"&#62;\r\n  &#60;?=$menuPage-&#62;content?&#62;\r\n&#60;/div&#62;\r\n&#60;div class="col-md-6"&#62;\r\n    &#60;iframe frameborder="0" height="450" src="&#60;?=$infoPage-&#62;map?&#62;" style="border:0" width="100%"&#62;&#60;/iframe&#62;\r\n&#60;/div&#62;\r\n&#60;div class="col-md-6"&#62;\r\n  &#60;center&#62;\r\n    &#60;form class="contactAjax" action="contact"&#62;\r\n        &#60;p class="name"&#62;\r\n          &#60;input class="form-control" name="title" type="text" placeholder="H&#7885; t&#234;n" id="name" /&#62;\r\n        &#60;/p&#62;\r\n    \r\n        &#60;p class="email"&#62;\r\n          &#60;input class="form-control" name="email" type="text" id="email" placeholder="Email" /&#62;\r\n        &#60;/p&#62;\r\n        &#60;p class="text"&#62;\r\n          &#60;input class="form-control" name="phone" type="text" placeholder="S&#7889; &#273;i&#7879;n tho&#7841;i" /&#62;\r\n        &#60;/p&#62;\r\n        &#60;p class="text"&#62;\r\n          &#60;input class="form-control" name="address" type="text" placeholder="&#272;&#7883;a ch&#7881; c&#7911;a b&#7841;n" /&#62;\r\n        &#60;/p&#62;\r\n        &#60;p class="text"&#62;\r\n          &#60;textarea class="form-control md-textarea" name="content" placeholder="N&#7897;i dung tin nh&#7855;n"&#62;&#60;/textarea&#62;\r\n        &#60;/p&#62;\r\n        \r\n        &#60;button type="submit" class="btn btn-primary"&#62;\r\n          &#60;i class="fa fa-send"&#62;&#60;/i&#62; G&#7917;i tin nh&#7855;n\r\n        &#60;/button&#62;\r\n        \r\n    &#60;/form&#62;\r\n    &#60;/center&#62;\r\n&#60;/div&#62;\r\n&#60;?php eval($contentFooter); ?&#62;', 0, 1, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 5, 'Thư viện', 'picture', 0, '', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 6, 'Hiển thị video', 'video', 0, '', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 7, 'Giỏ hàng', 'shop', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 8, 'Site Map', 'sitemap', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 9, 'Thành viên', 'user', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 10, 'Đăng ký', 'register', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 11, 'Đăng nhập', 'login', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 12, 'Thiết kế', 'design', 0, '', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 13, 'Ký gửi', 'post', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('&#60;div class="row"&#62;', '&#60;/div&#62;', 15, 'Download', 'download', 0, '', 0, '', 0, 0, 0, 0, 1, 0, 0, 0, '&#60;div class="col-xs-12 col-sm-4"&#62;\r\n    &#60;div class="news-item"&#62;\r\n        &#60;a class="news-thumbnail" href="upload/&#60;?=$data-&#62;file?&#62;" target="_blank" &#62;\r\n        	&#60;img class="img-responsive" &#60;?=srcImg($data)?&#62; &#62;\r\n        &#60;/a&#62;\r\n        &#60;h2 class="news-title"&#62;&#60;a href="upload/&#60;?=$data-&#62;file?&#62;" target="_blank"&#62;&#60;?=$data-&#62;title?&#62;&#60;/a&#62;&#60;/h2&#62;\r\n        &#60;div class="description" style="text-align:justify;"&#62;&#60;?=$data-&#62;des?&#62;&#60;/div&#62;\r\n        &#60;div class="clearfix"&#62;&#60;/div&#62;\r\n    &#60;/div&#62;\r\n&#60;/div&#62;', ''),
-('', '', 16, 'Hiển thị hỗ trợ', 'support', 0, '', 0, '', 0, 1, 0, 0, 0, 0, 0, 0, '&#60;?php include(''views/include/contentList.php''); ?&#62;', ''),
-('', '', 17, 'Hiển thị địa điểm', 'map', 0, '', 0, '', 0, 1, 0, 0, 0, 0, 0, 0, '', ''),
-('', '', 18, 'Ngôn ngữ', 'lang', 0, 'custom', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 19, 'Trang chủ', 'home', 1, 'custom', 1, '&#60;?php include(''views/include/home.php'') ?&#62;', 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 21, 'Tìm kiếm', 'search', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, '0', '0');
+INSERT INTO `vt_file` (`headHtml`, `footerHtml`, `id`, `title`, `file`, `hide`, `type`, `customTemplate`, `customHtml`, `onlyContent`, `showList`, `multiMenu`, `showImage`, `showImageMenu`, `slide`, `orderProduct`, `tab`, `maxWidth`, `maxHeight`, `listHtml`, `boxHtml`) VALUES
+('', '', 1, 'Hiển thị sản phẩm', 'product', 0, '', 0, '', 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, '&#60;?php include(''views/include/contentList.php''); ?&#62;', ''),
+('&#60;div class="row"&#62;', '    &#60;/ul&#62;\r\n&#60;/div&#62;', 2, 'Hiển thị tin tức', 'news', 0, '', 0, '', 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, '&#60;div class="col-xs-12 col-sm-4"&#62;\r\n    &#60;div class="news-item"&#62;\r\n        &#60;a class="news-thumbnail" &#60;?=linkId($data,$name)?&#62; &#62;\r\n        	&#60;img class="img-responsive" &#60;?=srcImg($data)?&#62; &#62;\r\n        &#60;/a&#62;\r\n        &#60;h2 class="news-title"&#62;&#60;a &#60;?=linkId($data,$name)?&#62;&#62;&#60;?=$data-&#62;title?&#62;&#60;/a&#62;&#60;/h2&#62;\r\n        &#60;div class="description" style="text-align:justify;"&#62;&#60;?=$data-&#62;des?&#62;&#60;/div&#62;\r\n        &#60;div class="clearfix"&#62;&#60;/div&#62;\r\n    &#60;/div&#62;\r\n&#60;/div&#62;', '&#60;?=$page-&#62;content?&#62;'),
+('', '', 3, 'Hiển thị nội dung', 'content', 0, '', 0, '&#225;dsad', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
+('', '', 4, 'Liên hệ', 'contact', 0, 'custom', 1, '&#60;?php\r\n  $boxHead = "?&#62; ".html_entity_decode($config-&#62;boxHead)." &#60;?php ";\r\n  $contentHead = "?&#62; ".html_entity_decode($config-&#62;contentHead)." &#60;?php ";\r\n  $contentFooter = "?&#62; ".html_entity_decode($config-&#62;contentFooter)." &#60;?php ";\r\n  eval($boxHead);\r\n  $db-&#62;breadcrumbMenu($menuPage);\r\n  eval($contentHead);\r\n?&#62;\r\n&#60;div class="col-md-12"&#62;\r\n  &#60;?=$menuPage-&#62;content?&#62;\r\n&#60;/div&#62;\r\n&#60;div class="col-md-6"&#62;\r\n    &#60;iframe frameborder="0" height="450" src="&#60;?=$infoPage-&#62;map?&#62;" style="border:0" width="100%"&#62;&#60;/iframe&#62;\r\n&#60;/div&#62;\r\n&#60;div class="col-md-6"&#62;\r\n  &#60;center&#62;\r\n    &#60;form class="contactAjax" action="contact"&#62;\r\n        &#60;p class="name"&#62;\r\n          &#60;input class="form-control" name="title" type="text" placeholder="H&#7885; t&#234;n" id="name" /&#62;\r\n        &#60;/p&#62;\r\n    \r\n        &#60;p class="email"&#62;\r\n          &#60;input class="form-control" name="email" type="text" id="email" placeholder="Email" /&#62;\r\n        &#60;/p&#62;\r\n        &#60;p class="text"&#62;\r\n          &#60;input class="form-control" name="phone" type="text" placeholder="S&#7889; &#273;i&#7879;n tho&#7841;i" /&#62;\r\n        &#60;/p&#62;\r\n        &#60;p class="text"&#62;\r\n          &#60;input class="form-control" name="address" type="text" placeholder="&#272;&#7883;a ch&#7881; c&#7911;a b&#7841;n" /&#62;\r\n        &#60;/p&#62;\r\n        &#60;p class="text"&#62;\r\n          &#60;textarea class="form-control md-textarea" name="content" placeholder="N&#7897;i dung tin nh&#7855;n"&#62;&#60;/textarea&#62;\r\n        &#60;/p&#62;\r\n        \r\n        &#60;button type="submit" class="btn btn-primary"&#62;\r\n          &#60;i class="fa fa-send"&#62;&#60;/i&#62; G&#7917;i tin nh&#7855;n\r\n        &#60;/button&#62;\r\n        \r\n    &#60;/form&#62;\r\n    &#60;/center&#62;\r\n&#60;/div&#62;\r\n&#60;?php eval($contentFooter); ?&#62;', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
+('', '', 5, 'Thư viện', 'picture', 0, '', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
+('', '', 6, 'Hiển thị video', 'video', 0, '', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
+('', '', 7, 'Giỏ hàng', 'shop', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
+('', '', 8, 'Site Map', 'sitemap', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
+('', '', 9, 'Thành viên', 'user', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
+('', '', 10, 'Đăng ký', 'register', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
+('', '', 11, 'Đăng nhập', 'login', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
+('', '', 12, 'Thiết kế', 'design', 0, '', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
+('', '', 13, 'Ký gửi', 'post', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
+('&#60;div class="row"&#62;', '&#60;/div&#62;', 15, 'Download', 'download', 0, '', 0, '', 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, '&#60;div class="col-xs-12 col-sm-4"&#62;\r\n    &#60;div class="news-item"&#62;\r\n        &#60;a class="news-thumbnail" href="upload/&#60;?=$data-&#62;file?&#62;" target="_blank" &#62;\r\n        	&#60;img class="img-responsive" &#60;?=srcImg($data)?&#62; &#62;\r\n        &#60;/a&#62;\r\n        &#60;h2 class="news-title"&#62;&#60;a href="upload/&#60;?=$data-&#62;file?&#62;" target="_blank"&#62;&#60;?=$data-&#62;title?&#62;&#60;/a&#62;&#60;/h2&#62;\r\n        &#60;div class="description" style="text-align:justify;"&#62;&#60;?=$data-&#62;des?&#62;&#60;/div&#62;\r\n        &#60;div class="clearfix"&#62;&#60;/div&#62;\r\n    &#60;/div&#62;\r\n&#60;/div&#62;', ''),
+('', '', 16, 'Hiển thị hỗ trợ', 'support', 0, '', 0, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, '&#60;?php include(''views/include/contentList.php''); ?&#62;', ''),
+('', '', 17, 'Hiển thị địa điểm', 'map', 0, '', 0, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
+('', '', 18, 'Ngôn ngữ', 'lang', 0, 'custom', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
+('', '', 19, 'Trang chủ', 'home', 1, 'custom', 1, '&#60;?php include(''views/include/home.php'') ?&#62;', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
+('', '', 21, 'Tìm kiếm', 'search', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0');
 
 -- --------------------------------------------------------
 
