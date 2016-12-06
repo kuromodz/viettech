@@ -1,0 +1,47 @@
+IndexIgnore .htaccess */.??* *~ *# */HEADER* */README* */_vti*
+
+Header unset ETag
+FileETag None
+
+<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf|txt|html|x-html|php|css|xml|js|woff|ttf|svg|eot)(\.gz)?$">
+SetOutputFilter DEFLATE
+</FilesMatch>
+
+ExpiresActive On
+ExpiresDefault "access plus 10 years"
+ExpiresByType text/html "access plus 1 day"
+
+<Limit GET POST>
+order deny,allow
+deny from all
+allow from all
+</Limit>
+<Limit PUT DELETE>
+order deny,allow
+deny from all
+</Limit> 
+<IfModule mod_rewrite.c>
+RewriteEngine On
+Options +FollowSymlinks
+
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC] 
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+ErrorDocument 404 /admin/404/
+
+RewriteBase /viettech/
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^$  index.php
+
+RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)-([0-9]+).html?(.*)$ index.php?name=$1&id=$3 [QSA]
+RewriteRule ^admin/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)-([0-9]+).html?(.*)$ admin/index.php?name=$1&id=$3 [QSA]
+
+RewriteRule ^([0-9a-zA-Z\-]+)/danh-muc/([0-9a-zA-Z\-]+)-([0-9]+).html?(.*)$ index.php?name=$1&idList=$3 [QSA]
+RewriteRule ^admin/([0-9a-zA-Z\-]+)/danh-muc/([0-9a-zA-Z\-]+)-([0-9]+).html?(.*)$ admin/index.php?name=$1&idList=$3 [QSA]
+
+RewriteRule ^([0-9a-zA-Z\-]+).html?(.*)$ index.php?name=$1 [QSA]
+RewriteRule ^admin/([0-9a-zA-Z\-]+).html?(.*)$ admin/index.php?name=$1 [QSA]
+
+</IfModule>

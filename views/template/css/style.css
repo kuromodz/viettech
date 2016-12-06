@@ -1,0 +1,31 @@
+.navbar {
+    background-color: transparent;
+}
+.dropdown-menu{
+	background-color: rgba(0,0,0,0.5);
+}
+.divider-new h2 a{
+	color: #373a3c;
+}
+.slideAjax{
+	display: none;
+}
+.contentAjax{
+	min-height: 500px;
+    margin: 0 20px;
+}
+.divider-new{
+	margin-bottom: 0px;
+}
+.tab-content{
+	margin-top:10px;
+}
+th{
+	text-align: center;
+}
+.nav-item.active {
+    background-color: rgba(0,0,0,0.5);
+}
+.md-form .prefix~label {
+    margin-left: 4rem;
+}
