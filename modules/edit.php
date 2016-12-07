@@ -100,7 +100,6 @@
         ?>
         <label>Hình slide <?=$title?>: </label>
         <input type="file" name="slideData[]" multiple="" accept="image/*" />
-        <input type="hidden" name="tableRow[data]"/>
         <br>
         <button class="btn btn-success selectAll" data-target="#tableSlide > tbody > tr" type="button"><i class="fa fa-check-square-o"></i> Chọn tất cả</button>  
         <button class="btn btn-danger delAll"  data-target="#tableSlide >tbody > tr.selected" type="button"><i class="fa fa-trash"></i> Xóa đã chọn</button>
@@ -151,9 +150,9 @@
                 <a <?=linkDelId($data->id); ?>><i class="fa fa-trash"></i> Xóa</a>
                 <br>
                   <label>Tiêu đề:</label>
-                  <input type="text" value="<?=$data->title ?>" name="listData[<?=$data->id ?>][title]" class="form-control" /><br>
+                  <input type="text" value="<?=$data->title ?>" name="listRow[data][<?=$data->id ?>][title]" class="form-control" /><br>
                   <label>Nội dung:</label>
-                  <textarea name="listData[<?=$data->id ?>][content]" class="ckeditor"><?=$data->content?></textarea><br>
+                  <textarea name="listRow[data][<?=$data->id ?>][content]" class="ckeditor"><?=$data->content?></textarea><br>
                 </div>
            <?php } ?>
           </div>
@@ -277,14 +276,14 @@
                 <td><?=$key+1; ?></td>
                 <td><a <?=linkId($data,$name); ?>><img style="height:50px;" src="../upload/<?=$data->img ?>" class="img-responsive"></a></td>
                 <td>
-                  <input type="text" value="<?=$data->title; ?>" name="listData[<?=$data->id ?>][title]" class="form-control" />
+                  <input type="text" value="<?=$data->title; ?>" name="listRow[data][<?=$data->id ?>][title]" class="form-control" />
                   <p class="hidden"><?=$data->title?></p>
                 </td>
                 <?php if($configMenu->listCheck){ foreach($configMenu->listCheck as $check){$checkName = $check->col; ?>
                 <td>
                   <div class="onoffswitch">
-                    <input type="hidden" name="listData[<?=$data->id ?>][<?=$checkName?>]" value="0" />
-                    <input type="checkbox" <?=returnWhere('checked',$data->$checkName,1) ?> name="listData[<?=$data->id ?>][<?=$checkName?>]" class="onoffswitch-checkbox" id="switch<?=$checkName.$data->id ?>" value="1" />
+                    <input type="hidden" name="listRow[data][<?=$data->id ?>][<?=$checkName?>]" value="0" />
+                    <input type="checkbox" <?=returnWhere('checked',$data->$checkName,1) ?> name="listRow[data][<?=$data->id ?>][<?=$checkName?>]" class="onoffswitch-checkbox" id="switch<?=$checkName.$data->id ?>" value="1" />
                     <label class="onoffswitch-label" for="switch<?=$checkName.$data->id ?>"></label>
                     <p class="hidden"><?=$data->$checkName ?></p>
                   </div>

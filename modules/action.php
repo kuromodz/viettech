@@ -172,6 +172,7 @@ if (isset($_GET['do'])) {
                 $sql = '';
                 foreach ($_POST['data'] as $value) {
                     $sql .= 'DELETE FROM `' . dbPrefix . $table.'` WHERE `id` = '.$value.' ;';
+                    delFile($db->alone_data_where($table,'id',$value));
                 }
                 if ($db->execute_sql($sql)) {
                     $result['error'] = 0;

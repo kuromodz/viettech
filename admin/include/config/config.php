@@ -2,8 +2,6 @@
   $listData = $db->list_data_where_order('config','file','config','type','DESC');
   $listEditor = $db->list_data_where_where_order('config','file','config','type','codeEditor','type','DESC');
 ?>
-<input type="hidden" name="tableRow" value="config">
-
 <div class="row">
 	<div class="col-md-6">
 		<div class="panel panel-default grid">
@@ -28,19 +26,19 @@
 		     			<?php switch ($data->type) {
 							case 'text':
 								?>
-					  			<input type="text" value="<?=$data->value?>" name="listRow[<?=$data->id?>][value]" class="form-control" id="f<?=$data->id?>">
+					  			<input type="text" value="<?=$data->value?>" name="listRow[config][<?=$data->id?>][value]" class="form-control" id="f<?=$data->id?>">
 								<?php
 								break;
 							case 'number':
 								?>
-								<input type="number" value="<?=$data->value?>" name="listRow[<?=$data->id?>][value]" class="form-control" id="f<?=$data->id?>">
+								<input type="number" value="<?=$data->value?>" name="listRow[config][<?=$data->id?>][value]" class="form-control" id="f<?=$data->id?>">
 								<?php
 								break;
 							default:
 								?>
 								<div class="onoffswitch">
-									<input type="hidden" name="listRow[<?=$data->id ?>][value]" value="0" />
-									<input type="checkbox" <?=returnWhere('checked',$data->value,1) ?> name="listRow[<?=$data->id ?>][value]" class="onoffswitch-checkbox" id="f<?=$data->id ?>" value="1" />
+									<input type="hidden" name="listRow[config][<?=$data->id ?>][value]" value="0" />
+									<input type="checkbox" <?=returnWhere('checked',$data->value,1) ?> name="listRow[config][<?=$data->id ?>][value]" class="onoffswitch-checkbox" id="f<?=$data->id ?>" value="1" />
 									<label class="onoffswitch-label" for="f<?=$data->id ?>"></label>
 								</div>
 								<?php
@@ -57,7 +55,7 @@
 		<?php foreach($listEditor as $data){ ?>
 		<?php if($data->des !== '' ){ ?><label><?=$data->des?></label><?php } ?>
 		<div id="<?=$data->name?>" class="codeEditor"><?=$data->value?></div>
-		<input for="<?=$data->name?>" type="hidden" name="listRow[<?=$data->id?>][value]" />
+		<input for="<?=$data->name?>" type="hidden" name="listRow[config][<?=$data->id?>][value]" />
 		<?php } ?>
 		
 	</div>

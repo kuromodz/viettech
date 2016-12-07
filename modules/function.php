@@ -1,4 +1,30 @@
 <?php
+function uploadFile($fileName,$tmpFile){
+    $rt = array('success'=>false);
+    if($fileName !== ''){
+        $timeNow = '-'.renameTitle(timeNow());
+        $vlFile = explode('.',$fileName);
+        if(count($vlFile) > 1){
+            $fileName = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
+            if(move_uploaded_file($tmpFile, '../upload/'.$fileName)){
+                $rt['success'] = true;
+                $rt['title'] = $fileName;
+            }
+        }
+    }
+    return $rt;
+}
+function delFile($data){
+    if($data){
+        $listUnlink = array('img','thumbnail');
+        foreach ($listUnlink as $file) {
+            if(isset($data->$file) && $data->$file !== ''){
+                $filePath = '../upload/'.$data->$file;
+                if(file_exists($filePath)) unlink($filePath);
+            }
+        }
+    }
+}
 function renameTitle($string) { 
     $search = array ( 
         '#(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)#', 

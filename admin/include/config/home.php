@@ -2,8 +2,6 @@
 	/*$configImage = $db->alone_data_where('config','name','showListImage');*/
 	$listData = $db->list_data_where_where_order('file_data','type','listImg','parent',$configMenu->id,'pos','ASC');
 ?>
-<input type="hidden" name="tableRow[file_data]">
-<input type="hidden" name="tableRow[file]">
 <div class="row">
 	<div class="col-md-6">
 		<div class="panel panel-default grid">

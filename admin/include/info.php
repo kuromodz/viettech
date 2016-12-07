@@ -4,7 +4,6 @@
 ?>
 
 <form role="form" method="POST" enctype="multipart/form-data">
-
 <div class="row">
   <?php foreach($listData as $data){ ?>
   <div class="col-md-6">
@@ -13,7 +12,7 @@
       case 'img':
         ?>
         <img class="img-thumbnail" onclick="$('#input<?=$data->id ?>').click();" style="height:100px;margin-bottom:10px;" id="input<?=$data->name ?>" src="../upload/<?=$data->content?>">        
-        <input accept="image/*" name="<?=$data->name ?>" type="file" id="input<?=$data->id ?>" onchange="readIMG(this,'<?='input'.$data->name ?>');"/>
+        <input accept="image/*" name="info[<?=$data->name ?>]" type="file" id="input<?=$data->id ?>" onchange="readIMG(this,'<?='input'.$data->name ?>');"/>
         <p class="help-block"><?=$data->content ?></p>
      
         <?php

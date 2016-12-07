@@ -37,14 +37,14 @@
                 <tr align="center" data-name="data" data-id="<?=$data->id ?>">
                   <td><?=$key+1; ?></td>
                   <td>
-                    <input type="text" value="<?=$data->title; ?>" name="listData[<?=$data->id ?>][title]" class="form-control" />
+                    <input type="text" value="<?=$data->title; ?>" name="listRow[data][<?=$data->id ?>][title]" class="form-control" />
                     <p class="hidden"><?=$data->title?></p>
                   </td>
                   <?php if($configMenu->listCheck){ foreach($configMenu->listCheck as $check){$checkName = $check->col; ?>
                   <td>
                     <div class="onoffswitch">
-                      <input type="hidden" name="listData[<?=$data->id ?>][<?=$checkName?>]" value="0" />
-                      <input type="checkbox" <?=returnWhere('checked',$data->$checkName,1) ?> name="listData[<?=$data->id ?>][<?=$checkName?>]" class="onoffswitch-checkbox" id="switch<?=$checkName.$data->id ?>" value="1" />
+                      <input type="hidden" name="listRow[data][<?=$data->id ?>][<?=$checkName?>]" value="0" />
+                      <input type="checkbox" <?=returnWhere('checked',$data->$checkName,1) ?> name="listRow[data][<?=$data->id ?>][<?=$checkName?>]" class="onoffswitch-checkbox" id="switch<?=$checkName.$data->id ?>" value="1" />
                       <label class="onoffswitch-label" for="switch<?=$checkName.$data->id ?>"></label>
                       <p class="hidden"><?=$data->$checkName ?></p>
                     </div>

@@ -2,7 +2,7 @@
   <?php foreach($listImageHome as $listImage){ $listName = $listImage->name; ?> 
     <div class="col-md-6">
       <label>Hình <?=$listImage->title?> ($list-><?=$listImage->name?>): </label>
-      <input type="file" name="listImage[<?=$listName?>]" multiple="" accept="image/*" />
+      <input type="file" name="listImageType[<?=$listName?>][]" multiple="" accept="image/*" />
       <br>
       <?php if(isset($list->$listName) && count($list->$listName)){ ?>
       <button class="btn btn-success selectAll" data-target="#<?=$listName?> > tbody > tr" type="button"><i class="fa fa-check-square-o"></i> Chọn tất cả</button>  
@@ -23,7 +23,7 @@
               ?>
               <tr align="center" data-name="data" data-id="<?=$data->id ?>">
                 <td><img style="height:50px;" src="../upload/<?=$data->img ?>" class="img-responsive"></td>
-                <td><input type="text" class="form-control" name="listData[<?=$data->id ?>][link]" value="<?=$data->link ?>"  /></td>
+                <td><input type="text" class="form-control" name="listRow[data][<?=$data->id ?>][link]" value="<?=$data->link ?>"  /></td>
                 <td class="action">
                   <a <?=linkDelId($data->id,$name); ?>><i class="fa fa-trash"></i></a>
                 </td>

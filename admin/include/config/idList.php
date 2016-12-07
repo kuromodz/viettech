@@ -9,9 +9,6 @@
 		unset($listCols[$i]);
 	}
 ?>
-<input type="hidden" name="tableRow[file]">
-<input type="hidden" name="tableRow[file_data]">
-
 <div class="row">
 	<div class="col-md-6">
 		<div class="panel panel-default grid">

@@ -70,7 +70,7 @@
         <?php if( ($configMenu->showList == true && $idList !== $menuPage->id ) || $configMenu->showList == false){ ?>
           <div class="box-header">
             <h3 class="box-title">
-              <input style="width:300px;float:left;margin-right:10px;" class="btn btn-info" type="file" name="listImage[data]" multiple="" accept="image/*" />
+              <input style="width:300px;float:left;margin-right:10px;" class="btn btn-info" type="file" name="listImageType[data][]" multiple="" accept="image/*" />
               <button class="btn btn-success selectAll" data-target="#tableData > tbody > tr" type="button"><i class="fa fa-check-square-o"></i> Chọn tất cả</button>
               <button class="btn btn-danger delAll"  data-target="#tableData >tbody > tr.selected" type="button"><i class="fa fa-trash"></i> Xóa đã chọn</button>
             </h3>
@@ -98,14 +98,14 @@
                 <td><?=$key+1; ?></td>
                 <td><a <?=linkId($data,$name); ?>><img style="height:50px;" src="../upload/<?=$data->img ?>" class="img-responsive"></a></td>
                 <td>
-                  <input type="text" value="<?=$data->title; ?>" name="listData[<?=$data->id ?>][title]" class="form-control" />
+                  <input type="text" value="<?=$data->title; ?>" name="listRow[data][<?=$data->id ?>][title]" class="form-control" />
                   <p class="hidden"><?=$data->title?></p>
                 </td>
                 <?php if($configMenu->listCheck){ foreach($configMenu->listCheck as $check){$checkName = $check->col; ?>
                 <td>
                   <div class="onoffswitch">
-                    <input type="hidden" name="listData[<?=$data->id ?>][<?=$checkName?>]" value="0" />
-                    <input type="checkbox" <?=returnWhere('checked',$data->$checkName,1) ?> name="listData[<?=$data->id ?>][<?=$checkName?>]" class="onoffswitch-checkbox" id="switch<?=$checkName.$data->id ?>" value="1" />
+                    <input type="hidden" name="listRow[data][<?=$data->id ?>][<?=$checkName?>]" value="0" />
+                    <input type="checkbox" <?=returnWhere('checked',$data->$checkName,1) ?> name="listRow[data][<?=$data->id ?>][<?=$checkName?>]" class="onoffswitch-checkbox" id="switch<?=$checkName.$data->id ?>" value="1" />
                     <label class="onoffswitch-label" for="switch<?=$checkName.$data->id ?>"></label>
                     <p class="hidden"><?=$data->$checkName ?></p>
                   </div>

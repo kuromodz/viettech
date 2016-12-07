@@ -1,5 +1,3 @@
-<input type="hidden" name="tableRow[file]">
-
 <div class="row">
 	<div class="col-md-12">
 		<div id="customHtml" class="codeEditor" style="height:650px;"><?=$configMenu->customHtml?></div>

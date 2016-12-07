@@ -2,7 +2,6 @@
   $listData = $db->list_data_order('page','type','ASC');
   $listType = array('img','text','content');
 ?>
-<input type="hidden" name="tableRow" value="page">
 <div class="row">
   <div class="col-md-9">
     <div class="panel panel-default grid">
@@ -30,14 +29,14 @@
         <?php foreach($listData as $data){ ?>    
           <tr data-id="<?=$data->id?>">
             <td>
-              <input class="form-control" type="text" name="listRow[<?=$data->id?>][title]" value="<?=$data->title?>">
+              <input class="form-control" type="text" name="listRow[page][<?=$data->id?>][title]" value="<?=$data->title?>">
             </td>
             <td>
-              <input class="form-control" type="text" name="listRow[<?=$data->id?>][name]" value="<?=$data->name?>">
+              <input class="form-control" type="text" name="listRow[page][<?=$data->id?>][name]" value="<?=$data->name?>">
             </td>
             <td class="form-inline">
               <div class="form-group">
-                <select class="form-control" name="listRow[<?=$data->id?>][type]" >
+                <select class="form-control" name="listRow[page][<?=$data->id?>][type]" >
                   <?php foreach($listType as $type){ ?>
                   <option <?=returnWhere('selected',$type,$data->type)?>>
                     <?=$type?>
@@ -47,7 +46,7 @@
               </div>
             </td>
             <td>
-              <input class="form-control" type="text" name="listRow[<?=$data->id?>][content]" value="<?=$data->content?>">
+              <input class="form-control" type="text" name="listRow[page][<?=$data->id?>][content]" value="<?=$data->content?>">
             </td>
             <td>
               <button <?=linkDel('page',$data->id)?>>

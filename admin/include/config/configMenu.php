@@ -26,14 +26,14 @@
           <tr data-id="<?=$menu->id?>">
             <td><?=$menu->file?></td>
             <td>
-              <input type="text" value="<?=$menu->title ?>" name="listMenu[<?=$menu->id ?>][title]" class="form-control" />
+              <input type="text" value="<?=$menu->title ?>" name="listRow[menu][<?=$menu->id ?>][title]" class="form-control" />
             </td>
             <td>
-              <input type="text" value="<?=$menu->ico ?>" name="listMenu[<?=$menu->id ?>][ico]" class="form-control" />
+              <input type="text" value="<?=$menu->ico ?>" name="listRow[menu][<?=$menu->id ?>][ico]" class="form-control" />
             </td>
             <td><?=$menu->name ?></td>
             <td>
-              <select class="form-control selectIcon" name="listMenu[<?=$menu->id ?>][file]">
+              <select class="form-control selectIcon" name="listRow[menu][<?=$menu->id ?>][file]">
                 <?php foreach($listFile as $file){ ?>
                 <option <?=returnWhere('selected',$file->file,$menu->file) ?> value="<?=$file->file ?>">
                   <?=$file->title ?>
@@ -43,8 +43,8 @@
             </td>
             <td>
               <div class="onoffswitch">
-                <input type="hidden" name="listMenu[<?=$menu->id ?>][hide]" value="0" />
-                <input type="checkbox" <?=returnWhere('checked',$menu->hide,1)?> name="listMenu[<?=$menu->id ?>][hide]" class="onoffswitch-checkbox" id="switchhide<?=$menu->id ?>" value="1" />
+                <input type="hidden" name="listRow[menu][<?=$menu->id ?>][hide]" value="0" />
+                <input type="checkbox" <?=returnWhere('checked',$menu->hide,1)?> name="listRow[menu][<?=$menu->id ?>][hide]" class="onoffswitch-checkbox" id="switchhide<?=$menu->id ?>" value="1" />
                 <label class="onoffswitch-label" for="switchhide<?=$menu->id ?>"></label>
               </div>
             </td>

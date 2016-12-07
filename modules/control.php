@@ -30,6 +30,7 @@
 					$value = $_POST['value'];
 					if($value !== '' && $value !== 0 && $value !== '0'){
 						$sql = 'DELETE FROM `'.dbPrefix.$table.'` WHERE `id` = "'.$value.'"; ';
+						delFile($db->alone_data_where($table,'id',$value));
 						switch ($table) {
 							case 'menu':
 								$allListMenuChild = array();
@@ -61,106 +62,77 @@
 			}
 		}else if(count($_POST)){
 			$timeNow = '-'.renameTitle(timeNow());
+			$target_dir = '../upload/';
+			$_POST['id'] = (isset($idList))?$idList:$menuPage->id;
+			$_POST['table'] = 'menu';
 			if(isset($id)){
 				$_POST['id'] = $id;
 				$_POST['table'] = 'data';
-			}else{
-				if(isset($idList)){
-					$_POST['id'] = $idList;	
-				}else{
-					$_POST['id'] = $menuPage->id;
-				}
-				$_POST['table'] = 'menu';
 			}
-			$target_dir = '../upload/';
-			switch ($file) {
-				case 'config':
-					if(isset($_POST['listMenu']) && count($_POST['listMenu'])){
-						$sql = '';
-						foreach($_POST['listMenu'] as $key=>$menu){
-							$menu['name'] = renameTitle($menu['title']);
-							$db->updateRow('menu',$menu,'id',$key);
-						}
-					}
-				break;
+			
+			$array = [];
 
+			if(isset($_FILES)){
+				foreach ($_FILES as $keyAction => $arFile) {
+					switch ($keyAction) {
+						case 'slideData':
+							foreach($arFile['name'] as $key=>$vl){
+								$fileName = $arFile['name'][$key];
+								$tmpName = $arFile['tmp_name'][$key];
+								$uploadFile = uploadFile($fileName,$tmpName);
+								if($uploadFile['success']){
+									$db->insertImageData($_POST['id'],'slide',$uploadFile['title']);
+								}					
+							}
+							break;
+						case 'listImageType':
+							foreach($arFile['name'] as $type=>$listFile){
+								foreach ($arFile['name'][$type] as $key => $vl) {
+									$fileName = $arFile['name'][$type][$key];
+									$tmpName = $arFile['tmp_name'][$type][$key];
+									$uploadFile = uploadFile($fileName,$tmpName);
+									if($uploadFile['success']){
+										$db->insertImage($_POST['id'],$type,$uploadFile['title']);
+									}
+								}
+							}
+							break;
+						case 'info':
+							foreach ($arFile['name'] as $key => $vl) {
+								$fileName = $arFile['name'][$key];
+								$tmpName = $arFile['tmp_name'][$key];
+								$uploadFile = uploadFile($fileName,$tmpName);
+								if($uploadFile['success']){
+									$array[$key] = $uploadFile['title'];
+								}
+							}
+							break;
+						default:
+							$uploadFile = uploadFile($arFile['name'],$arFile['tmp_name']);
+							if($uploadFile['success']){
+								$_POST[$keyAction] = $uploadFile['title'];
+							}
+							break;
+					}
+				}
+			}
+			switch ($file) {
 				case 'info':
-					$check = $array = [];
 					$dataPage = $db->list_data('page');
 					foreach($dataPage as $data){
-						$check[$data->name] = $data->content;
-					}
-					foreach($_POST as $key=>$post){
-						if(isset($check[$key])){
-							$array[$key] = $post;
-						}
-					}
-					if(isset($_FILES)){
-						foreach($_FILES as $key=>$f){
-							if(($f['name']) !== '' ){
-								$vlFile = explode('.',$f['name']);
-								$vl = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
-								$array[$key] = $vl;
-								move_uploaded_file($f['tmp_name'],$target_dir.$vl);
-							}
-						}
+						if(isset($_POST[$data->name])) $array[$data->name] = $_POST[$data->name];
 					}
 					if($db->updateTable('page',$array,'content','name')){
 						$success = 'Lưu thành công !';
 					}
 				break;
+				
 			}
-			if(isset($_POST['listRow']) && isset($_POST['tableRow'])){
-				if(is_array($_POST['tableRow'])){
-					foreach($_POST['tableRow'] as $table=>$vl){
-						if(isset($_POST['listRow'][$table])){
-							foreach($_POST['listRow'][$table] as $key=>$data){
-								if($db->updateRow($table,$data,'id',$key)){
-									$success = 'Lưu thành công !';
-								}
-							}	
-						}
-					}
-				}else{
-					foreach($_POST['listRow'] as $key=>$data){
-						if($db->updateRow($_POST['tableRow'],$data,'id',$key)){
-							$success = 'Lưu thành công !';
-						}
-					}
-
-				}
-			}
-			if(isset($_POST['listData'])){
-				foreach($_POST['listData'] as $key=>$data){
-					$db->updateRow('data',$data,'id',$key);
-				}
-			}
-			if(isset($_FILES)){
-				foreach ($_FILES as $keyAction => $arrayFile) {
-					switch ($keyAction) {
-						case 'listImage':
-							/*if(isset($_FILES[$keyAction])){
-								foreach($_FILES[$keyAction]['name'] as $key=>$vl){
-									if($vl !== ''){
-										$vlFile = explode('.',$vl);
-										$vl = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
-										if(move_uploaded_file($_FILES[$keyAction]['tmp_name'][$key], $target_dir.$vl)){
-											$db->insertImage($_POST['id'],$keyAction,$vl);
-										}
-									}					
-								}
-							}*/
-							break;
-						default:
-							$f = $_FILES[$keyAction];
-							$vlFile = explode('.',$f['name']);
-							if(count($vlFile) > 1){
-								$vl = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
-								if(move_uploaded_file($f['tmp_name'], $target_dir.$vl)){
-									$_POST[$keyAction] = $vl;
-								}
-							}
-							break;
+			if(isset($_POST['listRow'])){
+				$listRow = $_POST['listRow'];
+				foreach ($listRow as $table => $row) {
+					foreach ($row as $rowId => $data ) {
+						$db->updateRow($table,$data,'id',$rowId);
 					}
 				}
 			}
@@ -169,39 +141,11 @@
 					$success = 'Lưu thành công !';
 				}
 			}
-
-			/*if(isset($_POST['images'][0]) && count($_POST['images'])){
-				foreach($_POST['images'] as $images){ 
-					$type = $images;
-					if(isset($_FILES[$type])){
-						foreach($_FILES[$type]['name'] as $key=>$vl){
-							if($vl !== ''){
-								$vlFile = explode('.',$vl);
-								$vl = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
-								if(move_uploaded_file($_FILES[$type]['tmp_name'][$key], $target_dir.$vl)){
-									$db->insertImage($_POST['id'],$type,$vl);
-								}
-							}					
-						}
-					}
-				}
-			}*/
-			if(isset($_FILES['slideData'])){
-				foreach($_FILES['slideData']['name'] as $key=>$vl){
-					if($vl !== ''){
-						$vlFile = explode('.',$vl);
-						$vl = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
-						if(move_uploaded_file($_FILES['slideData']['tmp_name'][$key], $target_dir.$vl)){
-							$db->insertImageData($_POST['id'],'slide',$vl);
-						}
-					}					
-				}
-			}
-
 			clearCache($_SERVER['QUERY_STRING']);
 		}
 		
 		$menuPage = $db->alone_data_where('menu','name',$name);
+		$idMenu = $menuPage->id;
 
 		if (isset($id)) {
 			$page = $db->alone_data_where('data','id',$id);
@@ -211,8 +155,6 @@
 		}else if(isset($idList)){
 			$page = $db->alone_data_where('menu','id',$idList);
 			$idMenu = $page->id;
-		}else{
-			$idMenu = $menuPage->id;
 		}
 	}
 
@@ -250,19 +192,13 @@
 			$title = $page->title;
 			$image = $page->img;
 			$des = $page->des;
-			if(isset($page->keywords) && strlen($page->keywords) > 0){
-				$keywords = $page->keywords;
-			}
-			if(isset($id) && $page->price !== '0' && $page->price !== ''){
-				$des = $page->price.' - '.$des;
-			}
-		}else{
-			if($menuPage->file !== 'home'){
-				$title = $menuPage->title;
-				$image = $menuPage->img;
-				$des = $menuPage->des;
-				$keywords = $menuPage->keywords;
-			}
+			if(isset($page->keywords) && strlen($page->keywords) > 0) $keywords = $page->keywords;
+			if(isset($id) && $page->price !== '0' && $page->price !== '') $des = $page->price.' - '.$des;
+		}else if($menuPage->file !== 'home'){
+			$title = $menuPage->title;
+			$image = $menuPage->img;
+			$des = $menuPage->des;
+			$keywords = $menuPage->keywords;
 		}
 	}
 	foreach($allListMenu as $menu){
