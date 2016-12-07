@@ -116,10 +116,10 @@ function hrefPost(){
     var href = window.location.origin+window.location.pathname;
     if(window.location.search.length > 0){
         if(!getParam('ajax',document.URL)){
-            href +='?'+window.location.search+'&ajax';
+            href +='?'+window.location.search+'&ajax=';
         }
     }else{
-        href += '?ajax';
+        href += '?ajax=';
     }
     return href;
 }

@@ -242,7 +242,7 @@
 				  }         
 				}
 			}
-
+			clearCache($_SERVER['QUERY_STRING']);
 		}
 		
 		$menuPage = $db->alone_data_where('menu','name',$name);

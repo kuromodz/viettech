@@ -152,7 +152,7 @@ if (isset($_GET['do'])) {
                         break;
                 }
                 foreach ($_POST['data'] as $key => $data) {
-                    $sql .= 'UPDATE `' . dbPrefix . '$table` SET `pos` = '$key' WHERE `$where` = '$data';';
+                    $sql .= 'UPDATE `' . dbPrefix . '$table` SET `pos` = "'.$key.'" WHERE `$where` = "'.$data.'";';
                 }
                 
                 if ($db->execute_sql($sql)) {

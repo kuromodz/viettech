@@ -371,4 +371,21 @@ function rmkdir($path) {
         if(!is_dir($rebuild) && (!strpos($rebuild,'html'))) mkdir($rebuild,0777,true);
     }
 }
+function clearCache($queryString){
+    $ajax = '&ajax=';
+    $listFile = array(md5($queryString),md5(''),md5('?ajax='),md5('name=trang-chu'),md5('name=trang-chu&ajax='));
+    if(strpos($queryString,$ajax)){
+        $queryString = str_replace($ajax, '', $queryString);
+        array_push($listFile, md5($queryString));
+    }else{
+        array_push($listFile, md5($queryString.$ajax));
+    }
+    foreach($listFile as $file){
+        $filePath = '../cache/'.$file;
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }    
+    }
+    clearstatcache();
+}
 ?>

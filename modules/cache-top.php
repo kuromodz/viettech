@@ -1,6 +1,7 @@
 <?php
   $cachefile = 'cache/'.md5($_SERVER['QUERY_STRING']);
-  if (file_exists($cachefile) && time() - 7200 < filemtime($cachefile)) {
+  $timeResetCache = time() - 86400;
+  if (file_exists($cachefile) && $timeResetCache < filemtime($cachefile)) {
     include($cachefile);
     exit;
   }

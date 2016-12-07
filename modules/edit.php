@@ -1,5 +1,5 @@
 <?php 
-  $idFile = 'include/'.$menuPage->file.'.php'; 
+  $idFile = 'include/'.$menuPage->file.'.php';
   /*Nếu không tồn tại idFile thì cấu hình chi tiết sản phẩm theo mặc định*/
 ?>
 <?php if(isset($id)){ ?>

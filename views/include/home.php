@@ -1,1 +1,3 @@
-<i class="fa fa-phone fa-3x"></i>
+<?=$_SERVER['QUERY_STRING']?>
+<br>
+<?=md5($_SERVER['QUERY_STRING']);?>

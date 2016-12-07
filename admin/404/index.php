@@ -34,9 +34,9 @@
         	<ul class="social">
         		<li><a target="_blank" href="<?php echo $infoPage->facebook ?>"><img src="404/img/social-facebook.png" alt="" /></a></li>
         	</ul>
-        	<form action="#" method="post" class="search">
-        		<input type="text" class="field" name="query" />
-        		<input type="submit" class="button" name="submit" value="" />
+        	<form action="../tim-kiem.html" method="GET" class="search">
+        		<input type="text" class="field" name="title" />
+        		<input type="submit" class="button"/>
         	</form>
     	</div>
     </footer>
