@@ -1,18 +1,6 @@
 <?php
-function uploadFile($fileName,$tmpFile){
-    $rt = array('success'=>false);
-    if($fileName !== ''){
-        $timeNow = '-'.renameTitle(timeNow());
-        $vlFile = explode('.',$fileName);
-        if(count($vlFile) > 1){
-            $fileName = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
-            if(move_uploaded_file($tmpFile, '../upload/'.$fileName)){
-                $rt['success'] = true;
-                $rt['title'] = $fileName;
-            }
-        }
-    }
-    return $rt;
+function delFileCol($data,$col){
+    if(isset($data->$col) && $data->$col !== '' && file_exists('../upload/'.$data->$col)) unlink('../upload/'.$data->$col);
 }
 function delFile($data){
     if($data){
@@ -290,7 +278,10 @@ function angleRight($listData){
     }
     return $rt;
 }
-function srcImg($data){
+function srcImg($data,$method = ''){
+    if($method == 'thumb'){
+        $data->img = $data->thumbnail;
+    }
     if($data->title == ''){
         $data->title = $data->img;
     }
@@ -391,21 +382,145 @@ function rmkdir($path) {
         if(!is_dir($rebuild) && (!strpos($rebuild,'html'))) mkdir($rebuild,0777,true);
     }
 }
-function clearCache($queryString){
-    $ajax = '&ajax=';
-    $listFile = array(md5($queryString),md5(''),md5('?ajax='),md5('name=trang-chu'),md5('name=trang-chu&ajax='));
-    if(strpos($queryString,$ajax)){
-        $queryString = str_replace($ajax, '', $queryString);
-        array_push($listFile, md5($queryString));
-    }else{
-        array_push($listFile, md5($queryString.$ajax));
-    }
-    foreach($listFile as $file){
-        $filePath = '../cache/'.$file;
-        if (file_exists($filePath)) {
-            unlink($filePath);
-        }    
+function clearCache(){
+    $files = glob('../cache/*');
+    foreach($files as $file){
+      if(is_file($file))
+        unlink($file); 
     }
     clearstatcache();
+}
+function resizeImage($sourceFile, $destFile, $width = 1024, $height = 768) {
+    $proportional = true;
+    $output = 'file';
+    copy($sourceFile, $destFile);
+    $file = $destFile;
+    if ($height <= 0 && $width <= 0) return false;
+    $info = getimagesize($file);
+    $image = '';
+    list($width_old, $height_old) = $info;
+    $final_width = 0;
+    $final_height = 0;
+    $dims = resizeBoundary($width_old, $height_old, $width, $height);
+    $final_height = $dims['height'];
+    $final_width = $dims['width'];
+    switch ($info[2]) {
+        case IMAGETYPE_GIF:
+            $image = imagecreatefromgif($file);
+            break;
+        case IMAGETYPE_JPEG:
+            $image = imagecreatefromjpeg($file);
+            break;
+        case IMAGETYPE_PNG:
+            $image = imagecreatefrompng($file);
+            break;
+        default:
+            return false;
+    }
+    $image_resized = imagecreatetruecolor($final_width, $final_height);
+    if (($info[2] == IMAGETYPE_GIF) || ($info[2] == IMAGETYPE_PNG)) {
+        $transparency = imagecolortransparent($image);
+        if ($transparency >= 0) {
+            $transparent_color = imagecolorsforindex($image, $trnprt_indx);
+            $transparency = imagecolorallocate($image_resized, $trnprt_color['red'], $trnprt_color['green'], $trnprt_color['blue']);
+            imagefill($image_resized, 0, 0, $transparency);
+            imagecolortransparent($image_resized, $transparency);
+        }
+        elseif($info[2] == IMAGETYPE_PNG) {
+            imagealphablending($image_resized, false);
+            $color = imagecolorallocatealpha($image_resized, 0, 0, 0, 127);
+            imagefill($image_resized, 0, 0, $color);
+            imagesavealpha($image_resized, true);
+        }
+    }
+    imagecopyresampled($image_resized, $image, 0, 0, 0, 0, $final_width, $final_height, $width_old, $height_old);
+    $output = $file;
+    switch ($info[2]) {
+        case IMAGETYPE_GIF:
+            imagegif($image_resized, $output);
+            break;
+        case IMAGETYPE_JPEG:
+            imagejpeg($image_resized, $output);
+            break;
+        case IMAGETYPE_PNG:
+            imagepng($image_resized, $output);
+            break;
+        default:
+            return false;
+    }
+    return true;
+}
+
+function resizeBoundary($oldW, $oldH, $newW = '', $newH = '') {
+    if (!($oldW > 0 && $oldH > 0))
+        return;
+    $tempW = ($oldW * $newH) / ($oldH);
+    $tempH = ($oldH * $newW) / ($oldW);
+    if ($newW == "" && $newH != "") {
+        if ($newH > $oldH) {
+            $dims = resizeBoundary($oldW, $oldH, '', $oldH);
+            $finalH = $dims['height'];
+            $finalW = $dims['width'];
+        } else {
+            $finalH = $newH;
+            $finalW = $tempW;
+        }
+    } else if ($newW != "" && $newH == "") {
+        if ($newW > $oldW) {
+            $dims = resizeBoundary($oldW, $oldH, $oldW, '');
+            $finalH = $dims['height'];
+            $finalW = $dims['width'];
+        } else {
+            $finalH = $tempH;
+            $finalW = $newW;
+        }
+    } else if ($newW != "" && $newH != "") {
+        if ($tempW > $newW) {
+            if ($newW > $oldW) {
+                $dims = resizeBoundary($oldW, $oldH, $oldW, '');
+                $finalH = $dims['height'];
+                $finalW = $dims['width'];
+            } else {
+                $finalH = $tempH;
+                $finalW = $newW;
+            }
+        } else {
+            if ($newH > $oldH) {
+                $dims = resizeBoundary($oldW, $oldH, '', $oldH);
+                $finalH = $dims['height'];
+                $finalW = $dims['width'];
+            } else {
+                $finalH = $newH;
+                $finalW = $tempW;
+            }
+        }
+    }
+    $dims['height'] = $finalH;
+    $dims['width'] = $finalW;
+    return $dims;
+}
+function uploadFile($fileName,$tmpFile,$method = ''){
+    $rt = array('success'=>false);
+    if($fileName !== ''){
+        $timeNow = '-'.renameTitle(timeNow());
+        $vlFile = explode('.',$fileName);
+        if(count($vlFile) > 1){
+            $fileName = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
+            if(resizeImage($tmpFile, '../upload/'.$fileName)){
+                $rt['success'] = true;
+                $rt['img'] = $fileName;
+                if($method == 'thumb'){
+                    $maxWidth = $GLOBALS['configMenu']->maxWidth;
+                    $maxHeight = $GLOBALS['configMenu']->maxHeight;
+                    if($maxWidth == '0' || $maxWidth == '') $maxWidth = 300;
+                    if($maxHeight == '0' || $maxHeight == '') $maxHeight = 300;
+                    $fileName = $method.'-'.$fileName;
+                    resizeImage($tmpFile, '../upload/'.$fileName,$maxWidth,$maxHeight);
+                    $rt[$method] = $fileName;
+                }
+            }
+        }
+    }
+    return $rt;
 }
 ?>

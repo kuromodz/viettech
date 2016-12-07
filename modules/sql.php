@@ -381,15 +381,23 @@ class DB extends database
 		$this->setQuery($sql);
 		return $this->execute();
 	}
-	public function insertImage($menu,$type,$img){
-		$sql = "INSERT INTO `".dbPrefix."data`(`menu`, `type`,`img`) VALUES ('$menu','$type','$img');";
-		$this->setQuery($sql);
-		return $this->execute();
-	}
-	public function insertImageData($id,$type,$img){
-		$sql = "INSERT INTO `".dbPrefix."data`(`data_parent`,`type`,`img`) VALUES ('$id','$type','$img');";
-		$this->setQuery($sql);
-		return $this->execute();
+	public function insertImage($table,$array){
+		if(count($array)){
+			$sql = "INSERT INTO `".dbPrefix."$table`(";
+			$lastItem  = end($array);
+			foreach ($array as $key => $value) {
+				$sql.="`$key`";
+				if($value !== $lastItem) $sql.=', ';
+			}
+			$sql.=") VALUES (";
+			foreach ($array as $key => $value) {
+				$sql.="'$value'";
+				if($value !== $lastItem) $sql.=', ';
+			}
+			$sql.=");";
+			$this->setQuery($sql);
+			return $this->execute();
+		}
 	}
 	public function search($table,$s){
 		$sql = "SELECT * FROM `".dbPrefix."$table` WHERE `title` LIKE '%$s%';";

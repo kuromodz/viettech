@@ -2,6 +2,16 @@
 	$menuPage = $db->alone_data_where('menu','file','home');
 	if( isset($name) ) {
 		$menuPage = $db->alone_data_where('menu','name',$name);
+
+		$configMenu = $db->alone_data_where('file','file',$menuPage->file);
+		if($configMenu){
+			$listAdd = $db->list_data_where_where('config','type','add','file','idList');
+			foreach($listAdd as $configAdd){
+				$nameAdd = $configAdd->name;
+				$configMenu->$nameAdd = $db->list_data_where_where_order('file_data','parent',$configMenu->id,'group',$nameAdd,'pos','ASC');
+			}
+		}
+		$GLOBALS['configMenu'] = $configMenu;
 		$file = $menuPage->file;
 		if(isset($_POST['action'])){
 			$table = $_POST['table'];
@@ -69,10 +79,13 @@
 				$_POST['id'] = $id;
 				$_POST['table'] = 'data';
 			}
-			
-			$array = [];
+			if($file == 'info'){
+				$array = [];
+				$dataPage = $db->list_data('page');
+			}
 
 			if(isset($_FILES)){
+
 				foreach ($_FILES as $keyAction => $arFile) {
 					switch ($keyAction) {
 						case 'slideData':
@@ -81,7 +94,12 @@
 								$tmpName = $arFile['tmp_name'][$key];
 								$uploadFile = uploadFile($fileName,$tmpName);
 								if($uploadFile['success']){
-									$db->insertImageData($_POST['id'],'slide',$uploadFile['title']);
+									$post = array(
+										'data_parent'=>$_POST['id'],
+										'type'=>'slide',
+										'img'=>$uploadFile['img'],
+									);
+									$db->insertImage('data',$post);
 								}					
 							}
 							break;
@@ -92,7 +110,12 @@
 									$tmpName = $arFile['tmp_name'][$type][$key];
 									$uploadFile = uploadFile($fileName,$tmpName);
 									if($uploadFile['success']){
-										$db->insertImage($_POST['id'],$type,$uploadFile['title']);
+										$post = array(
+											'menu'=>$_POST['id'],
+											'type'=>$type,
+											'img'=>$uploadFile['img'],
+										);
+										$db->insertImage('data',$post);
 									}
 								}
 							}
@@ -103,30 +126,39 @@
 								$tmpName = $arFile['tmp_name'][$key];
 								$uploadFile = uploadFile($fileName,$tmpName);
 								if($uploadFile['success']){
-									$array[$key] = $uploadFile['title'];
+									$data = $db->alone_data_where('page','name',$key);
+									delFileCol($data,'content');
+									$array[$key] = $uploadFile['img'];
 								}
 							}
 							break;
 						default:
-							$uploadFile = uploadFile($arFile['name'],$arFile['tmp_name']);
+							$thumb = '';
+							if($keyAction == 'img'){
+								$thumb = 'thumb';
+							}
+							$uploadFile = uploadFile($arFile['name'],$arFile['tmp_name'],$thumb);
 							if($uploadFile['success']){
-								$_POST[$keyAction] = $uploadFile['title'];
+								$data = $db->alone_data_where($_POST['table'],'id',$_POST['id']);
+								delFileCol($data,$keyAction);
+								$_POST[$keyAction] = $uploadFile['img'];
+								if($keyAction == 'img'){
+									$_POST['thumbnail'] = $uploadFile['thumb'];
+									delFileCol($data,'thumbnail');
+								}
 							}
 							break;
 					}
 				}
 			}
-			switch ($file) {
-				case 'info':
-					$dataPage = $db->list_data('page');
-					foreach($dataPage as $data){
-						if(isset($_POST[$data->name])) $array[$data->name] = $_POST[$data->name];
-					}
-					if($db->updateTable('page',$array,'content','name')){
-						$success = 'Lưu thành công !';
-					}
-				break;
-				
+			if(isset($dataPage)){
+				foreach($dataPage as $data){
+					if(isset($_POST[$data->name])) $array[$data->name] = $_POST[$data->name];
+				}
+				if($db->updateTable('page',$array,'content','name')){
+					$success = 'Lưu thành công !';
+				}
+
 			}
 			if(isset($_POST['listRow'])){
 				$listRow = $_POST['listRow'];
@@ -137,11 +169,13 @@
 				}
 			}
 			if(isset($_POST['table'])){
-				if($db->updateRow($_POST['table'],$_POST,'id',$_POST['id'])){
+				$table = $_POST['table'];
+				$value = $_POST['id'];
+				if($db->updateRow($table,$_POST,'id',$value)){
 					$success = 'Lưu thành công !';
 				}
 			}
-			clearCache($_SERVER['QUERY_STRING']);
+			clearCache();
 		}
 		
 		$menuPage = $db->alone_data_where('menu','name',$name);
@@ -217,14 +251,4 @@
 		}
 	}
 	
-	if(isset($menuPage)){
-		$configMenu = $db->alone_data_where('file','file',$menuPage->file);
-		if($configMenu){
-			$listAdd = $db->list_data_where_where('config','type','add','file','idList');
-			foreach($listAdd as $configAdd){
-				$nameAdd = $configAdd->name;
-				$configMenu->$nameAdd = $db->list_data_where_where_order('file_data','parent',$configMenu->id,'group',$nameAdd,'pos','ASC');
-			}
-		}
-	}
 ?>
