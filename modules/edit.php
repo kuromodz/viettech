@@ -43,7 +43,7 @@
                 ?>
                 <label class="control-label col-md-3"><?=$data->title?></label>
                 <div class="col-md-9">
-                  <input name="fileUpload[<?=$dataCol?>]" type="file" >
+                  <input name="<?=$dataCol?>" type="file" >
                   <a target="_blank" href="../upload/<?=$page->$dataCol?>"><?=$page->$dataCol?></a>
                 </div>
                 <?php

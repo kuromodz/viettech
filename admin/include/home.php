@@ -2,8 +2,7 @@
   <?php foreach($listImageHome as $listImage){ $listName = $listImage->name; ?> 
     <div class="col-md-6">
       <label>Hình <?=$listImage->title?> ($list-><?=$listImage->name?>): </label>
-      <input type="hidden" name="images[]" value="<?=$listName?>">
-      <input type="file" name="<?=$listName?>[]" multiple="" accept="image/*" />
+      <input type="file" name="listImage[<?=$listName?>]" multiple="" accept="image/*" />
       <br>
       <?php if(isset($list->$listName) && count($list->$listName)){ ?>
       <button class="btn btn-success selectAll" data-target="#<?=$listName?> > tbody > tr" type="button"><i class="fa fa-check-square-o"></i> Chọn tất cả</button>  

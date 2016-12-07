@@ -171,7 +171,7 @@ if (isset($_GET['do'])) {
                 $table = $_POST['table'];
                 $sql = '';
                 foreach ($_POST['data'] as $value) {
-                    $sql .= 'DELETE FROM `' . dbPrefix . $table'` WHERE `id` = '.$value.' ;';
+                    $sql .= 'DELETE FROM `' . dbPrefix . $table.'` WHERE `id` = '.$value.' ;';
                 }
                 if ($db->execute_sql($sql)) {
                     $result['error'] = 0;

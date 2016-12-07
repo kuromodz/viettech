@@ -74,9 +74,6 @@
 			}
 			$target_dir = '../upload/';
 			switch ($file) {
-				case 'lang':
-					/*echo 'sdfsdf';*/
-					break;
 				case 'config':
 					if(isset($_POST['listMenu']) && count($_POST['listMenu'])){
 						$sql = '';
@@ -111,47 +108,7 @@
 					if($db->updateTable('page',$array,'content','name')){
 						$success = 'Lưu thành công !';
 					}
-					break;
-				case 'post':
-				case 'design':
-					$array = array();
-					foreach ($_POST as $key=>$post) {
-						$array[$key] = $post;
-					}
-					if(count($array)){
-						if($db->insertData('data',$array)){
-							$success = 'Gửi yêu cầu thành công !';
-						}
-					}
-					break;
-			}
-			
-			if(isset($_FILES['img'])){
-				$f = $_FILES['img'];
-				$vlFile = explode('.',$f['name']);
-				if(count($vlFile) > 1){
-					$vl = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
-					if(move_uploaded_file($f['tmp_name'], $target_dir.$vl)){
-						$_POST['img'] = $vl;
-					}
-				}
-			}
-
-			if(isset($_FILES['file'])){
-				$f = $_FILES['file'];
-				$vlFile = explode('.',$f['name']);
-				if(count($vlFile) > 1){
-					$vl = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
-					if(move_uploaded_file($f['tmp_name'], $target_dir.$vl)){
-						$_POST['file'] = $vl;
-					}
-				}
-				
-			}
-			if(isset($_POST['table'])){
-				if($db->updateRow($_POST['table'],$_POST,'id',$_POST['id'])){
-					$success = 'Lưu thành công !';
-				}
+				break;
 			}
 			if(isset($_POST['listRow']) && isset($_POST['tableRow'])){
 				if(is_array($_POST['tableRow'])){
@@ -178,33 +135,42 @@
 					$db->updateRow('data',$data,'id',$key);
 				}
 			}
-			if(isset($_FILES['listData'])){
-				foreach($_FILES['listData']['name'] as $key=>$f){
-					if($f !== '' ){
-						$vlFile = explode('.',$f);
-						if(count($vlFile) > 1){
-							$vl = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
-							if(move_uploaded_file($_FILES['listData']['tmp_name'][$key], $target_dir.$vl)){
-								$data['img'] = $vl;
-								$db->updateRow('data',$data,'id',$key);
+			if(isset($_FILES)){
+				foreach ($_FILES as $keyAction => $arrayFile) {
+					switch ($keyAction) {
+						case 'listImage':
+							/*if(isset($_FILES[$keyAction])){
+								foreach($_FILES[$keyAction]['name'] as $key=>$vl){
+									if($vl !== ''){
+										$vlFile = explode('.',$vl);
+										$vl = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
+										if(move_uploaded_file($_FILES[$keyAction]['tmp_name'][$key], $target_dir.$vl)){
+											$db->insertImage($_POST['id'],$keyAction,$vl);
+										}
+									}					
+								}
+							}*/
+							break;
+						default:
+							$f = $_FILES[$keyAction];
+							$vlFile = explode('.',$f['name']);
+							if(count($vlFile) > 1){
+								$vl = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
+								if(move_uploaded_file($f['tmp_name'], $target_dir.$vl)){
+									$_POST[$keyAction] = $vl;
+								}
 							}
-						}
+							break;
 					}
 				}
 			}
-			if(isset($_FILES['fileUpload'])){
-				foreach($_FILES['fileUpload']['name'] as $key=>$vl){
-					if($vl !== ''){
-						$vlFile = explode('.',$vl);
-						$vl = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
-						if(move_uploaded_file($_FILES['fileUpload']['tmp_name'][$key], $target_dir.$vl)){
-							$data = array($key=>$vl);
-							$db->updateRow('data',$data,'id',$_POST['id']);
-						}
-					}					
+			if(isset($_POST['table'])){
+				if($db->updateRow($_POST['table'],$_POST,'id',$_POST['id'])){
+					$success = 'Lưu thành công !';
 				}
 			}
-			if(isset($_POST['images'][0]) && count($_POST['images'])){
+
+			/*if(isset($_POST['images'][0]) && count($_POST['images'])){
 				foreach($_POST['images'] as $images){ 
 					$type = $images;
 					if(isset($_FILES[$type])){
@@ -219,7 +185,7 @@
 						}
 					}
 				}
-			}
+			}*/
 			if(isset($_FILES['slideData'])){
 				foreach($_FILES['slideData']['name'] as $key=>$vl){
 					if($vl !== ''){
@@ -231,6 +197,7 @@
 					}					
 				}
 			}
+
 			clearCache($_SERVER['QUERY_STRING']);
 		}
 		

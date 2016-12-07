@@ -70,8 +70,7 @@
         <?php if( ($configMenu->showList == true && $idList !== $menuPage->id ) || $configMenu->showList == false){ ?>
           <div class="box-header">
             <h3 class="box-title">
-              <input type="hidden" name="images[]" value="data">
-              <input style="width:300px;float:left;margin-right:10px;" class="btn btn-info" type="file" name="data[]" multiple="" accept="image/*" />
+              <input style="width:300px;float:left;margin-right:10px;" class="btn btn-info" type="file" name="listImage[data]" multiple="" accept="image/*" />
               <button class="btn btn-success selectAll" data-target="#tableData > tbody > tr" type="button"><i class="fa fa-check-square-o"></i> Chọn tất cả</button>
               <button class="btn btn-danger delAll"  data-target="#tableData >tbody > tr.selected" type="button"><i class="fa fa-trash"></i> Xóa đã chọn</button>
             </h3>

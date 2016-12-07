@@ -1,10 +1,4 @@
 <?php
-function sanitize_output($buffer) {
-    $search = array('/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s');
-    $replace = array('>','<','\\1');
-    $buffer = preg_replace($search, $replace, $buffer);
-    return $buffer;
-}
 function renameTitle($string) { 
     $search = array ( 
         '#(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)#', 
