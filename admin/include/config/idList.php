@@ -2,6 +2,7 @@
 	$configMenu = $db->alone_data_where('file','file',$page->file);
 	$listConfigCheck = $db->list_data_where_where('config','file','idList','type','');
 	$listConfigAdd = $db->list_data_where_where('config','file','idList','type','add');
+	$listSizeThumbnail = array('maxWidth','maxHeight');
 	$listType = array('text','file','content');
 	$listCols = $db->listCols('data');
 	for($i= 0; $i< 14; $i++){
@@ -41,7 +42,15 @@
 							</div>
 				 		</td>
 				 	</tr>
-				 	<?php } ?>
+				 	<?php } foreach($listSizeThumbnail as $data){ ?>
+				 	<tr>
+				 		<td><label class="control-label" for="<?=$data?>">Giới hạn kích thước ảnh thumbnail</label></td>
+				 		<td><?=$data?></td>
+				 		<td>
+				 			<input class="form-control" type="text" name="listRow[file][<?=$configMenu->id ?>][<?=$data?>]" value=<?=$configMenu->$data?>>
+				 		</td>
+				 	</tr>
+					 <?php } ?>
 				</tbody>
 			</table>
 

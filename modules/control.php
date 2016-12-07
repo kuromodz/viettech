@@ -231,17 +231,6 @@
 					}					
 				}
 			}
-			if(isset($_FILES['fileData'])){
-				foreach($_FILES['fileData']['name'] as $key=>$vl){
-				  if($vl !== ''){
-				    $vlFile = explode('.',$vl);
-				    $vl = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
-				    if(move_uploaded_file($_FILES['fileData']['tmp_name'][$key], $target_dir.$vl)){
-				      $db->insertImageData($_POST['id'],'file',$vl);
-				    }
-				  }         
-				}
-			}
 			clearCache($_SERVER['QUERY_STRING']);
 		}
 		
