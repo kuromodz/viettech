@@ -8,7 +8,7 @@
 <?php } ?>
 
 <div id="scrollPage" >
-  <button id="#backTop" onclick="goToTop();" class="btn btn-primary btn-sm">
+  <button id="#backTop" onclick="goToTop();" class="btn btn-primary">
   	<i class="fa fa-angle-up fa-2x"></i>
   </button>
 </div>

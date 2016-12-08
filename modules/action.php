@@ -1,4 +1,5 @@
 <?php
+set_time_limit(0);
 session_start();
 header('Content-Type: text/html; charset=utf-8');
 include_once('../config.php');
@@ -20,8 +21,37 @@ if (isset($_GET['do'])) {
         $checkUser = true;
     }
     switch ($do) {
-        case 'post':
-                /*echo 'asd';*/
+        case 'resize':
+            $folder = 'upload';
+            if(isset($_GET['folder'])) $folder = $_GET['folder'];
+            $files = glob('../'.$folder.'/*.{jpg,JPG,jpeg,JPEG,png,PNG}',GLOB_BRACE);
+            foreach($files as $file){
+                resizeImage($file,$file,650,650);
+            }
+            break;
+        case 'clean':
+            $files = glob('../upload/*');
+            foreach($files as $file){
+              if(is_file($file)){
+                $check = false;
+                $img = str_replace('../upload/','',$file);
+                if($db->alone_data_where('data','img',$img)){
+                    $check = true;
+                }else if($db->alone_data_where('data','thumbnail',$img)){
+                    $check = true;
+                }else if($db->alone_data_where('menu','img',$img)){
+                    $check = true;
+                }else if($db->alone_data_where('menu','thumbnail',$img)){
+                    $check = true;
+                }else{
+                    if($db->alone_data_where('page','content',$img)) $check = true;
+                }
+                if(!$check){
+                    unlink($file);
+                }
+              }
+                
+            }
             break;
         case 'design':
             $result['text'] = 'Chưa nhập đầy đủ nội dung !';
