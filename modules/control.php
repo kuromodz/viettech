@@ -83,9 +83,7 @@
 				$array = [];
 				$dataPage = $db->list_data('page');
 			}
-
 			if(isset($_FILES)){
-
 				foreach ($_FILES as $keyAction => $arFile) {
 					switch ($keyAction) {
 						case 'slideData':
@@ -164,6 +162,9 @@
 				$listRow = $_POST['listRow'];
 				foreach ($listRow as $table => $row) {
 					foreach ($row as $rowId => $data ) {
+						if(isset($data['title']) && (!isset($data['name']) || $data['name'] == '' )){
+							$data['name'] = renameTitle($data['title']);
+						}
 						$db->updateRow($table,$data,'id',$rowId);
 					}
 				}

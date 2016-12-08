@@ -60,19 +60,6 @@
         </div>
         <?php } ?>
         
-        <?php $listMenuParent = $db->listMenuChild($menuPage->id); if(count($listMenuParent)){ ?>
-        <div class="form-group">
-          <label class="control-label col-md-3">Danh mục: </label>
-          <div class="col-md-9">
-            <select class="form-control" name="menu">
-             <?php foreach ($listMenuParent as $menu) { ?>
-                <option value="<?=$menu->id ?>" <?=returnWhere('selected',$page->menu,$menu->id) ?> ><?=$menu->title ?></option>
-              <?php } ?>
-            </select>
-          </div>
-        </div>
-        <?php } ?>
-
         <?php foreach($configMenu->listCheck as $check){ $dataCol = $check->col;?> 
         <div class="form-group">
           <label class="control-label col-md-3" for="switch<?=$check->col?>"><?=$check->title?>:</label>

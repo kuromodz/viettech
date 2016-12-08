@@ -2,7 +2,7 @@
 	$listHtml = "?> ".html_entity_decode($configMenu->listHtml)." <?php ";
 	$boxHtml = "?> ".html_entity_decode($configMenu->boxHtml)." <?php ";
 
-if($thisIsProducts){
+if(isset($thisIsProducts) && $thisIsProducts){
 	$thisIsProducts = false;
 	eval($boxHtml);
 }else{ 

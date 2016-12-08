@@ -1,5 +1,5 @@
 function goToTop(){
-    $('html,body').animate({scrollTop: 0}, 500);
+    $('html,body').animate({scrollTop: 0}, 0);
 }
 function pageUrl(){
     return document.URL;
@@ -291,6 +291,11 @@ function reloadScript(){
         new WOW().init()
     } catch(e) {
         /*console.log(e);*/
+    }
+    if($('#infoPage').data('file') == 'home'){
+        $(".slideAjax").show();
+    }else{
+        $(".slideAjax").hide();
     }
 }
 function logout(){
