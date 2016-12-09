@@ -1,11 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="vi" xmlns="http://www.w3.org/1999/xhtml" data-load="<?=$menuPage->name?>">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="vi" lang="vi" data-load="<?=$menuPage->name?>" >
 <head>
     <base href="<?=baseUrl?>"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" type="image/x-icon" href="upload/<?=$infoPage->logo ?>" />
     <title><?=$title ?></title>
-    <meta http-equiv="content-language" content="vi" />
     <meta name="title" content="<?=$title?>"/>
     <meta name="description" content="<?=$des?>" />
     <meta name="keywords" content="<?=$keywords?>" />
@@ -68,7 +67,7 @@
         <div class="adr">
             <div class="street-address"><?=$infoPage->address?></div>
             <span class="locality">Ho Chi Minh</span>,
-            <span class="region">4</span>
+            <span class="region">Binh Thanh</span>
             <span class="postal-code">70000</span>
         </div>
         <div class="tel"><?=$infoPage->phone?></div>
