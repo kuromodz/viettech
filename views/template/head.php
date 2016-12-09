@@ -1,5 +1,3 @@
-    
-</head>
 <body class="hidden-sn dark-skin animated">
     <header>
         <ul id="slide-out" class="side-nav fixed custom-scrollbar">

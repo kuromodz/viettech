@@ -420,6 +420,8 @@ function resizeImage($sourceFile, $destFile, $width = 1024, $height = 768) {
     $image_resized = imagecreatetruecolor($final_width, $final_height);
     if (($info[2] == IMAGETYPE_GIF) || ($info[2] == IMAGETYPE_PNG)) {
         $transparency = imagecolortransparent($image);
+        $trnprt_indx = ImageColorTransparent($image);
+        $trnprt_color    = imagecolorsforindex($image, $trnprt_indx);
         if ($transparency >= 0) {
             $transparent_color = imagecolorsforindex($image, $trnprt_indx);
             $transparency = imagecolorallocate($image_resized, $trnprt_color['red'], $trnprt_color['green'], $trnprt_color['blue']);

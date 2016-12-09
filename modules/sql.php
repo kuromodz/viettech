@@ -122,7 +122,7 @@ class DB extends database
 		return $this->loadAllRows();
 	}
 	public function loopMenu($listMenu,$name,$idCheck = 0){ foreach ($listMenu as $menuChild) { ?>
-	        <li>
+	        <li data-idList="<?=$menuChild->id?>">
 	          	<a class="thumuc" <?=linkIdList($menuChild,$name)?> ><?=$menuChild->title ?></a>
 	          	<a <?php if($idCheck == $menuChild->id) echo 'disabled'; ?> <?=linkDelMenu($menuChild->id) ?> ><i class="fa fa-trash"></i></a>
 				<?php $listMenuChild = $this->listMenuChild($menuChild->id); if(count($listMenuChild)){ ?>
@@ -148,7 +148,7 @@ class DB extends database
 		    if(count($listMenu)){
 		?>
 			<?php foreach ($listMenu as $menuChild){?>
-	        <li>
+	        <li data-idList="<?=$menuChild->id?>">
 	          	<a class="thumuc" <?=linkIdList($menuChild,$name)?> ><?=$menuChild->title ?></a>
 	          	<a <?=linkAddMenu($menuChild->id) ?> ><i class="fa fa-plus"></i></a>
 	          	<a <?php if($idListNext == $menuChild->id) echo 'disabled'; ?> <?=linkDelMenu($menuChild->id) ?> ><i class="fa fa-trash"></i></a>
