@@ -226,13 +226,13 @@
 		if(isset($page) || isset($id)){
 			$title = $page->title;
 			$image = $page->img;
-			$des = $page->des;
+			if($des == '') $des = $page->des;
 			if(isset($page->keywords) && strlen($page->keywords) > 0) $keywords = $page->keywords;
 			if(isset($id) && $page->price !== '0' && $page->price !== '') $des = $page->price.' - '.$des;
 		}else if($menuPage->file !== 'home'){
 			$title = $menuPage->title;
 			$image = $menuPage->img;
-			$des = $menuPage->des;
+			if($des == '') $des = $menuPage->des;
 			$keywords = $menuPage->keywords;
 		}
 	}

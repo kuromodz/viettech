@@ -22,6 +22,13 @@
     <meta property="og:image" content="<?=baseUrl.'upload/'.$image?>" />
     <meta property="og:description" content="<?=$des?>" />
     <meta property="fb:app_id" content="174220409684186" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:description" content="<?=$des?>" />
+    <meta name="twitter:title" content="<?=$title?>" />
+    <meta name="twitter:image" content="<?=baseUrl.'upload/'.$image?>" />
+    <meta name="twitter:creator" content="@ndminhtuan" />
+
     <meta name="google-site-verification" content="<?=$infoPage->googleVerification?>" />
     <link rel="canonical" href="<?=pageUrl()?>">
     <script type="text/javascript" src="admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>

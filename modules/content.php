@@ -1,3 +1,8 @@
+<div hidden>
+    <h1><?=$title?></h1>
+    <h2><?=$des?></h2>
+    <h3><?=$infoPage->title?></h3>
+</div>
 <?php
     $boxHead = '?> '.html_entity_decode($config->boxHead).' <?php ';
     $contentHead = '?> '.html_entity_decode($config->contentHead).' <?php ';
