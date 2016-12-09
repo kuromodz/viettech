@@ -35,13 +35,14 @@
             eval($contentHead);
             include('modules/template/box.php');
             eval($contentFooter);
-
-            eval($boxHead);
+            $listData = $db->listData($page->menu);
+            if(count($listData)){
+                eval($boxHead);
                 echo $menuPage->title.' khác'; 
-                $listData = $db->listData($page->menu);
-            eval($contentHead);
-            include('modules/template/box.php');
-            eval($contentFooter);
+                eval($contentHead);
+                include('modules/template/box.php');
+                eval($contentFooter);
+            }
         }else{
             if(!isset($idList)){
                 $idList = $menuPage->id;

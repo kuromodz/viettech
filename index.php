@@ -23,15 +23,14 @@
     $listCart = explode(',', $_COOKIE['cart']);
     $totalCart = count($listCart);
   }
-  $filePath = 'views/include/'.$menuPage->file.'.php';
-  if (file_exists($filePath)) {
+  if (isset($menuPage->file) && file_exists('views/include/'.$menuPage->file.'.php')) {
     if(!isset($_GET['ajax'])){
       include('modules/template/asset.php');
       include('views/template/head.php');
       include('modules/template/template.php');
       include('modules/content.php');
-      include('views/template/script.php');
       include('views/template/footer.php');
+      include('views/template/script.php');
     }else{
       include('modules/template/template.php'); 
       include('modules/content.php');

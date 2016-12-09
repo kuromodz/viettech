@@ -40,6 +40,7 @@
 
     <!-- <link rel="stylesheet" type="text/css" href="admin/plugins/bxslider/jquery.bxslider.css"/>
     <script defer type="text/javascript" src="admin/plugins/bxslider/jquery.bxslider.min.js"></script> -->
+    
     <script defer type="text/javascript" src="admin/plugins/nprogress/nprogress.js"></script>
     <link rel="stylesheet" type="text/css" href="admin/plugins/nprogress/nprogress.css"/>
     
@@ -60,3 +61,20 @@
       js.src = "admin/assets/js/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
+    <noscript class="vcard">
+        <img <?=srcImg($infoPage,'logo')?> class="photo" />
+        <a class="url fn" href="<?=baseUrl?>"><?=$infoPage->title?></a>
+        <div class="org"><?=$infoPage->title?> Co, Ltd</div>
+        <div class="adr">
+            <div class="street-address"><?=$infoPage->address?></div>
+            <span class="locality">Ho Chi Minh</span>,
+            <span class="region">4</span>
+            <span class="postal-code">70000</span>
+        </div>
+        <div class="tel"><?=$infoPage->phone?></div>
+    </noscript>
+    <div itemtype="http://schema.org/website ">
+        <div itemtype="http://schema.org/website" itemscope="">
+            <div><span itemprop="keywords"><a rel="tag" href="<?=baseUrl?>"></a></span></div>
+        </div>
+    </div>

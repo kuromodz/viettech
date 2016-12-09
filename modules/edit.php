@@ -76,8 +76,14 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label class="control-label col-md-3">Hình ảnh</label>
-        <div class="col-md-9">
+        <label class="control-label col-md-4">
+          <center>
+          Hình ảnh
+          <br>
+          Rộng:<?=$configMenu->maxWidth?>px Cao:<?=$configMenu->maxHeight?>px
+          </center>
+        </label>
+        <div class="col-md-8">
           <img height="100" onclick="$('#input<?=$id ?>').click();" id="image<?=$id ?>" src="../upload/<?=$page->img?>">
           <input accept="image/*" name="img" type="file" id="input<?=$id ?>" onchange="readIMG(this,'<?='image'.$id ?>');">
         </div>
