@@ -1,5 +1,5 @@
 <?php
-  include_once ('modules/cache-top.php');
+  /*include_once ('modules/cache-top.php');*/
   include('config.php');
   if(isset($_GET['name'])){
     $name = $_GET['name'];
@@ -39,5 +39,5 @@
   }else{
     header('Location: '.baseUrl.'admin/404/');
   }
-  include_once ('modules/cache-bot.php');
+  /*include_once ('modules/cache-bot.php');*/
 ?>

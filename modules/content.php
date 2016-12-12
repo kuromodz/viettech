@@ -55,9 +55,9 @@
             }
             $listMenuChild = $db->listMenuChild($idList);
             if(count($listMenuChild)){ 
-                $listData = $db->listData($idList);
+                /*$listData = $db->listData($idList);*/
                 foreach($listMenuChild as $menuChild){
-                    $listData = $db->allListDataChild($menuChild->id,0,$config->limit); 
+                    $listData = $db->allListDataChild($menuChild->id);
                     eval($boxHead); 
                     $db->breadcrumbMenu($menuChild);  
                     eval($contentHead);
