@@ -20,6 +20,8 @@
     <meta property="og:locale" content="vi_VN" />
     <meta property="og:url" content="<?=pageUrl()?>" />
     <meta property="og:image" content="<?=baseUrl.'upload/'.$image?>" />
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="300" />
     <meta property="og:description" content="<?=$des?>" />
     <meta property="fb:app_id" content="174220409684186" />
 
