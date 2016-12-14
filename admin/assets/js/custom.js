@@ -1,5 +1,5 @@
 function goToTop(){
-    $('html,body').animate({scrollTop: 0}, 0);
+    $('html,body').animate({scrollTop: 0}, 300);
 }
 function pageUrl(){
     return document.URL;
@@ -177,7 +177,7 @@ function getAjax(href,his = false){
 $(document).ready(function(){
     window.history.pushState("", "", document.URL);
 
-    $('body').on('click','a[data-name]',function(e){
+    $('body').on('click','a[data-name]:not[target="_blank"]',function(e){
         e.preventDefault();
         var href = $(this).attr('href');
         getAjax(href,true);
