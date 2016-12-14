@@ -27,13 +27,13 @@
     if(!isset($_GET['ajax'])){
       include('modules/template/asset.php');
       include('views/template/head.php');
-      include('modules/template/template.php');
+      include('modules/template/infopage.php');
       include('modules/content.php');
-      include('modules/template/script.php');
       include('views/template/footer.php');
+      include('modules/template/template.php');
       include('views/template/reload-script.php');
     }else{
-      include('modules/template/template.php'); 
+      include('modules/template/infopage.php'); 
       include('modules/content.php');
       include('views/template/reload-script.php');
     }
