@@ -63,7 +63,7 @@
 
     <div id="fb-root"></div>
     <noscript class="vcard">
-        <img <?=srcImg($infoPage,'logo')?> class="photo" />
+        <img <?=srcLogo($infoPage,'logo')?> class="photo" />
         <a class="url fn" href="<?=baseUrl?>"><?=$infoPage->title?></a>
         <div class="org"><?=$infoPage->title?> Co, Ltd</div>
         <div class="adr">
