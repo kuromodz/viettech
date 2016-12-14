@@ -29,7 +29,7 @@
       include('views/template/head.php');
       include('modules/template/template.php');
       include('modules/content.php');
-      include('views/template/script.php');
+      include('modules/template/script.php');
       include('views/template/footer.php');
       include('views/template/reload-script.php');
     }else{

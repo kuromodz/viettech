@@ -1,3 +1,6 @@
+<?php if($config->blockCopy == '1'){ ?>
+<style type="text/css">body{-moz-user-select:none!important;-webkit-touch-callout:none!important;-webkit-user-select:none!important;-khtml-user-select:none!important;-moz-user-select:none!important;-ms-user-select:none!important;user-select:none!important}</style>
+<?php } ?>
 <script type="text/javascript">
   if(navigator.userAgent.indexOf("Speed Insights") == -1) {
 	(function(d, s, id) {
