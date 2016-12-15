@@ -235,7 +235,7 @@
             <h3 class="box-title">
               <?php if(!count($listMenuChild)){ ?>
               <a <?=linkAddId($idList,$name) ?> >
-                <i class="fa fa-plus"></i> Thêm <?=$title ?> (<?=count($listData); ?>) 
+                <i class="fa fa-plus"></i> Thêm <?=strtolower($menuPage->title)?> cho danh mục <?=$title ?> (<?=count($listData); ?>)
               </a>
               <?php } ?>
 
