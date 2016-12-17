@@ -23,7 +23,7 @@
     $listCart = explode(',', $_COOKIE['cart']);
     $totalCart = count($listCart);
   }
-  if (isset($menuPage->file) && file_exists('views/include/'.$menuPage->file.'.php')) {
+  if (isset($menuPage->file)) {
     if(!isset($_GET['ajax'])){
       include('modules/template/asset.php');
       include('views/template/head.php');

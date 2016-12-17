@@ -62,7 +62,7 @@
     <script defer type="text/javascript" src="admin/assets/js/custom.js"></script>
 
     <div id="fb-root"></div>
-    <noscript class="vcard">
+    <address class="vcard" style="display:none">
         <img <?=srcLogo($infoPage,'logo')?> class="photo" />
         <a class="url fn" href="<?=baseUrl?>"><?=$infoPage->title?></a>
         <div class="org"><?=$infoPage->title?> Co, Ltd</div>
@@ -73,7 +73,7 @@
             <span class="postal-code">70000</span>
         </div>
         <div class="tel"><?=$infoPage->phone?></div>
-    </noscript>
+    </address>
     <div itemtype="http://schema.org/website ">
         <div itemtype="http://schema.org/website" itemscope="">
             <div><span itemprop="keywords"><a rel="tag" href="<?=baseUrl?>"></a></span></div>
