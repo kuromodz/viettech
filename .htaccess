@@ -30,12 +30,13 @@ FileETag None
 	RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC] 
 	RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 
-	ErrorDocument 404 /admin/404/
 
 	RewriteBase /viettech/
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule ^$  index.php
+
+	ErrorDocument 404 /viettech/404.html
 
 	RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)-([0-9]+).html?(.*)$ index.php?name=$1&id=$3 [QSA]
 	RewriteRule ^admin/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)-([0-9]+).html?(.*)$ admin/index.php?name=$1&id=$3 [QSA]

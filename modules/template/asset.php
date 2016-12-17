@@ -33,6 +33,7 @@
 
     <meta name="google-site-verification" content="<?=$infoPage->googleVerification?>" />
     <link rel="canonical" href="<?=pageUrl()?>">
+    <link rel="dns-prefetch" href="<?=pageUrl()?>">
     <script type="text/javascript" src="admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <link rel="stylesheet" type="text/css" href="admin/plugins/font-awesome/css/font-awesome.min.css" />
     
