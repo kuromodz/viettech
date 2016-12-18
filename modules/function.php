@@ -114,15 +114,6 @@ function returnIcon($file){
         case 'video':
             $icon = 'video-camera';
             break;
-        case 'service':
-            $icon = 'list';
-            break;
-        case 'customer':
-            $icon = 'users';
-            break;
-        case 'backlink':
-            $icon = 'link';
-            break;
         case 'home':
             $icon = 'dashboard';
             break;

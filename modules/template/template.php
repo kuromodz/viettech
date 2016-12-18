@@ -5,10 +5,12 @@
 
   #infoPage{display:none}
   #scrollPage{position:fixed;right:10px;bottom:30px;z-index:999;display:none;}
+  form.buttonFixed{top:110px;left:5px}
   .iconFixed{border:solid 1px #ccc;padding:9px 10px 9px 32px;width:0;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-webkit-transition:all .5s;-moz-transition:all .5s;transition:all .5s}
+  .phoneFixed{left:5px;bottom:5px}
   .shopFixed{right:5px;top:110px}
-  .phoneFixed a{color:#fff;font-size:20px;}
-  .phoneFixed{position:fixed;z-index:9999;border-radius:5px;bottom:1%;left:1%;min-width:50px}
+  .buttonFixed a,{color:#fff}
+  .buttonFixed{position:fixed;z-index:9999;border-radius:5px;top:100px;right:15px;min-width:50px}
   input{outline:none}
   input[type=search]{-webkit-appearance:textfield;-webkit-box-sizing:content-box;font-family:inherit;font-size:100%}
   input::-webkit-search-decoration,input::-webkit-search-cancel-button{display:none}
@@ -21,7 +23,7 @@
   #search input[type=search]:focus{width:130px;padding-left:32px;color:#000;background-color:#fff;cursor:auto}
   #search input:-moz-placeholder{color:transparent}
   #search input::-webkit-input-placeholder{color:transparent}
-
+  .contentAjax img{max-width:100%}
 </style>
 
 <script type="text/javascript">
@@ -29,9 +31,9 @@
 </script>
 
 <?php if($config->showPhoneFixed){ ?>
-<div class="phoneFixed">
-    <a class="btn btn-primary" href="tel:<?=$infoPage->phone?>">
-        <i class="fa fa-phone"></i> Hotline: 
+<div class="phoneFixed buttonFixed">
+    <a href="tel:<?=$infoPage->phone?>">
+        <i class="fa fa-phone"></i>
         <?=$infoPage->phone?>
     </a>
 </div>
