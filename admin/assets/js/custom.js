@@ -146,7 +146,7 @@ function getAjax(href,his = false){
     }
     $.ajax({
         'url': href,
-        'data':{ajax:''},
+        'data':{ajax:''},/*cache:false,*/
     }).done(function( data ) {
         if ($('.navbar-collapse').length && $('.navbar-collapse').hasClass('in')) {
             $('.navbar-collapse').collapse('toggle');

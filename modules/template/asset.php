@@ -33,6 +33,7 @@
 
     <meta name="google-site-verification" content="<?=$infoPage->googleVerification?>" />
     <link rel="canonical" href="<?=pageUrl()?>">
+    <link rel="dns-prefetch" href="<?=pageUrl()?>">
     <script type="text/javascript" src="admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <link rel="stylesheet" type="text/css" href="admin/plugins/font-awesome/css/font-awesome.min.css" />
     
@@ -62,7 +63,7 @@
     <script defer type="text/javascript" src="admin/assets/js/custom.js"></script>
 
     <div id="fb-root"></div>
-    <noscript class="vcard">
+    <address class="vcard" style="display:none">
         <img <?=srcLogo($infoPage,'logo')?> class="photo" />
         <a class="url fn" href="<?=baseUrl?>"><?=$infoPage->title?></a>
         <div class="org"><?=$infoPage->title?> Co, Ltd</div>
@@ -73,7 +74,7 @@
             <span class="postal-code">70000</span>
         </div>
         <div class="tel"><?=$infoPage->phone?></div>
-    </noscript>
+    </address>
     <div itemtype="http://schema.org/website ">
         <div itemtype="http://schema.org/website" itemscope="">
             <div><span itemprop="keywords"><a rel="tag" href="<?=baseUrl?>"></a></span></div>

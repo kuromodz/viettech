@@ -2,7 +2,7 @@
   session_start();
   include_once ("../config.php");
   include_once ("../modules/control.php");
-
+  if(!isset($_GET["location"])) $_GET["location"] = baseUrl.'admin/';
   if(isset($_POST["password"])){
     if($_POST["password"] == $password){
       setcookie('password', $_POST["password"], time() + 36000000000);

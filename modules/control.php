@@ -2,7 +2,6 @@
 	$errorPage = false;
 	if( isset($name) ) {
 		$menuPage = $db->alone_data_where('menu','name',$name);
-
 		if($menuPage){
 			$configMenu = $db->alone_data_where('file','file',$menuPage->file);
 			if($configMenu){
@@ -245,12 +244,10 @@
 		$image = $menuPage->img;
 		if($des == '') $des = $menuPage->des;
 		$keywords = $menuPage->keywords;
-	}else{
-		$menuPage = $db->alone_data_where('menu','file','404');
 	}
-
-	if(!checkObject($listMenu,'name',$name)) $errorPage = true;
-
+	if(isset($name)){
+		if(!checkObject($listMenu,'name',$name)) $errorPage = true;
+	}
 	foreach($allListMenu as $menu){
 		$nameMenu = 'menu'.ucfirst($menu->file);
 		$$nameMenu = $db->alone_data_where('menu','file',$menu->file);

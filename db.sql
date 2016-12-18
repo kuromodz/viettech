@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2016 at 05:14 AM
+-- Generation Time: Dec 18, 2016 at 05:01 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `vt_config` (
 --
 
 INSERT INTO `vt_config` (`id`, `title`, `des`, `name`, `group`, `value`, `type`, `file`) VALUES
-(1, 'Hiển thị số điện thoại dưới chân trang', '', 'showPhoneFixed', '', '0', '', 'config'),
+(1, 'Hiển thị số điện thoại dưới chân trang', '', 'showPhoneFixed', '', '1', '', 'config'),
 (2, 'Giới hạn sản phẩm mỗi trang', '', 'limit', '', '9', 'number', 'config'),
 (3, 'Danh mục hình ảnh', '', 'showListImage', '', '', 'img', 'home'),
 (4, 'Tự thiết kế template', '', 'customTemplate', 'all', '', '', 'idList'),
@@ -57,7 +57,7 @@ INSERT INTO `vt_config` (`id`, `title`, `des`, `name`, `group`, `value`, `type`,
 (17, 'Field', '', 'listF', '', '', 'add', 'idList'),
 (18, 'Nút Check', '', 'listCheck', '', '', 'add', 'idList'),
 (19, 'Chi tiết bài viết có thể chia tab', '', 'tab', '', '', '', 'idList'),
-(20, 'Html Box Heading', '', 'boxHead', '', '\r\n    &#60;?=$_SERVER[''QUERY_STRING'']?&#62;\r\n&#60;br&#62;\r\n&#60;?=md5($_SERVER[''QUERY_STRING'']);?&#62;\r\n&#60;div class="divider-new"&#62;\r\n    &#60;h2 class="h2-responsive"&#62;', 'codeEditor', 'config'),
+(20, 'Html Box Heading', '', 'boxHead', '', '&#60;div class="divider-new"&#62;\r\n    &#60;h2 class="h2-responsive"&#62;', 'codeEditor', 'config'),
 (21, 'Html Content Heading', '<i class="fa fa-home"></i> » breadcrumb » breadcrumb » breadcrumb » breadcrumb » breadcrumb » ...', 'contentHead', '', '    &#60;/h2&#62;\r\n&#60;/div&#62;\r\n&#60;section id="best-features"&#62;\r\n	&#60;div class="row"&#62;', 'codeEditor', 'config'),
 (22, 'Html Content Footer', 'Nội dung (Có thể là danh sách bài viết hoặc bài viết...)', 'contentFooter', '', '    &#60;/div&#62;\r\n&#60;/section&#62;', 'codeEditor', 'config'),
 (23, 'Không có giao diện mobile', '', 'notMobile', '', '0', '', 'config'),
@@ -364,17 +364,17 @@ CREATE TABLE IF NOT EXISTS `vt_data` (
   `start` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `sale` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=90 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=92 ;
 
 --
 -- Dumping data for table `vt_data`
 --
 
 INSERT INTO `vt_data` (`id`, `hide`, `pos`, `time`, `menu`, `data_parent`, `view`, `type`, `title`, `tag`, `des`, `keywords`, `img`, `thumbnail`, `content`, `link`, `file`, `lang`, `phone`, `email`, `password`, `count`, `cart`, `address`, `company`, `name`, `vip`, `hot`, `f1`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `f10`, `price`, `start`, `sale`) VALUES
-(1, 0, 0, '15/12/2016 10:05:13', 928, 0, 291, '', 'hihi', '', 'h', '123', 'load-13-12-2016-16-56-40.jpg', 'thumb-load-13-12-2016-16-56-40.jpg', '', '', '', '', '', '', '', 0, 0, '', '', 'hihi', 0, 0, '2-07-12-2016-19-47-16.jpg', '', '', '', '', '', '', '', '', '', 0, '', 0),
+(1, 0, 0, '17/12/2016 14:58:32', 928, 0, 301, '', 'thong tin 1', '', 'h', '123', 'load-13-12-2016-16-56-40.jpg', 'thumb-load-13-12-2016-16-56-40.jpg', '', '', '', '', '', '', '', 0, 0, '', '', 'thong-tin-1', 0, 0, '2-07-12-2016-19-47-16.jpg', '', '', '', '', '', '', '', '', '', 0, '', 0),
 (68, 0, 0, '', 1, 0, 0, 'slide', '', '', '', '', '1-07-12-2016-15-25-15.jpg', '', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0),
-(4, 0, 0, '14/12/2016 09:55:13', 928, 0, 60, '', '123', '', 'ssdf', '', 'amd-logo-07-12-2016-16-25-26.png', '', '', '', '', '', '', '', '', 0, 0, '', '', '123', 0, 0, 'dell-07-12-2016-16-11-29.png', '', '', '', '', '', '', '', '', '', 0, '', 0),
-(5, 0, 0, '14/12/2016 09:55:39', 928, 0, 39, '', 'asd', '', '', '', '1-02-12-2016-12-38-36.jpg', '', '', '', '', '', '', '', '', 0, 0, '', '', 'asd', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0);
+(4, 0, 0, '17/12/2016 14:48:41', 928, 0, 63, '', '123', '', 'ssdf', '', 'amd-logo-07-12-2016-16-25-26.png', '', '', '', '', '', '', '', '', 0, 0, '', '', '123', 0, 0, 'dell-07-12-2016-16-11-29.png', '', '', '', '', '', '', '', '', '', 0, '', 0),
+(5, 0, 0, '17/12/2016 14:56:53', 928, 0, 60, '', 'asd', '', '', '', '1-02-12-2016-12-38-36.jpg', '', '', '', '', '', '', '', '', 0, 0, '', '', 'asd', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0);
 
 -- --------------------------------------------------------
 
@@ -405,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `vt_file` (
   `listHtml` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `boxHtml` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
 -- Dumping data for table `vt_file`
@@ -430,7 +430,8 @@ INSERT INTO `vt_file` (`headHtml`, `footerHtml`, `id`, `title`, `file`, `hide`, 
 ('', '', 17, 'Hiển thị địa điểm', 'map', 0, '', 0, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
 ('', '', 18, 'Ngôn ngữ', 'lang', 0, 'custom', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
 ('', '', 19, 'Trang chủ', 'home', 1, 'custom', 1, '&#60;?php include(''views/include/home.php'') ?&#62;', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 21, 'Tìm kiếm', 'search', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0');
+('', '', 21, 'Tìm kiếm', 'search', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
+('', '', 22, 'Không tìm thấy trang', '404', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -455,10 +456,7 @@ CREATE TABLE IF NOT EXISTS `vt_file_data` (
 --
 
 INSERT INTO `vt_file_data` (`id`, `parent`, `title`, `name`, `col`, `type`, `group`, `pos`) VALUES
-(1, 1, 'f1', '', 'f1', 'file', 'listF', 0),
-(2, 1, 'f2', '', 'f2', 'file', 'listF', 0),
-(3, 1, 'f3', '', 'f3', 'file', 'listF', 0),
-(6, 4, 'Noness', 'ahiahi', '', 'listImg', '', 0);
+(6, 4, 'Slide', 'slide', '', 'listImg', '', 0);
 
 -- --------------------------------------------------------
 
@@ -506,6 +504,7 @@ INSERT INTO `vt_menu` (`id`, `menu_parent`, `hide`, `pos`, `title`, `des`, `ico`
 (1, 0, 1, 0, 'Thông tin', '', '', '', '', '', 'info', '', 'thong-tin', '', '', '', '', '', '', '', '', '', '', '', ''),
 (2, 0, 1, -1, 'Tìm kiếm', '', '', '', '', '', 'search', '', 'tim-kiem', '', '', '', '', '', '', '', '', '', '', '', ''),
 (3, 0, 0, 1, 'Trang chủ', '', 'fa fa-home', '', '', '', 'home', '.', 'trang-chu', '<p><em>asd</em></p>\r\n', '', '', '', '', '', '', '111', '29', '123123', '12', ''),
+(4, -1, 1, -4, 'Không tìm thấy trang', '', '', '', '', '', '404', '', '404', '', '', '', '', '', '', '', '', '', '', '', ''),
 (5, -1, 1, -2, 'Cài đặt Menu', '', '', '', '', '', 'configMenu', '', 'cai-dat-menu', '', '', '', '', '', '', '', '', '', '', '', ''),
 (9, 0, 1, 6, 'Liên hệ', '', 'fa fa-phone', '', '', '', 'contact', '', 'lien-he', '', '', '', '', '', '', '', '', '', '', '', ''),
 (914, 0, 0, 4, 'Đăng', '', 'fa fa-send', 'phot, danh sach phot, phốt, danh sách phốt, phot online, phốt online, tập hợp các phốt, phốt việt, phot viet', '', '', 'post', '', 'dang', '<p>ahihi</p>\r\n', '', '', '', '', '', '', '', '', '', '', ''),
@@ -547,8 +546,8 @@ INSERT INTO `vt_page` (`id`, `title`, `name`, `type`, `content`) VALUES
 (36, 'Youtube', 'youtube', 'text', ''),
 (37, 'Keywords', 'keywords', 'text', 'test'),
 (38, 'Tên website', 'title', 'text', 'asdsad'),
-(39, 'google-site-verification', 'googleVerification', 'text', 'asd'),
-(41, 'Google Plus', 'googlePlus', 'text', '123'),
+(39, 'google-site-verification', 'googleVerification', 'text', ''),
+(41, 'Google Plus', 'googlePlus', 'text', 'asd'),
 (44, 'None', 'test', 'img', 'logo-11-12-2016-20-51-14.png');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

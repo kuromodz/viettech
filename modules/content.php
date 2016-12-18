@@ -1,3 +1,6 @@
+<?php
+    if(!$errorPage){ 
+?>
 <div hidden>
     <h1><?=$title?></h1>
     <h2><?=$des?></h2>
@@ -76,4 +79,7 @@
         }
         eval($footerHtml);
     }
+}else{
+    include('views/include/404.php');
+}
 ?>

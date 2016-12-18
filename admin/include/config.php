@@ -1,7 +1,7 @@
 <?php
   $listFile = $db->list_data_where('file','hide','0');
   if(!isset($page)){
-    $page = $allListMenu[0];
+    $page = $db->alone_data_where('menu','file','config');
   }
   $filePath = 'include/'.$menuPage->file.'/'.$page->file.'.php'; 
 ?>
