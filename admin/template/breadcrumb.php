@@ -16,10 +16,13 @@
     </section>
 <div>
 <?php
-	$allListMenuParent = array_reverse($db->allListMenuParent($idMenu));
-	if(isset($idList) || $menuPage->menu_parent == '0' && !isset($id)){
-		unset($allListMenuParent[count($allListMenuParent) - 1]);
-	}
+    $allListMenuParent = [];
+    if(isset($idMenu)){
+    	$allListMenuParent = array_reverse($db->allListMenuParent($idMenu));
+    	if(isset($idList) || $menuPage->menu_parent == '0' && !isset($id)){
+    		unset($allListMenuParent[count($allListMenuParent) - 1]);
+    	}
+    }
 ?>
 <section id='tools'>
     <ul class='breadcrumb' id='breadcrumb'>

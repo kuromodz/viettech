@@ -25,27 +25,27 @@
   }
  
   include_once ("../modules/control.php");
+  if((!$menuPage) || (!isset($menuPage)) || (isset($page) && (!$page)) || ($menuPage->file == '404')){
+    $menuPage = $menu404;
+  }
   $filePath = "include/".$menuPage->file.".php";
-  if($configMenu && $configMenu->type == ''){
+
+  if(isset($configMenu) && $configMenu && ($configMenu->type == '')){
     $filePath = "../modules/edit.php";
   }
-  if (file_exists($filePath)) {
-    if(isset($_COOKIE["password"]) && $_COOKIE["password"] == $password){
-      if(!isset($_GET["ajax"])){
-        include_once ("template/head.php");
-        include_once ("template/breadcrumb.php");
-        include_once ("template/success.php");
-        include_once ($filePath);
-        include_once ("template/footer.php");
-      }else{
-        include_once ("template/breadcrumb.php");
-        include_once ("template/success.php");
-        include_once ($filePath); 
-      }
+  if(isset($_COOKIE["password"]) && $_COOKIE["password"] == $password){
+    if(!isset($_GET["ajax"])){
+      include_once ("template/head.php");
+      include_once ("template/breadcrumb.php");
+      include_once ("template/success.php");
+      include_once ($filePath);
+      include_once ("template/footer.php");
     }else{
-      header("Location: ".baseUrl.'admin/login.php?location='.($_SERVER['REQUEST_URI']));
+      include_once ("template/breadcrumb.php");
+      include_once ("template/success.php");
+      include_once ($filePath); 
     }
   }else{
-    header("Location: ".baseUrl.'admin/404/');
+    header("Location: ".baseUrl.'admin/login.php?location='.($_SERVER['REQUEST_URI']));
   }
 ?>
