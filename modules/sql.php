@@ -310,7 +310,7 @@ class DB extends database
 	}
 	public function insertData($table,$array){
 		if(!isset($array['title']) || strlen($array['title']) < 1){
-			$array['title'] = 'None';
+			$array['title'] = 'Đang cập nhật';
 		}
 		$array['time'] = timeNow();
 		$sql = "INSERT INTO `".dbPrefix."$table`(";

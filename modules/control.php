@@ -28,7 +28,7 @@
 							foreach($_POST as $key=>$get){
 								$sql.= '"'.$get.'",';
 							}
-						$sql.= '"None");';
+						$sql.= '"Đang cập nhật");';
 						if($db->execute_sql($sql)){
 							$success = 'Thêm thành công !';
 						}else{
