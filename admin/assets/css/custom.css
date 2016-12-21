@@ -192,7 +192,7 @@ tbody > tr.selected{
   padding-bottom: 0;
 }
 .codeEditor{
-  height:60px;
+  height:200px;
 }
 [data-show]{
   display: none;

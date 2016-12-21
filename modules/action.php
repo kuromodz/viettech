@@ -1,5 +1,4 @@
 <?php
-set_time_limit(0);
 session_start();
 header('Content-Type: text/html; charset=utf-8');
 include_once('../config.php');

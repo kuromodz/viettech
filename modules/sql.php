@@ -165,9 +165,9 @@ class DB extends database
 	public function loopMenuView($listMenu,$name){ foreach ($listMenu as $menuChild) { 
 		
 		$listMenuChild = $this->listMenuChild($menuChild->id); if(count($listMenuChild)){ ?>
-	        <li class="dropdown">
+	        <li class="">
 	        	<a <?=linkIdList($menuChild,$name) ?> > <?= $menuChild->title ?> <i class="fa fa-angle-right"></i></a>
-	            <ul class="dropdown-menu">
+	            <ul class="sub-menu">
 	                <?php $this->loopMenuView($listMenuChild,$name);?>
 	            </ul>
 	        </li>
@@ -405,7 +405,7 @@ class DB extends database
 		return $this->loadAllRows();
 	}
 	public function breadcrumb($page){
-		$menuHome = $this->alone_data_where('menu','name','trang-chu');
+		$menuHome = $this->alone_data_where('menu','file','home');
 		$allListMenuParent = array_reverse($this->allListMenuParent($page->menu));
 		?>
 		<a <?=linkMenu($menuHome) ?> ><i class="fa fa-home"></i></a> &raquo;
@@ -426,9 +426,14 @@ class DB extends database
 		?>
 		<a <?=linkMenu($menuHome) ?> ><i class="fa fa-home"></i></a>  &raquo;
 		<?php
-		foreach($allListMenuParent as $key=>$menu){ ?>
-			<a <?=linkIdList($menu,$menuParent->name) ?> ><?= $menu->title ?></a>  &raquo; 
-		<?php
+		foreach($allListMenuParent as $key=>$menu){ 
+			if($menu->menu_parent == '0'){ 
+			?>
+			<a <?=linkMenu($menu) ?> ><?= $menu->title ?></a>  &raquo;
+			<?php }else{ ?> 
+			<a <?=linkIdList($menu,$menuParent->name) ?> ><?= $menu->title ?></a>  &raquo;
+			<?php
+			}
 		}
 	}
 	public function login($email,$pass){
