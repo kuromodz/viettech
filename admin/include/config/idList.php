@@ -134,11 +134,11 @@
 			<div class="col-md-12">
 				<fieldset>
 					<legend>Html danh mục/sản phẩm:</legend>
-					<label>List - var_dump($data)</label>
+					<label>List - var_dump($data,$menuParent->name)</label>
 					<div id="listHtml" class="codeEditor" style="height:150px;"><?=$configMenu->listHtml?></div>
 					<input for="listHtml" type="hidden" name="listRow[file][<?=$configMenu->id?>][listHtml]" value="<?=$configMenu->listHtml?>">
 
-					<label>Box - var_dump($page)</label>
+					<label>Box - var_dump($page,$name)</label>
 					<div id="boxHtml" class="codeEditor" style="height:200px;"><?=$configMenu->boxHtml?></div>
 					<input for="boxHtml" type="hidden" name="listRow[file][<?=$configMenu->id?>][boxHtml]" value="<?=$configMenu->boxHtml?>">
 				</fieldset>

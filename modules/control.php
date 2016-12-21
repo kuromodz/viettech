@@ -135,7 +135,7 @@
 								if($keyAction == 'img'){
 									$thumb = 'thumb';
 								}
-								$uploadFile = uploadFile($arFile['name'],$arFile['tmp_name'],$thumb);
+								$uploadFile = uploadFile($arFile['name'],$arFile['tmp_name'],$thumb,$arFile['type']);
 								if($uploadFile['success']){
 									$data = $db->alone_data_where($_POST['table'],'id',$_POST['id']);
 									delFileCol($data,$keyAction);

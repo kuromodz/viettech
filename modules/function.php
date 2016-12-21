@@ -510,24 +510,31 @@ function resizeBoundary($oldW, $oldH, $newW = '', $newH = '') {
     $dims['width'] = $finalW;
     return $dims;
 }
-function uploadFile($fileName,$tmpFile,$method = ''){
+function uploadFile($fileName,$tmpFile,$method = '',$type = 'image'){
     $rt = array('success'=>false);
     if($fileName !== ''){
         $timeNow = '-'.renameTitle(timeNow());
         $vlFile = explode('.',$fileName);
         if(count($vlFile) > 1){
             $fileName = renameTitle($vlFile[0]).$timeNow.'.'.$vlFile[1];
-            if(resizeImage($tmpFile, '../upload/'.$fileName)){
-                $rt['success'] = true;
-                $rt['img'] = $fileName;
-                if($method == 'thumb'){
-                    $maxWidth = $GLOBALS['configMenu']->maxWidth;
-                    $maxHeight = $GLOBALS['configMenu']->maxHeight;
-                    if($maxWidth == '0' || $maxWidth == '') $maxWidth = 300;
-                    if($maxHeight == '0' || $maxHeight == '') $maxHeight = 300;
-                    $fileName = $method.'-'.$fileName;
-                    resizeImage($tmpFile, '../upload/'.$fileName,$maxWidth,$maxHeight);
-                    $rt[$method] = $fileName;
+            if($type == 'image'){
+                if(resizeImage($tmpFile, '../upload/'.$fileName)){
+                    $rt['success'] = true;
+                    $rt['img'] = $fileName;
+                    if($method == 'thumb'){
+                        $maxWidth = $GLOBALS['configMenu']->maxWidth;
+                        $maxHeight = $GLOBALS['configMenu']->maxHeight;
+                        if($maxWidth == '0' || $maxWidth == '') $maxWidth = 300;
+                        if($maxHeight == '0' || $maxHeight == '') $maxHeight = 300;
+                        $fileName = $method.'-'.$fileName;
+                        resizeImage($tmpFile, '../upload/'.$fileName,$maxWidth,$maxHeight);
+                        $rt[$method] = $fileName;
+                    }
+                }
+            }else{
+                if(move_uploaded_file($tmpFile, '../upload/'.$fileName)){
+                    $rt['success'] = true;
+                    $rt['img'] = $fileName;
                 }
             }
         }
