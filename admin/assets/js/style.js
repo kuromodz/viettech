@@ -66,24 +66,11 @@ function sortTable(){
 }
 function dataTable(){
     $('#tableData').DataTable();
-    $('.table').not('.notSl').on( 'click', 'tr', function () {
+}
+$(function(){
+    $('body').on('click','.table:not(.notSl) tr',function(e){
       $(this).toggleClass('selected');
     });
-}
-
-$(function(){
-    /*document.body.onbeforeunload = function() {
-        $("#checkEdit").attr("value","true");
-        for(editorName in CKEDITOR.instances) {
-            if (CKEDITOR.instances[editorName].checkDirty()) {
-                return "Unsaved changes present!"
-            }
-        }
-    }
-    $('.contentAjax form').change(function(){
-        $("#checkEdit").attr("value","true");
-    });*/
-
     $("input[type=file]").change(function(){
         readIMG(this);
     });
@@ -97,33 +84,54 @@ $(function(){
             $(list).removeClass('selected');
         }
     });
+    $('body').on('click','.exportAll',function(e){
+        var list = $(this).data('target');
+        var data = [];
+        $.each($(list),function(index,value){
+            data[index] = $(value).data('id');
+        });
+        $.ajax({
+            data: {data:data},
+            type: 'POST',
+            datatype: 'json',
+            url: '../modules/action.php?do=export&menu='+$(this).data('menu'),
+            success: function(msg) {
+                var html = $.parseHTML(msg);
+                $(html).table2excel({
+                    exclude: ".noExl",
+                    filename: "Dữ liệu của danh mục "+$('#infoPage').data('title'),
+                }); 
+            }
+        });
+    });
     $('body').on('click','.delAll',function(e){
         var list = $(this).data('target');
         var table = $(this).data('table');
         if (table == undefined || table == '' || table.length < 1) {
             table = 'data';
         }
-
-        var list = $(list);
-        
-        if (!confirm('Del '+ $(list).length + ' data ?')){
-             e.preventDefault();
+        if($(list).length == 0){
+            alert('Vui lòng chọn sản phẩm !');
         }else{
-            var data = [];
-            $.each($(list),function(index,value){
-                data[index] = $(value).data('id');
-            });
-            $.ajax({
-                data: {data:data,table:table},
-                type: 'POST',
-                datatype: 'json',
-                url: '../modules/action.php?do=delAll',
-                success: function(msg) {
-                    $.get(hrefPost(), function(data, status){
-                       $('.contentAjax').html(data);
-                    });
-                }
-            });
+            if (!confirm('Del '+ $(list).length + ' data ?')){
+                 e.preventDefault();
+            }else{
+                var data = [];
+                $.each($(list),function(index,value){
+                    data[index] = $(value).data('id');
+                });
+                $.ajax({
+                    data: {data:data,table:table},
+                    type: 'POST',
+                    datatype: 'json',
+                    url: '../modules/action.php?do=delAll',
+                    success: function(msg) {
+                        $.get(hrefPost(), function(data, status){
+                           $('.contentAjax').html(data);
+                        });
+                    }
+                });
+            }
         }
     });
     shortcut.add("alt+s", function() {

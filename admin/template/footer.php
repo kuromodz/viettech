@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="plugins/jQueryUI/jquery-ui.css">
     <script src="plugins/ckeditor/ckeditor.js"></script>
     <script src="plugins/shortcut.js"></script>
+    <script src="plugins/table2excel.js"></script>
     <script src="plugins/nprogress/nprogress.js"></script>
 
     <script src="plugins/datatables/jquery.dataTables.min.js"></script>

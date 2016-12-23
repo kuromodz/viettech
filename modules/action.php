@@ -20,6 +20,36 @@ if (isset($_GET['do'])) {
         $checkUser = true;
     }
     switch ($do) {
+        case 'export':
+            if(isset($_GET['menu'])){
+                $menu = $db->alone_data_where('menu','id',$_GET['menu']);
+                if($menu){
+                    $sql = "SELECT * FROM `".dbPrefix."data` WHERE `menu` = '$menu->id' ";
+                    if(isset($_POST['data']) && count($_POST['data'])){
+                        $sql.='AND ';
+                        $listId = $_POST['data'];
+                        foreach ($listId as $key=>$idData) {
+                            if($idData !== ''){
+                                $sql.=' `id` = '.$idData;
+                                if($key < count($listId)-1){
+                                    $sql.=' OR';    
+                                }
+                            }
+                        }
+                    }
+                    $listData = $db->loadallrows_sql($sql);
+                    if(isset($listData) && count($listData)){
+                        include('template/export.php');
+                        exit;
+                    }else{
+                        $result['text'] = 'Không có dữ liệu !';
+                    }
+                }else{
+                    $result['text'] = 'Không tồn tại menu !';
+                }
+
+            }
+            break;
         case 'resize':
             $folder = 'upload';
             if(isset($_GET['folder'])) $folder = $_GET['folder'];
@@ -36,11 +66,7 @@ if (isset($_GET['do'])) {
                 $img = str_replace('../upload/','',$file);
                 if($db->alone_data_where('data','img',$img)){
                     $check = true;
-                }else if($db->alone_data_where('data','thumbnail',$img)){
-                    $check = true;
                 }else if($db->alone_data_where('menu','img',$img)){
-                    $check = true;
-                }else if($db->alone_data_where('menu','thumbnail',$img)){
                     $check = true;
                 }else{
                     if($db->alone_data_where('page','content',$img)) $check = true;

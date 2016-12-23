@@ -75,25 +75,20 @@
         <?php } ?>
     </div>
     <div class="col-md-6">
-      <div class="form-group">
-        <label class="control-label col-md-4">
-          <center>
-          Hình ảnh
-          <br>
-          Rộng:<?=$configMenu->maxWidth?>px Cao:<?=$configMenu->maxHeight?>px
-          </center>
+      <div class="text-center">
+        <label class="btn btn-info" style="width:100%;" for="fileImg">
+          <i class="fa fa-upload"></i> Ảnh đại diện (Rộng:<?=$configMenu->maxWidth?>px Cao:<?=$configMenu->maxHeight?>px)
         </label>
-        <div class="col-md-8">
-          <img height="100" onclick="$('#input<?=$id ?>').click();" id="image<?=$id ?>" src="../upload/<?=$page->img?>">
-          <input accept="image/*" name="img" type="file" id="input<?=$id ?>" onchange="readIMG(this,'<?='image'.$id ?>');">
-        </div>
+        <hr>
+        <img height="100" onclick="$('#input<?=$id ?>').click();" id="image<?=$id ?>" src="../upload/<?=$page->img?>">
+        <input class="hidden" id="fileImg" accept="image/*" name="img" type="file" id="input<?=$id ?>" onchange="readIMG(this,'<?='image'.$id ?>');">
       </div>
+        <hr>
       <?php if($configMenu->slide){ 
         $listSlide = $db->list_data_where_where('data','data_parent',$id,'type','slide');
         ?>
-        <label>Hình slide <?=$title?>: </label>
-        <input type="file" name="slideData[]" multiple="" accept="image/*" />
-        <br>
+        <input id="fileListSlide" class="hidden" type="file" name="slideData[]" multiple="" accept="image/*" />
+        <label class="btn btn-info" for="fileListSlide"><i class="fa fa-upload"></i> Up hình slide <?=$title?>: </label>
         <button class="btn btn-success selectAll" data-target="#tableSlide > tbody > tr" type="button"><i class="fa fa-check-square-o"></i> Chọn tất cả</button>  
         <button class="btn btn-danger delAll"  data-target="#tableSlide >tbody > tr.selected" type="button"><i class="fa fa-trash"></i> Xóa đã chọn</button>
         <div class="box">
@@ -193,14 +188,16 @@
           </div>
           <?php if($configMenu->showImage){ ?>
           <div class="form-group">
-            <label class="control-label col-md-4">Hình ảnh</label>
+            <label for="imgMenu" class="control-label col-md-4">
+              <center>
+                <img style="max-height:50px" src="../upload/<?=$page->img ?>" />
+              </center>
+            </label>
             <div class="col-md-8">
-              <input type="file" name="img" class="form-control" />
+              <label class="btn btn-info btn-sm" style="width:100%" for="imgMenu"><i class="fa fa-upload"></i> Up hình danh mục</label>
+              <input class="hidden" id="imgMenu" type="file" name="img" class="form-control" />
             </div>
           </div>
-          <center class="form-group">
-            <img style="max-height:50px" src="../upload/<?=$page->img ?>" />
-          </center>
           <?php } ?>
           <?php }else{$listData = $db->allListDataChild($idList,0,'','pos','ASC');} ?>
           <div class="col-md-12"> 
@@ -235,13 +232,22 @@
             <h3 class="box-title">
               <?php if(!count($listMenuChild)){ ?>
               <a <?=linkAddId($idList,$name) ?> >
-                <i class="fa fa-plus"></i> Thêm <?=strtolower($menuPage->title)?> cho danh mục <?=$title ?> (<?=count($listData); ?>)
+                <i class="fa fa-plus"></i> Thêm <?=strtolower($menuPage->title)?> (<?=count($listData); ?>)
               </a>
+              <div class="pull-right">
+                <label for="file-upload" class="custom-file-upload btn btn-info btn-sm">
+                    <i class="fa fa-upload"></i> Up dữ liệu (*.xls)
+                </label>
+                <input class="hidden" id="file-upload" name='importFile' accept="application/vnd.ms-excel" type="file"/>
+                <button data-target=".tableData<?=$idList?> >tbody > tr.selected" type="button" data-menu="<?=$idList?>" class="exportAll btn btn-primary btn-sm">
+                  <i class="fa fa-download"></i> Xuất dữ liệu (*.xls)
+                </button>
+              </div>
               <?php } ?>
 
               <?php if(count($listData)){ ?>
-              <button class="btn btn-success selectAll" data-target=".tableData<?=$idList?> > tbody > tr" type="button"><i class="fa fa-check-square-o"></i> Chọn tất cả</button>
-              <button class="btn btn-danger delAll"  data-target=".tableData<?=$idList?> >tbody > tr.selected" type="button"><i class="fa fa-trash"></i> Xóa đã chọn</button>
+              <button class="btn btn-warning btn-sm selectAll" data-target=".tableData<?=$idList?> > tbody > tr" type="button"><i class="fa fa-check-square-o"></i> Chọn tất cả</button>
+              <button class="btn btn-danger btn-sm delAll"  data-target=".tableData<?=$idList?> >tbody > tr.selected" type="button"><i class="fa fa-trash"></i> Xóa <i class="fa-fw fa fa-check-square-o"></i></button>
               <?php } ?>
             </h3>
           </div>
@@ -302,6 +308,17 @@
     </button>
   </div>
   <?php if($menuPage->id == $page->id){ ?>
+
+    <?php if($configMenu->showImageMenu){ ?>
+    <div class="col-md-12">
+      <input type="hidden" name="table" value="menu"/>
+      <input type="hidden" name="id" value="<?=$menuPage->id?>"/>
+      <label for="input<?=$menuPage->id ?>" class="btn btn-info" style="width:100%"><i class="fa fa-upload"></i> Up ảnh danh mục<?=$menuPage->title?></label>
+      <img height="100" width="100%" onclick="$('#input<?=$menuPage->id ?>').click();" id="image<?=$menuPage->id ?>" src="../upload/<?=$menuPage->img?>">
+      <input class="hidden" accept="image/*" name="img" type="file" id="input<?=$menuPage->id ?>" onchange="readIMG(this,'<?='image'.$menuPage->id ?>');">
+    </div>
+    <?php } ?>
+
     <div class="col-md-6">
       <label for="inputDes">Mô tả: </label>
       <input id="inputDes" class="form-control" type="text" name="des" value="<?=$menuPage->des?>"/>
@@ -313,17 +330,7 @@
     <div class="col-md-12">
       <label>Nội dung: </label>
       <textarea name="content" class="ckeditor"><?=$menuPage->content?></textarea>
-    </div>
-    <?php if($configMenu->showImageMenu){ ?>
-    <div class="col-md-6">
-      <input type="hidden" name="table" value="menu"/>
-      <input type="hidden" name="id" value="<?=$menuPage->id?>"/>
-      <label>Ảnh <?=$menuPage->title?></label>
-      <img height="100" width="100%" onclick="$('#input<?=$menuPage->id ?>').click();" id="image<?=$menuPage->id ?>" src="../upload/<?=$menuPage->img?>">
-      <br><br>
-      <input accept="image/*" name="img" type="file" id="input<?=$menuPage->id ?>" onchange="readIMG(this,'<?='image'.$menuPage->id ?>');">
-    </div>
-    <?php } ?>
+    </div>x
 
     <?php if($configMenu->onlyContent == '1'){ ?>
       <div class="col-md-12" style="margin-top:20px;">

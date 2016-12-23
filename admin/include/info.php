@@ -7,19 +7,23 @@
 <div class="row">
   <?php foreach($listData as $data){ ?>
   <div class="col-md-6">
-    <label for="input<?=$data->id?>"><?=$data->title?></label>
     <?php switch ($data->type) {
       case 'img':
         ?>
-        <img class="img-thumbnail" onclick="$('#input<?=$data->id ?>').click();" style="height:100px;margin-bottom:10px;" id="input<?=$data->name ?>" src="../upload/<?=$data->content?>">        
-        <input accept="image/*" name="info[<?=$data->name ?>]" type="file" id="input<?=$data->id ?>" onchange="readIMG(this,'<?='input'.$data->name ?>');"/>
-        <p class="help-block"><?=$data->content ?></p>
-     
+
+        <label class="btn btn-info btn-sm" for="input<?=$data->id?>">
+          <i class="fa fa-upload"></i>
+          Up ảnh <?=$data->title?>
+        </label>
+        <div class="clearfix"></div>
+        <img class="img-thumbnail" onclick="$('#input<?=$data->id ?>').click();" style="max-height:100px;" id="input<?=$data->name ?>" src="../upload/<?=$data->content?>">        
+        <input class="hidden" accept="image/*" name="info[<?=$data->name ?>]" type="file" id="input<?=$data->id ?>" onchange="readIMG(this,'<?='input'.$data->name ?>');"/>
         <?php
         break;
       
       default:
         ?>
+        <label for="input<?=$data->id?>"><?=$data->title?></label>
         <input type="<?=$data->type?>" name="<?=$data->name?>" class="form-control" id="input<?=$data->id?>" value="<?=$data->content?>" placeholder="Nhập nội dung"/>
         <?php
         break;

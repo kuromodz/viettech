@@ -40,7 +40,7 @@
 						$value = $_POST['value'];
 						if($value !== '' && $value !== 0 && $value !== '0'){
 							$sql = 'DELETE FROM `'.dbPrefix.$table.'` WHERE `id` = "'.$value.'"; ';
-							delFile($db->alone_data_where($table,'id',$value));
+							delImg($db->alone_data_where($table,'id',$value)->img);
 							switch ($table) {
 								case 'menu':
 									$allListMenuChild = array();
@@ -130,6 +130,55 @@
 									}
 								}
 								break;
+							case 'importFile':
+								if($arFile['tmp_name'] !== '' && $_POST['table'] == 'menu'){
+									libxml_use_internal_errors(true);
+									include 'phpexcel/Classes/PHPExcel.php';
+									$inputFileName = $arFile['tmp_name'];
+									$objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+									$idMenu = $_POST['id'];
+
+									if($objPHPExcel){
+										$listCols = [];
+										$listData = [];
+										foreach ($objPHPExcel->getWorksheetIterator() as $worksheet) {
+										    $highestRow         = $worksheet->getHighestRow();
+										    $highestColumn      = $worksheet->getHighestColumn();
+										    $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumn);
+										    for ($col = 0; $col < $highestColumnIndex; ++ $col) {
+									            $cell = $worksheet->getCellByColumnAndRow($col, 2);
+									            $listCols[] = $cell->getValue();
+									        }
+										    for ($row = 3; $row <= $highestRow; ++ $row) {
+										    	$listItem = [];
+										        for ($col = 0; $col < $highestColumnIndex; ++ $col) {
+										            $cell = $worksheet->getCellByColumnAndRow($col, $row);
+										            $listItem[$listCols[$col]] = $cell->getValue();
+										    	}
+											    $listData[] = $listItem;
+										    }
+										}
+										//insertdata to $_POST['id']
+										foreach($listData as $data){
+											$data['menu'] = $idMenu;
+											if(!$data['title']) $data['title'] = 'Đang cập nhật !';
+											if( isset($data['img']) && $data['img'] !== ''){
+												$imgData = $data['img'];
+												$mime_type = substr($imgData,11,3);
+												$fileName = $data['img'] = renameTitle($data['title']).$timeNow.'.'.$mime_type;
+												$pathFile = $target_dir.$fileName;
+												$thumbFile= $target_dir.'thumb-'.$fileName;
+												$b64 = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imgData));
+												if(file_put_contents($pathFile, $b64)){
+													resizeImage($pathFile,$thumbFile,$configMenu->maxWidth,$configMenu->maxHeight);
+												}
+											}
+											$db->insertData('data',$data);
+										}
+									}
+								}
+								break;
+
 							default:
 								$uploadFile = uploadFile($arFile['name'],$arFile['tmp_name'],$arFile['type']);
 								if($uploadFile['success']){
@@ -237,7 +286,7 @@
 		if($des == '') $des = $menuPage->des;
 		$keywords = $menuPage->keywords;
 	}
-	if(isset($name)){
+	if(isset($name) && $menuPage->file !== 'search'){
 		if(!checkObject($listMenu,'name',$name)) $errorPage = true;
 	}
 	foreach($allListMenu as $menu){

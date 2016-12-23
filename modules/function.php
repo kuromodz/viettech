@@ -1,6 +1,9 @@
 <?php
+function miniHtml($b){return preg_replace(['/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s'],['>','<','\\1'],$b);}
 function delFileCol($data,$col){
-    if(isset($data->$col) && $data->$col !== '' && file_exists('../upload/'.$data->$col)) unlink('../upload/'.$data->$col);
+    if(isset($data->$col) && $data->$col !== '' && file_exists('../upload/'.$data->$col)){
+        delImg($data->$col);
+    }
 }
 function delImg($file){
     $ar = array('','thumb-');
@@ -15,11 +18,10 @@ function delImg($file){
 }
 function delFile($data){
     if($data){
-        $listUnlink = array('img','thumbnail');
+        $listUnlink = array('img','thumbnail','file','link');
         foreach ($listUnlink as $file) {
             if(isset($data->$file) && $data->$file !== ''){
-                $filePath = '../upload/'.$data->$file;
-                if(file_exists($filePath)) unlink($filePath);
+                delImg($data->$file);
             }
         }
     }
@@ -211,6 +213,8 @@ function linkId($data,$name){
     $link = 'data-id="'.$data->id.'" ';
     $link.= 'data-name="'.$name.'" ';
     $link.= 'data-title="'.$data->title.'" ';
+    $link.= 'title="'.$data->title.'" ';
+    $link.= 'alt="'.$data->title.'" ';
     $link.= 'href="'.$name.'/'.renameLink($data->title,$data->id).'" ';
     return $link;
 }
@@ -221,7 +225,7 @@ function linkAdd($table,$parent = '',$id = ''){
     if($parent !== '' && $id !== ''){
         $link.= 'data-'.$parent.'="'.$id.'" ';
     }
-    $link.= 'class="btn btn-info btnAjax" ';
+    $link.= 'class="btn btn-info btn-sm btnAjax" ';
     $link.= 'type="button" ';
     return $link;
 }
@@ -229,7 +233,7 @@ function linkAddMenu($id){
     $link = 'data-action="add" ';
     $link.= 'data-table="menu" ';
     $link.= 'data-menu_parent="'.$id.'" ';
-    $link.= 'class="btn btn-info btnAjax" ';
+    $link.= 'class="btn btn-info btn-sm btnAjax" ';
     $link.= 'type="button" ';
     return $link;
 }
@@ -237,7 +241,7 @@ function linkAddId($id){
     $link = 'data-action="add" ';
     $link.= 'data-table="data" ';
     $link.= 'data-menu="'.$id.'" ';
-    $link.= 'class="btn btn-info btnAjax" ';
+    $link.= 'class="btn btn-info btn-sm btnAjax" ';
     $link.= 'type="button" ';
     return $link;
 }
@@ -245,7 +249,7 @@ function linkAddIdData($id){
     $link = 'data-action="add" ';
     $link.= 'data-table="data" ';
     $link.= 'data-data_parent="'.$id.'" ';
-    $link.= 'class="btn btn-info btnAjax" ';
+    $link.= 'class="btn btn-info btn-sm btnAjax" ';
     $link.= 'type="button" ';
     return $link;
 }
@@ -254,7 +258,7 @@ function linkDelMenu($id){
     $link = 'data-action="del" ';
     $link.= 'data-table="menu" ';
     $link.= 'data-value="'.$id.'" ';
-    $link.= 'class="btn btn-danger btnAjax confirm" ';
+    $link.= 'class="btn btn-danger btn-sm btnAjax confirm" ';
     $link.= 'type="button" ';
     return $link;
 }
@@ -262,7 +266,7 @@ function linkDelId($id){
     $link = 'data-action="del" ';
     $link.= 'data-table="data" ';
     $link.= 'data-value="'.$id.'" ';
-    $link.= 'class="btn btn-danger btnAjax confirm" ';
+    $link.= 'class="btn btn-danger btn-sm btnAjax confirm" ';
     $link.= 'type="button" ';
     return $link;
 }
@@ -270,7 +274,7 @@ function linkDel($table,$id){
     $link = 'data-action="del" ';
     $link.= 'data-table="'.$table.'" ';
     $link.= 'data-value="'.$id.'" ';
-    $link.= 'class="btn btn-danger btnAjax confirm" ';
+    $link.= 'class="btn btn-danger btn-sm btnAjax confirm" ';
     $link.= 'type="button" ';
     return $link;
 }
@@ -299,7 +303,7 @@ function angleRight($listData){
     return $rt;
 }
 function srcImg($data,$method = ''){
-    if($method == 'thumb'){
+    if($method == 'thumb' && $data->img !== ''){
         $data->img = 'thumb-'.$data->img;
     }
     if($data->title == ''){
@@ -532,8 +536,12 @@ function uploadFile($fileName,$tmpFile,$type = 'image'){
                 if(resizeImage($tmpFile, '../upload/'.$fileName)){
                     $rt['success'] = true;
                     $rt['img'] = $fileName;
-                    $maxWidth = $GLOBALS['configMenu']->maxWidth;
-                    $maxHeight = $GLOBALS['configMenu']->maxHeight;
+                    if(isset($GLOBALS['configMenu']->maxWidth)){
+                        $maxWidth = $GLOBALS['configMenu']->maxWidth;
+                        $maxHeight = $GLOBALS['configMenu']->maxHeight;
+                    }else{
+                        $maxWidth = $maxHeight = 300;
+                    }
                     if($maxWidth == '0' || $maxWidth == '') $maxWidth = 300;
                     if($maxHeight == '0' || $maxHeight == '') $maxHeight = 300;
                     $fileName = 'thumb-'.$fileName;
