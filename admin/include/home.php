@@ -2,7 +2,7 @@
   <?php foreach($listImageHome as $listImage){ $listName = $listImage->name; ?> 
     <div class="col-md-6">
       <label class="btn btn-info" style="width:100%;" for="fileListImg">
-        <i class="fa fa-picture-o"></i> Up hình <?=$listImage->title?> ($list-><?=$listImage->name?>): 
+        <i class="fa fa-picture-o"></i> Up hình <?=$listImage->title?> ($list-><?=$listImage->name?>)
       </label>
       <input class="hidden" id="fileListImg" type="file" name="listImageType[<?=$listName?>][]" multiple="" accept="image/*" />
       <hr>

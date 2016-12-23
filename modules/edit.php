@@ -167,8 +167,6 @@
     $listMenuChild = $db->listMenuChild($idList);
 ?>
 <form role="form" method="POST" class="form-horizontal" enctype="multipart/form-data">
-
-
   <?php if($configMenu->showList){ ?>
   <div class="col-md-4">
     <div class="panel panel-default grid">
@@ -330,7 +328,7 @@
     <div class="col-md-12">
       <label>Nội dung: </label>
       <textarea name="content" class="ckeditor"><?=$menuPage->content?></textarea>
-    </div>x
+    </div>
 
     <?php if($configMenu->onlyContent == '1'){ ?>
       <div class="col-md-12" style="margin-top:20px;">
@@ -352,6 +350,4 @@
 
   <?php } ?>
 </form>
-
-
 <?php } ?>
