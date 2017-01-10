@@ -1,5 +1,17 @@
 <?php
-function miniHtml($b){return preg_replace(['/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s'],['>','<','\\1'],$b);}
+function listLang($listLang = array('vn','en')){
+    foreach($listLang as $lang){
+        $hrefLang = str_replace('/'.lang.'/', '', baseUrl);
+        if(lang !== 'vn') $hrefLang .='/';
+        if($lang !== 'vn') $hrefLang .= $lang.'/';
+        ?>
+        <a href="<?=$hrefLang?>" >
+            <img src="admin/assets/images/<?=$lang?>.png">
+        </a>
+        <?php
+    }
+}
+
 function delFileCol($data,$col){
     if(isset($data->$col) && $data->$col !== '' && file_exists('../upload/'.$data->$col)){
         delImg($data->$col);
@@ -26,44 +38,61 @@ function delFile($data){
         }
     }
 }
+function isKanji($str) {
+    return preg_match('/[\x{4E00}-\x{9FBF}]/u', $str) > 0;
+}
+
+function isHiragana($str) {
+    return preg_match('/[\x{3040}-\x{309F}]/u', $str) > 0;
+}
+
+function isKatakana($str) {
+    return preg_match('/[\x{30A0}-\x{30FF}]/u', $str) > 0;
+}
+
+function isJapanese($str) {
+    return isKanji($str) || isHiragana($str) || isKatakana($str);
+}
 function renameTitle($string) { 
-    $search = array ( 
-        '#(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)#', 
-        '#(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)#', 
-        '#(ì|í|ị|ỉ|ĩ)#', 
-        '#(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)#', 
-        '#(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)#', 
-        '#(ỳ|ý|ỵ|ỷ|ỹ)#', 
-        '#(đ)#', 
-        '#(À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)#', 
-        '#(È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ)#', 
-        '#(Ì|Í|Ị|Ỉ|Ĩ)#', 
-        '#(Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ)#', 
-        '#(Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ)#', 
-        '#(Ỳ|Ý|Ỵ|Ỷ|Ỹ)#', 
-        '#(Đ)#', 
-        '/[^a-zA-Z0-9\-\_]/', 
-     ) ; 
-    $replace = array ( 
-        'a', 
-        'e', 
-        'i', 
-        'o', 
-        'u', 
-        'y', 
-        'd', 
-        'A', 
-        'E', 
-        'I', 
-        'O', 
-        'U', 
-        'Y', 
-        'D', 
-        '-', 
-     ) ; 
-    $string = preg_replace($search, $replace, $string); 
-    $string = preg_replace('/(-)+/', '-', $string); 
-            $string = strtolower($string); 
+    if(!isJapanese($string)){
+        $search = array ( 
+            '#(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)#', 
+            '#(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)#', 
+            '#(ì|í|ị|ỉ|ĩ)#', 
+            '#(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)#', 
+            '#(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)#', 
+            '#(ỳ|ý|ỵ|ỷ|ỹ)#', 
+            '#(đ)#', 
+            '#(À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)#', 
+            '#(È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ)#', 
+            '#(Ì|Í|Ị|Ỉ|Ĩ)#', 
+            '#(Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ)#', 
+            '#(Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ)#', 
+            '#(Ỳ|Ý|Ỵ|Ỷ|Ỹ)#', 
+            '#(Đ)#', 
+            '/[^a-zA-Z0-9\-\_]/', 
+         ) ; 
+        $replace = array ( 
+            'a', 
+            'e', 
+            'i', 
+            'o', 
+            'u', 
+            'y', 
+            'd', 
+            'A', 
+            'E', 
+            'I', 
+            'O', 
+            'U', 
+            'Y', 
+            'D', 
+            '-', 
+         ) ; 
+        $string = preg_replace($search, $replace, $string); 
+        $string = preg_replace('/(-)+/', '-', $string); 
+        $string = strtolower($string);
+    }
     return $string;
 }
 function returnArray($string){
@@ -97,8 +126,10 @@ function renameLink($title,$id){
 function renameLinkParent($title,$id){
     return renameTitle($title).'-'.$id.'.html';
 }
-function pageUrl(){
-    return 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+function pageUrl($clearAjax = true){
+    $url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    $url = preg_replace('~(\?|&)ajax=[^&]*~','$1',$url);
+    return $url;
 }
 function convertLinkYoutube($url){
     if (strpos($url, 'https://www.youtube.com/embed/') !== FALSE){
@@ -237,10 +268,12 @@ function linkAddMenu($id){
     $link.= 'type="button" ';
     return $link;
 }
-function linkAddId($id){
+function linkAddId($id,$table = 'data'){
     $link = 'data-action="add" ';
-    $link.= 'data-table="data" ';
-    $link.= 'data-menu="'.$id.'" ';
+    $link.= 'data-table="'.$table.'" ';
+    if($table !== 'user'){
+        $link.= 'data-menu="'.$id.'" ';
+    }
     $link.= 'class="btn btn-info btn-sm btnAjax" ';
     $link.= 'type="button" ';
     return $link;
@@ -262,9 +295,9 @@ function linkDelMenu($id){
     $link.= 'type="button" ';
     return $link;
 }
-function linkDelId($id){
+function linkDelId($id,$table = 'data'){
     $link = 'data-action="del" ';
-    $link.= 'data-table="data" ';
+    $link.= 'data-table="'.$table.'" ';
     $link.= 'data-value="'.$id.'" ';
     $link.= 'class="btn btn-danger btn-sm btnAjax confirm" ';
     $link.= 'type="button" ';

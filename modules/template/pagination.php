@@ -16,7 +16,7 @@
     }
 
     $next_page = $currentPage+1;
-    
+    if($pagination > 1){
 ?>
 <div class="col-md-12">
     <center>
@@ -29,7 +29,7 @@
                     </span></li>
                 <?php }else{ ?>
                     <li>
-                        <a class='page-numbers' href="<?=$pageUrl.$i?>" data-name="<?=$name ?>" data-title="<?=$menuPage->title?> trang <?=$i ?>" >
+                        <a class='page-numbers' href="<?=$pageUrl.$i?>" data-name="<?=$name?>" data-title="<?=$menuPage->title?> trang <?=$i?>" >
                             <?php if($i == 0){ ?> <i class="fa fa-home"></i> <?php  }else{ echo $i; }; ?>
                         </a>
                     </li>
@@ -37,7 +37,7 @@
             <?php } ?>
             <?php if($currentPage < $pagination - 1){ ?>
             <li>
-                <a class="next page-numbers" href="<?=$pageUrl.$next_page; ?>" data-name="<?=$name ?>" data-title="<?=$menuPage->title?> trang <?=$next_page ?>" >&rarr;
+                <a class="next page-numbers" href="<?=$pageUrl.$next_page?>" data-name="<?=$name?>" data-title="<?=$menuPage->title?> trang <?=$next_page?>" >&rarr;
                 </a>
             </li> 
             <?php } ?>
@@ -46,50 +46,14 @@
     </center>
 </div>
 <style>
-.page-numbers.current{
-    background: #000;
-    color: #fff!important;
-}
-.pagination {
-    text-align: center;
-}
-
-.pagination, .wp-prev-next {
-    margin: 1.5em 0;
-}
-.pagination ul {
-    border: 1px solid #b7b7b7;
-    display: inline-block;
-    white-space: nowrap;
-    padding: 0;
-    clear: both;
-}
-.pagination li:first-child {
-    border-left: none;
-}
-.pagination li {
-    border-left: 1px solid #b7b7b7;
-    padding: 0;
-    margin: 0;
-    float: left;
-    display: inline;
-    overflow: hidden;
-}
-a:link, a:visited:link {
-    -webkit-tap-highlight-color: rgba(0,0,0,0.3);
-}
-a:-webkit-any-link {
-    text-decoration: none !important;
-}
-.pagination a, .pagination span {
-    margin: 0;
-    text-decoration: none;
-    padding: 0;
-    line-height: 1em;
-    font-size: 1em;
-    font-weight: normal;
-    padding: 0.75em;
-    min-width: 1em;
-    display: block;
-}
+.page-numbers.current{background:#000;color:#fff!important}
+.pagination{text-align:center}
+.pagination,.wp-prev-next{margin:1.5em 0}
+.pagination ul{border:1px solid #b7b7b7;display:inline-block;white-space:nowrap;padding:0;clear:both}
+.pagination li:first-child{border-left:none}
+.pagination li{border-left:1px solid #b7b7b7;padding:0;margin:0;float:left;display:inline;overflow:hidden}
+a:link,a:visited:link{-webkit-tap-highlight-color:rgba(0,0,0,0.3)}
+a:-webkit-any-link{text-decoration:none!important}
+.pagination a,.pagination span{margin:0;text-decoration:none;padding:0;line-height:1em;font-size:1em;font-weight:400;padding:.75em;min-width:1em;display:block}
 </style>
+<?php } ?>

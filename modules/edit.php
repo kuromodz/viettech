@@ -88,7 +88,7 @@
         $listSlide = $db->list_data_where_where('data','data_parent',$id,'type','slide');
         ?>
         <input id="fileListSlide" class="hidden" type="file" name="slideData[]" multiple="" accept="image/*" />
-        <label class="btn btn-info" for="fileListSlide"><i class="fa fa-upload"></i> Up hình slide <?=$title?>: </label>
+        <label class="btn btn-info" for="fileListSlide"><i class="fa fa-upload"></i> Up hình slide : </label>
         <button class="btn btn-success selectAll" data-target="#tableSlide > tbody > tr" type="button"><i class="fa fa-check-square-o"></i> Chọn tất cả</button>  
         <button class="btn btn-danger delAll"  data-target="#tableSlide >tbody > tr.selected" type="button"><i class="fa fa-trash"></i> Xóa đã chọn</button>
         <div class="box">

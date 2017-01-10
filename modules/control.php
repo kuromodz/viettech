@@ -40,7 +40,8 @@
 						$value = $_POST['value'];
 						if($value !== '' && $value !== 0 && $value !== '0'){
 							$sql = 'DELETE FROM `'.dbPrefix.$table.'` WHERE `id` = "'.$value.'"; ';
-							delImg($db->alone_data_where($table,'id',$value)->img);
+							$data = $db->alone_data_where($table,'id',$value);
+							if(isset($data->img)) delImg($data->img);
 							switch ($table) {
 								case 'menu':
 									$allListMenuChild = array();
@@ -164,7 +165,7 @@
 											if(!$data['title']) $data['title'] = 'Đang cập nhật !';
 											if( isset($data['img']) && $data['img'] !== ''){
 												$imgData = $data['img'];
-												$mime_type = substr($imgData,11,3);
+												$mime_type = substr($imgData,11,strpos($imgData,';base64')-11);
 												$fileName = $data['img'] = renameTitle($data['title']).$timeNow.'.'.$mime_type;
 												$pathFile = $target_dir.$fileName;
 												$thumbFile= $target_dir.'thumb-'.$fileName;
@@ -226,8 +227,8 @@
 			if (isset($id)) {
 				$page = $db->alone_data_where('data','id',$id);
 				if($page){
-					$update['view'] = $page->view + 1;
-					$db->updateRow('data',$update,'id',$id);
+					$update["view"] = $page->view + 1;
+					$db->updateRow("data",$update,'id',$id);
 					$idMenu = $page->menu;
 					if($page->data_parent !== '0') $errorPage = true;
 				}else{

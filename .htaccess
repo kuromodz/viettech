@@ -38,13 +38,12 @@ FileETag None
 	RewriteRule ^$  index.php
 
 
-	RewriteRule ^([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)-([0-9]+).html?(.*)$ index.php?name=$1&id=$3 [QSA]
-	RewriteRule ^admin/([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)-([0-9]+).html?(.*)$ admin/index.php?name=$1&id=$3 [QSA]
+	RewriteRule ^admin/(.+)/danh-muc/(.+)-([0-9]+).html?(.*)$ admin/index.php?name=$1&idList=$3 [NE,NC,L,QSA]
+	RewriteRule ^admin/(.+)/(.+)-([0-9]+).html?(.*)$ admin/index.php?name=$1&id=$3 [NE,NC,L,QSA]
+	RewriteRule ^admin/(.+).html?(.*)$ admin/index.php?name=$1 [NE,NC,L,QSA]
 
-	RewriteRule ^([0-9a-zA-Z\-]+)/danh-muc/([0-9a-zA-Z\-]+)-([0-9]+).html?(.*)$ index.php?name=$1&idList=$3 [QSA]
-	RewriteRule ^admin/([0-9a-zA-Z\-]+)/danh-muc/([0-9a-zA-Z\-]+)-([0-9]+).html?(.*)$ admin/index.php?name=$1&idList=$3 [QSA]
-
-	RewriteRule ^([0-9a-zA-Z\-]+).html?(.*)$ index.php?name=$1 [QSA]
-	RewriteRule ^admin/([0-9a-zA-Z\-]+).html?(.*)$ admin/index.php?name=$1 [QSA]
+	RewriteRule ^(.+)/([0-9a-zA-Z\-]+)/(.+)-([0-9]+).html?(.*)$ index.php?name=$1&idList=$4 [NE,NC,L,QSA]
+	RewriteRule ^(.+)/(.+)-([0-9]+).html?(.*)$ index.php?name=$1&id=$3 [NE,NC,L,QSA]
+	RewriteRule ^(.+).html?(.*)$ index.php?name=$1 [NE,NC,L,QSA]
 	
 </IfModule>

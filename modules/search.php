@@ -6,6 +6,7 @@
 	$sql = "SELECT * FROM `".dbPrefix."data` WHERE 1 ";
 	if(isset($query["title"]) && strlen($query["title"]) > 1){
 		$qTitle = $query["title"];
+		$qTitle = str_replace('-', ' ', renameTitle($qTitle));
 		$sql .= "AND ( `title` LIKE '%".$qTitle."%' OR `des` LIKE '%".$qTitle."%' )";
 		$checkS = true;
 		$params = "title=".$qTitle;

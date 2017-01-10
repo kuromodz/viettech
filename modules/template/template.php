@@ -4,7 +4,7 @@
   <?php } ?>
 
   #infoPage{display:none}
-  #scrollPage{position:fixed;right:10px;bottom:30px;z-index:999;display:none;}
+  #scrollPage{position:fixed;right:10px;bottom:40px;z-index:999;display:none;}
   .iconFixed{border:solid 1px #ccc;padding:9px 10px 9px 32px;width:0;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-webkit-transition:all .5s;-moz-transition:all .5s;transition:all .5s}
   .shopFixed{right:5px;top:110px}
   .phoneFixed a{color:#fff;font-size:20px;}

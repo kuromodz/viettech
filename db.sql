@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 23, 2016 at 09:15 AM
+-- Generation Time: Jan 10, 2017 at 09:49 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -346,7 +346,7 @@ CREATE TABLE IF NOT EXISTS `vt_data` (
   `cart` int(11) NOT NULL,
   `address` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `company` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `name` text NOT NULL,
+  `name` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `vip` tinyint(1) NOT NULL,
   `hot` tinyint(1) NOT NULL,
   `f1` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -363,14 +363,16 @@ CREATE TABLE IF NOT EXISTS `vt_data` (
   `start` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `sale` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=131 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=146 ;
 
 --
 -- Dumping data for table `vt_data`
 --
 
 INSERT INTO `vt_data` (`id`, `hide`, `pos`, `time`, `menu`, `data_parent`, `view`, `type`, `title`, `tag`, `des`, `keywords`, `img`, `content`, `link`, `file`, `lang`, `phone`, `email`, `password`, `count`, `cart`, `address`, `company`, `name`, `vip`, `hot`, `f1`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `f10`, `price`, `start`, `sale`) VALUES
-(68, 0, 0, '', 1, 0, 0, 'slide', '', '', '', '', '1-07-12-2016-15-25-15.jpg', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0);
+(68, 0, 0, '', 1, 0, 0, 'slide', '', '', '', '', '1-07-12-2016-15-25-15.jpg', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0),
+(131, 0, 0, '26/12/2016 18:03:42', 932, 0, 5, '', 'Đang cập nhật', '', '', '', 'logo-26-12-2016-18-03-42.png', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0),
+(143, 0, 0, '', 3, 0, 0, '0', '', '', '', '', 'goldmark-150_1448013025-10-01-2017-15-45-11.jpg', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0);
 
 -- --------------------------------------------------------
 
@@ -445,7 +447,7 @@ CREATE TABLE IF NOT EXISTS `vt_file_data` (
   `group` text NOT NULL,
   `pos` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `vt_file_data`
@@ -453,7 +455,8 @@ CREATE TABLE IF NOT EXISTS `vt_file_data` (
 
 INSERT INTO `vt_file_data` (`id`, `parent`, `title`, `name`, `col`, `type`, `group`, `pos`) VALUES
 (6, 4, 'Slide', 'slide', '', 'listImg', '', 0),
-(7, 15, 'Đang cập nhật', 'dang-cap-nhat', 'file', 'file', 'listF', 0);
+(7, 15, 'Đang cập nhật', 'dang-cap-nhat', 'file', 'file', 'listF', 0),
+(8, 4, 'ahihi', 'none', '', 'listImg', '', 0);
 
 -- --------------------------------------------------------
 
@@ -473,7 +476,7 @@ CREATE TABLE IF NOT EXISTS `vt_menu` (
   `img` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `file` text NOT NULL,
   `href` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `name` text NOT NULL,
+  `name` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `content` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `f10` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `f9` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -489,7 +492,7 @@ CREATE TABLE IF NOT EXISTS `vt_menu` (
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
   KEY `id_2` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=934 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=935 ;
 
 --
 -- Dumping data for table `vt_menu`
@@ -507,7 +510,8 @@ INSERT INTO `vt_menu` (`id`, `menu_parent`, `hide`, `pos`, `title`, `des`, `ico`
 (926, 0, 0, 2, 'Điều khoản', '', 'fa fa-exclamation-circle', '', '', 'content', '', 'dieu-khoan', '', '', '', '', '', '', '', '', '', '', '', ''),
 (927, 0, 0, 3, 'Sản phẩm', '', '1', '', 'amd-logo-23-12-2016-12-31-54.png', 'product', '', 'san-pham', '', '', '', '', '', '', '', '', '<p>sdfdsfsdf</p>\r\n', '', '', ''),
 (932, 927, 0, 0, 'Đang cập nhật', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(933, 927, 0, 0, 'Đang cập nhật', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+(933, 927, 0, 0, 'Đang cập nhật', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(934, 0, 0, 0, 'Shop', '', '', '', '', 'shop', '', 'shop', '', '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 

@@ -1,4 +1,4 @@
-<a class="btn btn-white visible-xs visible-sm" target="_blank" href="intent:#Intent;action=com.zing.zalo.intent.action.SEND;type=text/plain;S.android.intent.extra.SUBJECT=Zalo Article;S.android.intent.extra.TEXT=<?=pageUrl()?>;B.postFeed=true;B.backToSource=true;end"><img class="fa fa-fw" src="admin/assets/images/zalo.png"></a>
+<a target="_blank" href="intent:#Intent;action=com.zing.zalo.intent.action.SEND;type=text/plain;S.android.intent.extra.SUBJECT=Zalo Article;S.android.intent.extra.TEXT=<?=pageUrl()?>;B.postFeed=true;B.backToSource=true;end"><img src="admin/assets/images/zalo.png"></a>
 <a target="_blank" class="btn btn-default button_facebook" href="https://www.facebook.com/dialog/share?app_id=140586622674265&display=popup&href=<?=pageUrl()?>"><i class="fa fa-facebook fa-fw"></i></a>
 <a target="_blank" class="btn btn-default button_twitter" href="http://www.twitter.com/share?url=<?=pageUrl()?>"><i class="fa fa-twitter fa-fw"></i> </a>
 <a target="_blank" class="btn btn-default button_google_plusone_share" href="https://plus.google.com/share?url=<?=pageUrl()?>"><i class="fa fa-google-plus fa-fw"></i> </a>
