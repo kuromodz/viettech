@@ -48,7 +48,7 @@
 									$allListMenuChild = $db->allListMenuChild($value,$allListMenuChild);
 									$allListDataChild = $db->allListDataChild($value);
 									foreach($allListMenuChild as $menu){
-										if($menu->id !== 0 && $menu->id !== '0' && $menu->id !== ''){
+										if($menu->menu_parent !== 0 && $menu->menu_parent !== '0' && $menu->menu_parent !== ''){
 											$sql.='DELETE FROM `'.dbPrefix.'menu` WHERE `menu_parent` = "'.$menu->id.'"; ';
 											$sql.='DELETE FROM `'.dbPrefix.'data` WHERE `menu` = "'.$menu->id.'"; ';
 										}

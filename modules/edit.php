@@ -229,7 +229,7 @@
           <div class="box-header">
             <h3 class="box-title">
               <?php if(!count($listMenuChild)){ ?>
-              <a <?=linkAddId($idList,$name) ?> >
+              <a <?=linkAddId($idList) ?> >
                 <i class="fa fa-plus"></i> Thêm <?=strtolower($menuPage->title)?> (<?=count($listData); ?>)
               </a>
               <div class="pull-right">
