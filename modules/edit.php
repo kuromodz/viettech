@@ -111,7 +111,7 @@
                   <td><img style="height:50px;" src="../upload/<?=$data->img ?>" class="img-responsive"></td>
                   <td><input class="form-control" type="text" name="listRow[data][<?=$data->id?>][title]" value="<?=$data->title?>" /></td>
                   <td class="action">
-                    <a <?=linkDelId($data->id,$name); ?>><i class="fa fa-trash"></i></a>
+                    <a <?=linkDelId($data->id); ?>><i class="fa fa-trash"></i></a>
                   </td>
                 </tr>
                 <?php } ?>
@@ -289,7 +289,7 @@
                 <td><a <?=linkIdList($menuParent,$name); ?> ><?=$menuParent->title?></a></td>
                 <td class="action">
                   <a <?=linkId($data, $name); ?> class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                  <a <?=linkDelId($data->id,$name); ?>><i class="fa fa-trash"></i></a>
+                  <a <?=linkDelId($data->id); ?>><i class="fa fa-trash"></i></a>
                 </td>
               </tr>
               <?php } ?>
