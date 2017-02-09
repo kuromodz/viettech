@@ -24,7 +24,6 @@ if (isset($_GET['do'])) {
     }
     $listPass = array('post','contact','register','login');
     if(in_array($do,$listPass)) $checkAdmin = true;
-    var_dump($checkAdmin);
     if($checkAdmin){
         switch ($do) {
             case 'post':
