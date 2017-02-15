@@ -1,7 +1,7 @@
 <div id="infoPage" data-title="<?=$title?>" data-name="<?=$name?>" data-table="<?=(isset($id))?'data':'menu'?>" data-idList="<?php if(isset($idList)){echo $idList;}?>" data-id="<?php if(isset($id)){echo $id;}?>" ></div>
     <section id='sidebar'>
         <ul id='dock' class="navAjax sortAjax" data-active='active'>
-            <?php $key=1; foreach($listMenuAdmin as $menu){ if($menu->file !=='search' && $menu->file !=='config'){
+            <?php $key=1; foreach($listMenuAdmin as $menu){ if($menu->file !=='search' && $menu->file !=='config' && ($author == 'admin' || (isset($author->type) && (in_array($menu->id,explode(',',$author->type))) )) ){
                 $listData = $db->listData($menu->id);
             ?>
             <li data-name="<?=$menu->name?>" class="launcher <?=returnWhere('active',$menu->id,$menuPage->id) ?>">

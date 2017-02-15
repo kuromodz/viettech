@@ -32,7 +32,27 @@
   if(isset($configMenu) && $configMenu && ($configMenu->type == '')){
     $filePath = "../modules/edit.php";
   }
-  if(isset($_COOKIE["password"]) && $_COOKIE["password"] == $password){
+
+  $author = false;
+  if(isset($_COOKIE['password']) && isset($_COOKIE['user'])){
+    $userP = $_COOKIE['user'];
+    $pass = $_COOKIE['password'];
+  }
+
+  if(isset($userP) && isset($pass)){
+    if($pass == $password && $userP == 'admin'){
+      $author = 'admin';  
+    }else{
+      $author = $db->alone_data_where_where('data','password',$pass,'name',$userP);
+      if($author){
+        if(!in_array($menuPage->id, explode(',', $author->type))){
+          $filePath = '../modules/block-user.php';
+        }
+      }
+    }
+  }
+
+  if($author){
     if(!isset($_GET["ajax"])){
       include_once ("template/head.php");
       include_once ("template/breadcrumb.php");

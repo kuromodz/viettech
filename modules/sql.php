@@ -291,6 +291,11 @@ class DB extends database
 		$this->setQuery($sql);
 		return $this->loadRow(array($table));
 	}
+	public function alone_data_where_where($table,$where,$value,$where2,$value2){
+		$sql = "SELECT * FROM `".dbPrefix."$table` WHERE `$where` = '$value' AND `$where2` = '$value2';";
+		$this->setQuery($sql);
+		return $this->loadRow(array($table));
+	}
 	public function loadallrows_sql($sql){
 		$this->setQuery($sql);
 		return $this->loadAllRows();

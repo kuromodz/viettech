@@ -2,14 +2,29 @@
   session_start();
   include_once ("../config.php");
   include_once ("../modules/control.php");
-  if(!isset($_GET["location"])) $_GET["location"] = baseUrl.'admin/';
-  if(isset($_POST["password"])){
-    if($_POST["password"] == $password){
-      setcookie('password', $_POST["password"], time() + 36000000000,'/');
-      header("Location: ".$_GET["location"]);
+  if($_POST){
+    if($_POST['password'] !== '' && $_POST['user'] !== ''){
+      $userP = $_POST['user'];
+      $pass = $_POST['password'];
+      setcookie('password', $pass, time() + 36000000000);
+      setcookie('user', $userP, time() + 36000000000);
     }
-  }else if(isset($_COOKIE["password"]) && $_COOKIE["password"] == $password){
-    header("Location: ".$_GET["location"]);
+  }else if(isset($_COOKIE['password']) && isset($_COOKIE['user'])){
+    $userP = $_COOKIE['user'];
+    $pass = $_COOKIE['password'];
+  }
+
+  if(isset($userP) && isset($pass)){
+    if($pass == $password && $userP == 'admin'){
+      $author = 'admin';  
+    }else{
+      if($db->alone_data_where_where('data','password',$pass,'name',$userP)){
+        $author = $db->alone_data_where_where('data','password',$pass,'name',$userP);
+      }
+    }
+  }
+  if(isset($author)){
+    header("Location: .");
   }
 ?>
 <!DOCTYPE html>
@@ -39,6 +54,9 @@
       <div class='row'>
         <div class='col-md-12'>
           <form method="POST">
+            <div class='form-group'>
+              <input class='form-control' type="text" name="user" placeholder="User">
+            </div>
             <div class='form-group'>
               <input class='form-control' name="password" placeholder='Password' type='password'>
             </div>
