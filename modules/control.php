@@ -84,6 +84,17 @@
 					$array = [];
 					$dataPage = $db->list_data('page');
 				}
+				if($file == 'user'){
+					if(isset($_POST['type'])){
+						$listMenuChecked = array();
+						foreach($_POST['type'] as $key=>$type){
+							if($type == 1){
+								$listMenuChecked[] = $key;
+							}
+						}
+						$_POST['type'] = implode(',', $listMenuChecked);
+					}
+				}
 				if(isset($_FILES)){
 					foreach ($_FILES as $keyAction => $arFile) {
 						switch ($keyAction) {
@@ -295,7 +306,6 @@
 		$$nameMenu = $db->alone_data_where('menu','file',$menu->file);
 	}
 	$listImageHome = $db->list_data_where_order('file_data','type','listImg','pos','ASC');
-
 	if(count($listImageHome)){
 		$list = new stdClass;
 		foreach($listImageHome as $listImage){

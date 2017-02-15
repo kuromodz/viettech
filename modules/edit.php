@@ -230,7 +230,7 @@
             <h3 class="box-title">
               <?php if(!count($listMenuChild)){ ?>
               <a <?=linkAddId($idList) ?> >
-                <i class="fa fa-plus"></i> Thêm <?=strtolower($menuPage->title)?> (<?=count($listData); ?>)
+                <i class="fa fa-plus"></i> Thêm bài viết : <?=$page->title?> (<?=count($listData); ?>)
               </a>
               <div class="pull-right">
                 <label for="file-upload" class="custom-file-upload btn btn-info btn-sm">
