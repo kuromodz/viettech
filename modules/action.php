@@ -1,6 +1,5 @@
 <?php
 session_start();
-header('Content-Type: text/html; charset=utf-8');
 include_once('../config.php');
 include_once('sql.php');
 $db     = new DB();
@@ -11,7 +10,9 @@ if (isset($_GET['do'])) {
     $do        = $_GET['do'];
     $post      = array();
     $checkAdmin = false;
-    if (isset($_COOKIE['password'])) {
+    if (isset($_COOKIE['password']) && isset($_COOKIE['user']) ) {
+        $userP = $_COOKIE['user'];
+        $pass = $_COOKIE['password'];
         $listPage = $db->list_data('page');
         $infoPage = new stdClass();
         foreach ($listPage as $vl) {
@@ -20,7 +21,9 @@ if (isset($_GET['do'])) {
                 $infoPage->$key = $vl->content;
             }
         }
-        if($infoPage->password == $_COOKIE['password']) $checkAdmin = true;
+        if( ($pass == $infoPage->password && $userP == 'admin') || ($db->alone_data_where_where('data','password',$pass,'name',$userP)) ){
+          $checkAdmin = true;
+        }
     }
     $listPass = array('post','contact','register','login');
     if(in_array($do,$listPass)) $checkAdmin = true;
@@ -50,7 +53,6 @@ if (isset($_GET['do'])) {
                             $menuPost = $db->alone_data_where('menu','file','post');
                             $post['menu'] = $menuPost->id;
                             if($db->insertData('data',$post)){
-                                echo 'ok';
                                 //xu li up anh
                                 /*var_dump($listImg);*/
                             }

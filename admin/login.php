@@ -6,8 +6,8 @@
     if($_POST['password'] !== '' && $_POST['user'] !== ''){
       $userP = $_POST['user'];
       $pass = $_POST['password'];
-      setcookie('password', $pass, time() + 36000000000);
-      setcookie('user', $userP, time() + 36000000000);
+      setcookie('password', $pass, time() + 36000000000,'/');
+      setcookie('user', $userP, time() + 36000000000,'/');
     }
   }else if(isset($_COOKIE['password']) && isset($_COOKIE['user'])){
     $userP = $_COOKIE['user'];
