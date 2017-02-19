@@ -14,7 +14,7 @@ if(isset($thisIsProducts) && $thisIsProducts){
 			}
 		}
 	}else{ ?>
-	    <center class="wow zoomIn">
+	    <center class="wow fadeIn">
 	        <p class="text-white"><b><i class="fa fa-spin fa-spinner"></i> Đang cập nhật</b></p>
 	    </center>
 <?php 

@@ -83,7 +83,7 @@
         <img height="100" onclick="$('#input<?=$id ?>').click();" id="image<?=$id ?>" src="../upload/<?=$page->img?>">
         <input class="hidden" id="fileImg" accept="image/*" name="img" type="file" id="input<?=$id ?>" onchange="readIMG(this,'<?='image'.$id ?>');">
       </div>
-        <hr>
+      <hr>
       <?php if($configMenu->slide){ 
         $listSlide = $db->list_data_where_where('data','data_parent',$id,'type','slide');
         ?>
@@ -120,6 +120,43 @@
             </div>
         </div>
       <?php } ?>
+      <?php if($configMenu->slide2){ 
+        $listSlide2 = $db->list_data_where_where('data','data_parent',$id,'type','slide2');
+        ?>
+        <input id="fileListSlide2" class="hidden" type="file" name="slide2Data[]" multiple="" accept="image/*" />
+        <label class="btn btn-info" for="fileListSlide2"><i class="fa fa-upload"></i> Up hình slide2 : </label>
+        <button class="btn btn-success selectAll" data-target="#tableSlide2 > tbody > tr" type="button"><i class="fa fa-check-square-o"></i> Chọn tất cả</button>  
+        <button class="btn btn-danger delAll"  data-target="#tableSlide2 >tbody > tr.selected" type="button"><i class="fa fa-trash"></i> Xóa đã chọn</button>
+        <div class="box">
+            <div class="box-body">
+              <table id="tableSlide2" class="table slide2">
+                <thead>
+                  <tr>
+                    <th width="10px">#</th>
+                    <th width="100px"><i class="fa fa-picture-o"></i> Hình</th>
+                    <th>Tiêu đề</th>
+                    <th width="100px"><i class="fa fa-trash"></i> Xóa</th>
+                  </tr>
+                </thead>
+                <tbody class="sortAjax">
+                <?php
+                  foreach($listSlide2 as $key=>$data){
+                ?>
+                <tr align="center" data-name="data" data-id="<?=$data->id ?>">
+                  <td><?=$key+1; ?></td>
+                  <td><img style="height:50px;" src="../upload/<?=$data->img ?>" class="img-responsive"></td>
+                  <td><input class="form-control" type="text" name="listRow[data][<?=$data->id?>][title]" value="<?=$data->title?>" /></td>
+                  <td class="action">
+                    <a <?=linkDelId($data->id); ?>><i class="fa fa-trash"></i></a>
+                  </td>
+                </tr>
+                <?php } ?>
+                </tbody>
+              </table>
+            </div>
+        </div>
+      <?php } ?>
+
     </div>
     <?php if($configMenu->tab){$listData = $db->list_data_where_where('data','data_parent',$id,'type',''); ?>
     <div class="col-md-12">

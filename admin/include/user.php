@@ -80,7 +80,7 @@ if(isset($id)){
           </a>
         </td>
        <td class="action">
-        <a <?php linkDelId($data->id); ?>><i class="fa fa-trash"></i></a>
+        <a <?=linkDelId($data->id); ?>><i class="fa fa-trash"></i></a>
        </td>
       </tr>
     <?php } ?>
