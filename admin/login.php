@@ -24,7 +24,11 @@
     }
   }
   if(isset($author)){
-    header("Location: .");
+      $location = '.';
+    if(isset($_GET['location'])){
+      $location = $_GET['location'];
+    }
+    header("Location: ".$location);
   }
 ?>
 <!DOCTYPE html>
