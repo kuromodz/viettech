@@ -120,7 +120,7 @@
             </div>
         </div>
       <?php } ?>
-      <?php if($configMenu->slide2){ 
+      <?php if(isset($configMenu->slide2) && $configMenu->slide2){ 
         $listSlide2 = $db->list_data_where_where('data','data_parent',$id,'type','slide2');
         ?>
         <input id="fileListSlide2" class="hidden" type="file" name="slide2Data[]" multiple="" accept="image/*" />
