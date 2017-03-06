@@ -31,7 +31,7 @@ $listData = $db->listDataChild($id); ?>
   
    <td>
       <a <?=linkId($sp,$menuParent->name); ?>>
-        <img style="height:50px;" <?php srcImg($sp); ?>/>
+        <img style="height:50px;" <?=srcImg($sp); ?>/>
       </a>
    </td>
    <td><a <?=linkId($sp,$menuParent->name); ?>><?=$sp->title ?></a></td>

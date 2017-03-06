@@ -27,7 +27,7 @@
                 <td><img style="height:50px;" src="../upload/<?=$data->img ?>" class="img-responsive"></td>
                 <td><input type="text" class="form-control" name="listRow[data][<?=$data->id ?>][link]" value="<?=$data->link ?>"  /></td>
                 <td class="action">
-                  <a <?=linkDelId($data->id,$name); ?>><i class="fa fa-trash"></i></a>
+                  <a <?=linkDelId($data->id); ?>><i class="fa fa-trash"></i></a>
                 </td>
               </tr>
               <?php } ?>
