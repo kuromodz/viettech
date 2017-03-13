@@ -8,23 +8,12 @@
       $pass = $_POST['password'];
       setcookie('password', $pass, time() + 36000000000,'/');
       setcookie('user', $userP, time() + 36000000000,'/');
+      header("Refresh:0");
     }
-  }else if(isset($_COOKIE['password']) && isset($_COOKIE['user'])){
-    $userP = $_COOKIE['user'];
-    $pass = $_COOKIE['password'];
   }
 
-  if(isset($userP) && isset($pass)){
-    if($pass == $password && $userP == 'admin'){
-      $author = 'admin';  
-    }else{
-      if($db->alone_data_where_where('data','password',$pass,'name',$userP)){
-        $author = $db->alone_data_where_where('data','password',$pass,'name',$userP);
-      }
-    }
-  }
-  if(isset($author)){
-      $location = '.';
+  if($author){
+    $location = '.';
     if(isset($_GET['location'])){
       $location = $_GET['location'];
     }

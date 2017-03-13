@@ -1,5 +1,21 @@
 <?php
 	$errorPage = false;
+	$listPage = $db->list_data('page');
+	$infoPage = new stdClass();
+	foreach ($listPage as $vl) {
+		$key = $vl->name;
+		if(strlen($key)){
+			$infoPage->$key = $vl->content;
+		}
+	}
+	$author = false;
+	if(isset($_COOKIE['user']) && isset($_COOKIE['password'])){
+		if($_COOKIE['password'] == $infoPage->password && $_COOKIE['user'] == 'admin'){
+		  $author = 'admin';
+		}else{
+		  $author = $db->alone_data_where_where('data','password',$_COOKIE['password'],'name',$_COOKIE['user']);
+		}
+	}
 	if( isset($name) ) {
 		$menuPage = $db->alone_data_where('menu','name',$name);
 		if($menuPage){
@@ -44,20 +60,22 @@
 							if(isset($data->img)) delImg($data->img);
 							switch ($table) {
 								case 'menu':
-									$allListMenuChild = array();
-									$allListMenuChild = $db->allListMenuChild($value,$allListMenuChild);
-									$allListDataChild = $db->allListDataChild($value);
-									foreach($allListMenuChild as $menu){
-										if($menu->id !== 0 && $menu->menu_parent !== 0 && $menu->menu_parent !== '0' && $menu->menu_parent !== ''){
-											$sql.='DELETE FROM `'.dbPrefix.'menu` WHERE `menu_parent` = "'.$menu->id.'"; ';
-											$sql.='DELETE FROM `'.dbPrefix.'data` WHERE `menu` = "'.$menu->id.'"; ';
+									if($value !== '0' && $value !== 0 && $value !== ''){
+										$allListMenuChild = array();
+										$allListMenuChild = $db->allListMenuChild($value,$allListMenuChild);
+										$allListDataChild = $db->allListDataChild($value);
+										foreach($allListMenuChild as $menu){
+											if($menu->id !== 0 && $menu->menu_parent !== 0 && $menu->menu_parent !== '0' && $menu->menu_parent !== ''){
+												$sql.='DELETE FROM `'.dbPrefix.'menu` WHERE `menu_parent` = "'.$menu->id.'"; ';
+												$sql.='DELETE FROM `'.dbPrefix.'data` WHERE `menu` = "'.$menu->id.'"; ';
+											}
 										}
+										$sql.='DELETE FROM `'.dbPrefix.'data` WHERE `data_parent` = -1 '; 
+										foreach($allListDataChild as $data){
+											$sql.=' OR `data_parent` = '.$data->id;
+										}
+										$sql.=' ; ';
 									}
-									$sql.='DELETE FROM `'.dbPrefix.'data` WHERE `data_parent` = -1 '; 
-									foreach($allListDataChild as $data){
-										$sql.=' OR `data_parent` = '.$data->id;
-									}
-									$sql.=' ; ';
 									break;
 								case 'data':
 									$sql.='DELETE FROM `'.dbPrefix.'data` WHERE `data_parent` = "'.$value.'"; ';
@@ -263,21 +281,12 @@
 	$listMenu = $db->list_data_where_where_order('menu','menu_parent',0,'hide',0,'pos','ASC');
 	$listMenuAdmin = $db->list_data_where_order('menu','menu_parent',0,'pos','ASC');
 	$allListMenu = $db->allListMenu();
-	$listPage = $db->list_data('page');
-
 	$listConfig = $db->list_data('config');
 	$config = new stdClass();
 	foreach ($listConfig as $vl) {
 		$key = $vl->name;
 		if(strlen($key)){
 			$config->$key = $vl->value;
-		}
-	}
-	$infoPage = new stdClass();
-	foreach ($listPage as $vl) {
-		$key = $vl->name;
-		if(strlen($key)){
-			$infoPage->$key = $vl->content;
 		}
 	}
 
@@ -315,5 +324,4 @@
 			}
 		}
 	}
-	
 ?>

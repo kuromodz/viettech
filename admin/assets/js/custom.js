@@ -1,5 +1,7 @@
 function goToTop(){
-    $('html,body').animate({scrollTop: 0}, 300);
+    $('html,body').animate({
+        scrollTop: $(".contentAjax").offset().top
+    }, 300);
 }
 function pageUrl(){
     return document.URL;
@@ -50,13 +52,15 @@ function checkForm(element) {
   });
   return isValid;
 }
-function addCart(id,thisE){
+function addCart(id,thisE,totalData = 1){
     var cartCookie = readCookie('cart');
     var listCart = [];
     if(cartCookie){
         listCart = cartCookie.split(',');
     }
-    listCart.push(id);
+    for(var i =0 ;i<totalData;i++){
+        listCart.push(id);
+    }
     createCookie('cart',listCart);
     
     var itemImg = $(thisE);
@@ -72,12 +76,12 @@ function clearCart(id){
         }
         $('#data'+id).remove();
         if(listCart.length == 0){
-            $('a[data-name=gio-hang]').click();
+            getAjax(document.URL);
         }
         createCookie('cart',listCart);
     }else{
        createCookie('cart','');
-       $('a[data-name=gio-hang]').click();
+       getAjax(document.URL);
     }
 }
 function createCookie(name,value) {

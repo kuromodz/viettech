@@ -29,6 +29,44 @@ if (isset($_GET['do'])) {
     if(in_array($do,$listPass)) $checkAdmin = true;
     if($checkAdmin){
         switch ($do) {
+            case 'cart':
+                $menuShop = $db->alone_data_where("menu","file","shop");
+                if($menuShop){
+                    foreach($_POST as $key=>$data){
+                        if($data !== '' && !is_array($data)){
+                            $post[$key] = $data;
+                        }
+                    }
+                    if(count($post) > 3 && count($_POST['cart'])){
+                        $post['time'] = timeNow();
+                        $post["menu"] = $menuShop->id;
+                        if($db->insertData('data',$post)){
+                            $dataParent = $db->getLastId();
+                            $postChild = array();
+                            foreach($_POST["cart"] as $id=>$cartData){
+                                $postChild["cart"] = $id;
+                                $postChild["data_parent"] = $dataParent;
+                                $postChild["count"] = $_POST["count"][$id];
+                                if($db->insertData('data',$postChild)){
+                                    $result['text'] = 'Cám ơn quý khách đã đặt hàng ! Chúng tôi sẽ liên hệ lại sớm nhất !';
+                                    $result['error'] = 0;
+                                }else{
+                                    var_dump($db->insertDataError('data',$postChild));
+                                }
+                            }
+                            
+                        }else{
+                            var_dump($db->insertDataError('data',$post));
+                            $result['text'] = 'Action.php Error 111 !';
+                        }
+                    }else{
+                        $result['text'] = 'Quý khách vui lòng điền đầy đủ thông tin !';
+                    }
+                }else{
+                    $result['text'] = 'Chưa cấu hình Giỏ hàng !';
+                }
+            break;
+
             case 'post':
                 $countF = count((array)$listF);
                 if(isset($_POST['listImg']) && (count($_POST) > $countF) ){

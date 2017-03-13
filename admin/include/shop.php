@@ -4,8 +4,8 @@ if(count($listData)){
 ?>
 <?php if(isset($id)){ 
 $cartData = $db->alone_data_where('data','id',$id);
-$listData = $db->listDataChild($id); ?>
-
+$listData = $db->listDataChild($id);
+?>
 <h3><b>Khách hàng: <?=$cartData->title ?></b></h3>
 <p><i class="fa fa-phone"></i> Số điện thoại: <?=$cartData->phone ?></p>
 <p><i class="fa fa-envelope"></i> Số điện thoại: <?=$cartData->email ?></p>
@@ -36,7 +36,7 @@ $listData = $db->listDataChild($id); ?>
    </td>
    <td><a <?=linkId($sp,$menuParent->name); ?>><?=$sp->title ?></a></td>
    <td><?=$sp->price?></td>
-   <td><?=$purifier->purify($data->count)?></td>
+   <td><?=($data->count)?></td>
   </tr>
   
   <?php } ?>
@@ -69,16 +69,16 @@ $listData = $db->listDataChild($id); ?>
       foreach($listData as $key=>$data){
     ?>
     <tr align="center" data-id="<?=$data->id?>">
-     <td><?=$purifier->purify($data->title)?></td>
-     <td><?=$purifier->purify($data->phone)?></td>
-     <td><?=$purifier->purify($data->email)?></td>
-     <td><?=$purifier->purify($data->content)?></td>
-     <td><?=$purifier->purify($data->address)?></td>
-     <td><?=$purifier->purify($data->price)?></td>
-     <td><?=$purifier->purify($data->time)?></td>
+     <td><?=($data->title)?></td>
+     <td><?=($data->phone)?></td>
+     <td><?=($data->email)?></td>
+     <td><?=($data->content)?></td>
+     <td><?=($data->address)?></td>
+     <td><?=($data->price)?></td>
+     <td><?=($data->time)?></td>
      <td class="action">
       <a <?=linkId($data, $name); ?> class="btn btn-primary"><i class="fa fa-eye"></i></a>
-      <a <?=linkDelId($data->id,$name); ?>><i class="fa fa-trash"></i></a>
+      <a <?=linkDelId($data->id); ?>><i class="fa fa-trash"></i></a>
      </td>
     </tr>
     <?php } ?>
