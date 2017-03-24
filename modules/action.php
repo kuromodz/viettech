@@ -144,12 +144,12 @@ if (isset($_GET['do'])) {
                   if(is_file($file)){
                     $check = false;
                     $img = str_replace('../upload/','',$file);
-                    if($db->alone_data_where('data','img',$img)){
+                    if($db->alone_data_where_search('data','img',$img)){
                         $check = true;
-                    }else if($db->alone_data_where('menu','img',$img)){
+                    }else if($db->alone_data_where_search('menu','img',$img)){
                         $check = true;
                     }else{
-                        if($db->alone_data_where('page','content',$img)) $check = true;
+                        if($db->alone_data_where_search('page','content',$img)) $check = true;
                     }
                     if(!$check){
                         unlink($file);
