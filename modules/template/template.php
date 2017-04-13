@@ -21,7 +21,7 @@
   #search input[type=search]:focus{width:130px;padding-left:32px;color:#000;background-color:#fff;cursor:auto}
   #search input:-moz-placeholder{color:transparent}
   #search input::-webkit-input-placeholder{color:transparent}
-  .contentAjax img{max-width:100%;}
+  .contentAjax,.contentAjax img{max-width:100%;}
 </style>
 
 <script type="text/javascript">

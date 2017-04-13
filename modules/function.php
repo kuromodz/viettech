@@ -409,7 +409,7 @@ function watermark($SourceFile, $WatermarkFile, $SaveToFile = NULL)
     imagedestroy($watermark); 
     if(!($SaveToFile)) exit; 
 }
-function srcLogo($infoPage,$logo = 'banner'){
+function srcLogo($infoPage,$logo = 'logo'){
     echo "src='upload/".$infoPage->$logo."' title='".$infoPage->title."' alt='".$infoPage->title."'";
 }
 function convertToObject($array) {

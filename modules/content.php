@@ -1,5 +1,5 @@
 <?php
-    if(!$errorPage){ 
+    if(isset($configMenu) && !$errorPage){ 
 ?>
 <div hidden>
     <h1><?=$title?></h1>

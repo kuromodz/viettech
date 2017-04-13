@@ -1,6 +1,6 @@
 function goToTop(){
     $('html,body').animate({
-        scrollTop: $(".contentAjax").offset().top
+        scrollTop: $("html").offset().top
     }, 300);
 }
 function pageUrl(){

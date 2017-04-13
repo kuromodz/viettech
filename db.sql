@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2017 at 09:49 AM
+-- Generation Time: Apr 10, 2017 at 05:31 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `viettech`
+-- Database: `dinhvi`
 --
 
 -- --------------------------------------------------------
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `vt_config` (
   `type` text NOT NULL,
   `file` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `vt_config`
@@ -61,7 +61,8 @@ INSERT INTO `vt_config` (`id`, `title`, `des`, `name`, `group`, `value`, `type`,
 (21, 'Html Content Heading', '<i class="fa fa-home"></i> » breadcrumb » breadcrumb » breadcrumb » breadcrumb » breadcrumb » ...', 'contentHead', '', '    &#60;/h2&#62;\r\n&#60;/div&#62;\r\n&#60;section id="best-features"&#62;\r\n	&#60;div class="row"&#62;', 'codeEditor', 'config'),
 (22, 'Html Content Footer', 'Nội dung (Có thể là danh sách bài viết hoặc bài viết...)', 'contentFooter', '', '    &#60;/div&#62;\r\n&#60;/section&#62;', 'codeEditor', 'config'),
 (23, 'Không có giao diện mobile', '', 'notMobile', '', '0', '', 'config'),
-(24, 'Chống copy bài viết', '', 'blockCopy', '', '0', '', 'config');
+(24, 'Chống copy bài viết', '', 'blockCopy', '', '0', '', 'config'),
+(25, 'Slide 2', '', 'slide2', '', '', '', 'idList');
 
 -- --------------------------------------------------------
 
@@ -363,16 +364,18 @@ CREATE TABLE IF NOT EXISTS `vt_data` (
   `start` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `sale` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=146 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=178 ;
 
 --
 -- Dumping data for table `vt_data`
 --
 
 INSERT INTO `vt_data` (`id`, `hide`, `pos`, `time`, `menu`, `data_parent`, `view`, `type`, `title`, `tag`, `des`, `keywords`, `img`, `content`, `link`, `file`, `lang`, `phone`, `email`, `password`, `count`, `cart`, `address`, `company`, `name`, `vip`, `hot`, `f1`, `f2`, `f3`, `f4`, `f5`, `f6`, `f7`, `f8`, `f9`, `f10`, `price`, `start`, `sale`) VALUES
-(68, 0, 0, '', 1, 0, 0, 'slide', '', '', '', '', '1-07-12-2016-15-25-15.jpg', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0),
-(131, 0, 0, '26/12/2016 18:03:42', 932, 0, 5, '', 'Đang cập nhật', '', '', '', 'logo-26-12-2016-18-03-42.png', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0),
-(143, 0, 0, '', 3, 0, 0, '0', '', '', '', '', 'goldmark-150_1448013025-10-01-2017-15-45-11.jpg', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0);
+(172, 0, 0, '06/03/2017 21:50:27', 936, 0, 2, '', 'Đang cập nhật', '', '', '', '', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0),
+(173, 0, 0, '', 936, 0, 0, '', 'Đang cập nhật', '', '', '', '', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0),
+(174, 0, 0, '', 936, 0, 0, '', 'Đang cập nhật', '', '', '', '', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0),
+(170, 0, 0, '02/03/2017 10:34:52', 932, 0, 3, '', 'Đang cập nhật', '', '', '', '', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0),
+(171, 0, 0, '02/03/2017 10:34:54', 936, 0, 3, '', 'Đang cập nhật', '', '', '', '', '', '', '', '', '', '', '', 0, 0, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', '', 0, '', 0);
 
 -- --------------------------------------------------------
 
@@ -396,6 +399,7 @@ CREATE TABLE IF NOT EXISTS `vt_file` (
   `showImage` tinyint(1) NOT NULL,
   `showImageMenu` tinyint(1) NOT NULL,
   `slide` tinyint(1) NOT NULL,
+  `slide2` text NOT NULL,
   `orderProduct` tinyint(1) NOT NULL,
   `tab` tinyint(1) NOT NULL,
   `maxWidth` int(11) NOT NULL,
@@ -409,27 +413,27 @@ CREATE TABLE IF NOT EXISTS `vt_file` (
 -- Dumping data for table `vt_file`
 --
 
-INSERT INTO `vt_file` (`headHtml`, `footerHtml`, `id`, `title`, `file`, `hide`, `type`, `customTemplate`, `customHtml`, `onlyContent`, `showList`, `multiMenu`, `showImage`, `showImageMenu`, `slide`, `orderProduct`, `tab`, `maxWidth`, `maxHeight`, `listHtml`, `boxHtml`) VALUES
-('', '', 1, 'Hiển thị sản phẩm', 'product', 0, '', 0, '', 0, 1, 0, 0, 0, 0, 0, 0, 250, 250, '&#60;?php include(''views/include/contentList.php''); ?&#62;', '&#60;?php include(''views/include/contentBox.php''); ?&#62;'),
-('&#60;div class="row"&#62;', '    &#60;/ul&#62;\r\n&#60;/div&#62;', 2, 'Hiển thị tin tức', 'news', 0, '', 0, '', 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, '&#60;div class="col-xs-12 col-sm-4"&#62;\r\n    &#60;div class="news-item"&#62;\r\n        &#60;a class="news-thumbnail" &#60;?=linkId($data,$name)?&#62; &#62;\r\n        	&#60;img class="img-responsive" &#60;?=srcImg($data)?&#62; &#62;\r\n        &#60;/a&#62;\r\n        &#60;h2 class="news-title"&#62;&#60;a &#60;?=linkId($data,$name)?&#62;&#62;&#60;?=$data-&#62;title?&#62;&#60;/a&#62;&#60;/h2&#62;\r\n        &#60;div class="description" style="text-align:justify;"&#62;&#60;?=$data-&#62;des?&#62;&#60;/div&#62;\r\n        &#60;div class="clearfix"&#62;&#60;/div&#62;\r\n    &#60;/div&#62;\r\n&#60;/div&#62;', '&#60;?=$page-&#62;content?&#62;'),
-('', '', 3, 'Hiển thị nội dung', 'content', 0, '', 0, '&#225;dsad', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
-('', '', 4, 'Liên hệ', 'contact', 0, 'custom', 1, '&#60;?php include(''views/include/contact.php''); ?&#62;', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 5, 'Thư viện', 'picture', 0, '', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 6, 'Hiển thị video', 'video', 0, '', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 7, 'Giỏ hàng', 'shop', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 8, 'Site Map', 'sitemap', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 9, 'Thành viên', 'user', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 10, 'Đăng ký', 'register', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 11, 'Đăng nhập', 'login', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 12, 'Thiết kế', 'design', 0, '', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 13, 'Ký gửi', 'post', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 15, 'Download', 'download', 0, '', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 200, 200, '&#60;div class="col-xs-12 col-sm-4"&#62;\r\n    &#60;div class="news-item"&#62;\r\n        &#60;a class="news-thumbnail" href="upload/&#60;?=$data-&#62;file?&#62;" target="_blank" &#62;\r\n        	&#60;img class="img-responsive" &#60;?=srcImg($data)?&#62; &#62;\r\n        &#60;/a&#62;\r\n        &#60;h2 class="news-title"&#62;&#60;a href="upload/&#60;?=$data-&#62;file?&#62;" target="_blank"&#62;&#60;?=$data-&#62;title?&#62;&#60;/a&#62;&#60;/h2&#62;\r\n        &#60;div class="description" style="text-align:justify;"&#62;&#60;?=$data-&#62;des?&#62;&#60;/div&#62;\r\n        &#60;div class="clearfix"&#62;&#60;/div&#62;\r\n    &#60;/div&#62;\r\n&#60;/div&#62;', ''),
-('', '', 16, 'Hiển thị hỗ trợ', 'support', 0, '', 0, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, '&#60;?php include(''views/include/contentList.php''); ?&#62;', ''),
-('', '', 17, 'Hiển thị địa điểm', 'map', 0, '', 0, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, '', ''),
-('', '', 18, 'Ngôn ngữ', 'lang', 0, 'custom', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 19, 'Trang chủ', 'home', 1, 'custom', 1, '&#60;?php include(''views/include/home.php'') ?&#62;', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 21, 'Tìm kiếm', 'search', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '0', '0'),
-('', '', 22, 'Không tìm thấy trang', '404', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '');
+INSERT INTO `vt_file` (`headHtml`, `footerHtml`, `id`, `title`, `file`, `hide`, `type`, `customTemplate`, `customHtml`, `onlyContent`, `showList`, `multiMenu`, `showImage`, `showImageMenu`, `slide`, `slide2`, `orderProduct`, `tab`, `maxWidth`, `maxHeight`, `listHtml`, `boxHtml`) VALUES
+('', '', 1, 'Hiển thị sản phẩm', 'product', 0, '', 0, '', 0, 1, 0, 0, 0, 0, '0', 0, 0, 250, 250, '&#60;?php include(''views/include/contentList.php''); ?&#62;', '&#60;?php include(''views/include/contentBox.php''); ?&#62;'),
+('&#60;div class="row"&#62;', '    &#60;/ul&#62;\r\n&#60;/div&#62;', 2, 'Hiển thị tin tức', 'news', 0, '', 0, '', 0, 0, 0, 0, 1, 0, '', 0, 0, 0, 0, '&#60;div class="col-xs-12 col-sm-4"&#62;\r\n    &#60;div class="news-item"&#62;\r\n        &#60;a class="news-thumbnail" &#60;?=linkId($data,$name)?&#62; &#62;\r\n        	&#60;img class="img-responsive" &#60;?=srcImg($data)?&#62; &#62;\r\n        &#60;/a&#62;\r\n        &#60;h2 class="news-title"&#62;&#60;a &#60;?=linkId($data,$name)?&#62;&#62;&#60;?=$data-&#62;title?&#62;&#60;/a&#62;&#60;/h2&#62;\r\n        &#60;div class="description" style="text-align:justify;"&#62;&#60;?=$data-&#62;des?&#62;&#60;/div&#62;\r\n        &#60;div class="clearfix"&#62;&#60;/div&#62;\r\n    &#60;/div&#62;\r\n&#60;/div&#62;', '&#60;?=$page-&#62;content?&#62;'),
+('', '', 3, 'Hiển thị nội dung', 'content', 0, '', 0, '&#225;dsad', 1, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '', ''),
+('', '', 4, 'Liên hệ', 'contact', 0, 'custom', 1, '&#60;?php include(''views/include/contact.php''); ?&#62;', 0, 1, 0, 0, 0, 0, '', 0, 0, 0, 0, '0', '0'),
+('', '', 5, 'Thư viện', 'picture', 0, '', 0, '', 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '0', '0'),
+('', '', 6, 'Hiển thị video', 'video', 0, '', 0, '', 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '0', '0'),
+('', '', 7, 'Giỏ hàng', 'shop', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '0', '0'),
+('', '', 8, 'Site Map', 'sitemap', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '0', '0'),
+('', '', 9, 'Thành viên', 'user', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '0', '0'),
+('', '', 10, 'Đăng ký', 'register', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '0', '0'),
+('', '', 11, 'Đăng nhập', 'login', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '0', '0'),
+('', '', 12, 'Thiết kế', 'design', 0, '', 0, '', 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '0', '0'),
+('', '', 13, 'Ký gửi', 'post', 0, 'block', 0, '', 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '0', '0'),
+('', '', 15, 'Download', 'download', 0, '', 0, '', 0, 0, 0, 0, 0, 0, '', 0, 0, 200, 200, '&#60;div class="col-xs-12 col-sm-4"&#62;\r\n    &#60;div class="news-item"&#62;\r\n        &#60;a class="news-thumbnail" href="upload/&#60;?=$data-&#62;file?&#62;" target="_blank" &#62;\r\n        	&#60;img class="img-responsive" &#60;?=srcImg($data)?&#62; &#62;\r\n        &#60;/a&#62;\r\n        &#60;h2 class="news-title"&#62;&#60;a href="upload/&#60;?=$data-&#62;file?&#62;" target="_blank"&#62;&#60;?=$data-&#62;title?&#62;&#60;/a&#62;&#60;/h2&#62;\r\n        &#60;div class="description" style="text-align:justify;"&#62;&#60;?=$data-&#62;des?&#62;&#60;/div&#62;\r\n        &#60;div class="clearfix"&#62;&#60;/div&#62;\r\n    &#60;/div&#62;\r\n&#60;/div&#62;', ''),
+('', '', 16, 'Hiển thị hỗ trợ', 'support', 0, '', 0, '', 0, 1, 0, 0, 0, 0, '', 0, 0, 0, 0, '&#60;?php include(''views/include/contentList.php''); ?&#62;', ''),
+('', '', 17, 'Hiển thị địa điểm', 'map', 0, '', 0, '', 0, 1, 0, 0, 0, 0, '', 0, 0, 0, 0, '', ''),
+('', '', 18, 'Ngôn ngữ', 'lang', 0, 'custom', 0, '', 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '0', '0'),
+('', '', 19, 'Trang chủ', 'home', 1, 'custom', 1, '&#60;?php include(''views/include/home.php'') ?&#62;', 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '0', '0'),
+('', '', 21, 'Tìm kiếm', 'search', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '0', '0'),
+('', '', 22, 'Không tìm thấy trang', '404', 1, 'block', 0, '', 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -447,16 +451,15 @@ CREATE TABLE IF NOT EXISTS `vt_file_data` (
   `group` text NOT NULL,
   `pos` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `vt_file_data`
 --
 
 INSERT INTO `vt_file_data` (`id`, `parent`, `title`, `name`, `col`, `type`, `group`, `pos`) VALUES
-(6, 4, 'Slide', 'slide', '', 'listImg', '', 0),
 (7, 15, 'Đang cập nhật', 'dang-cap-nhat', 'file', 'file', 'listF', 0),
-(8, 4, 'ahihi', 'none', '', 'listImg', '', 0);
+(9, 3, 'Slide', 'slide', '', 'listImg', '', 0);
 
 -- --------------------------------------------------------
 
@@ -492,7 +495,7 @@ CREATE TABLE IF NOT EXISTS `vt_menu` (
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
   KEY `id_2` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=935 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=940 ;
 
 --
 -- Dumping data for table `vt_menu`
@@ -502,16 +505,16 @@ INSERT INTO `vt_menu` (`id`, `menu_parent`, `hide`, `pos`, `title`, `des`, `ico`
 (0, -1, 1, -3, 'Cấu hình', '', '', '', '', 'config', '', 'cau-hinh', '', '', '', '', '', '', '', '', '', '', '', ''),
 (1, 0, 1, 0, 'Thông tin', '', '', '', '', 'info', '', 'thong-tin', '', '', '', '', '', '', '', '', '', '', '', ''),
 (2, 0, 1, -1, 'Tìm kiếm', '', '', '', '', 'search', '', 'tim-kiem', '', '', '', '', '', '', '', '', '', '', '', ''),
-(3, 0, 0, 1, 'Trang chủ', '', 'fa fa-home', '', '', 'home', '.', 'trang-chu', '<p><em>asd</em></p>\r\n', '', '', '', '', '', '', '111', '29', '123123', '12', ''),
+(3, 0, 0, 4, 'Trang chủ', '', 'fa fa-home', '', '', 'home', '.', 'trang-chu', '<p><em>asd</em></p>\r\n', '', '', '', '', '', '', '111', '29', '123123', '12', ''),
 (4, -1, 1, -4, 'Không tìm thấy trang', '', '', '', '', '404', '', '404', '', '', '', '', '', '', '', '', '', '', '', ''),
 (5, -1, 1, -2, 'Cài đặt Menu', '', '', '', '', 'configMenu', '', 'cai-dat-menu', '', '', '', '', '', '', '', '', '', '', '', ''),
-(9, 0, 1, 6, 'Liên hệ', '', 'fa fa-phone', '', '', 'contact', '', 'lien-he', '', '', '', '', '', '', '', '', '', '', '', ''),
-(914, 0, 0, 4, 'Đăng', '', 'fa fa-send', 'phot, danh sach phot, phốt, danh sách phốt, phot online, phốt online, tập hợp các phốt, phốt việt, phot viet', '', 'post', '', 'dang', '<p>ahihi</p>\r\n', '', '', '', '', '', '', '', '', '', '', ''),
-(926, 0, 0, 2, 'Điều khoản', '', 'fa fa-exclamation-circle', '', '', 'content', '', 'dieu-khoan', '', '', '', '', '', '', '', '', '', '', '', ''),
-(927, 0, 0, 3, 'Sản phẩm', '', '1', '', 'amd-logo-23-12-2016-12-31-54.png', 'product', '', 'san-pham', '', '', '', '', '', '', '', '', '<p>sdfdsfsdf</p>\r\n', '', '', ''),
-(932, 927, 0, 0, 'Đang cập nhật', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(933, 927, 0, 0, 'Đang cập nhật', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(934, 0, 0, 0, 'Shop', '', '', '', '', 'shop', '', 'shop', '', '', '', '', '', '', '', '', '', '', '', '');
+(926, 0, 0, 5, 'Kế hoạch đầu tư', '', 'fa fa-exclamation-circle', '', '', 'content', '', 'ke-hoach-dau-tu', '', '', '', '', '', '', '', '', '', '', '', ''),
+(927, 0, 0, 6, 'Điều khoản', '', '1', '', 'amd-logo-23-12-2016-12-31-54.png', 'content', '', 'dieu-khoan', '', '', '', '', '', '', '', '', '<p>sdfdsfsdf</p>\r\n', '', '', ''),
+(932, 927, 0, 1, 'Đang cập nhật', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(936, 927, 0, 0, 'Đang cập nhật', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(937, 0, 0, 2, 'Giới thiệu', '', '', '', '', 'content', '', 'gioi-thieu', '', '', '', '', '', '', '', '', '', '', '', ''),
+(938, 0, 0, 3, 'Tin tức', '', '', '', '', 'news', '', 'tin-tuc', '', '', '', '', '', '', '', '', '', '', '', ''),
+(939, 0, 0, 7, 'Giao dịch', '', '', '', '', 'content', '', 'giao-dich', '', '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
