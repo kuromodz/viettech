@@ -25,8 +25,22 @@
   }
   if(!$menuPage) $menuPage = $menu404;
   
+  //kiểm tra tính năng thành viên
+  if(isset($menuUser)){
+    if(isset($_COOKIE['email']) && isset($_COOKIE['password'])){
+      $user = $db->alone_data_where_where('user','email',$_COOKIE['email'],'password',$_COOKIE['password']);
+      if(!$user){
+        unset($user);
+      }
+    }
+  }
+  
   if(!isset($_GET['ajax'])){
     include('modules/template/asset.php');
+    if(!isset($user)){
+      include('modules/template/modal.php');
+    }
+
     include('views/template/head.php');
     include('modules/template/infopage.php');
     include('modules/content.php');

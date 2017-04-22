@@ -6,7 +6,7 @@
 	$sql = "SELECT * FROM `".dbPrefix."data` WHERE 1 ";
 	if(isset($query["title"]) && strlen($query["title"]) > 1){
 		$qTitle = $query["title"];
-		$qTitle = str_replace('-', ' ', renameTitle($qTitle));
+		/*$qTitle = str_replace('-', ' ', renameTitle($qTitle));*/
 		$sql .= "AND ( `title` LIKE '%".$qTitle."%' OR `des` LIKE '%".$qTitle."%' )";
 		$checkS = true;
 		$params = "title=".$qTitle;
@@ -18,6 +18,12 @@
 			foreach($query as $key=>$q){;
 				if($key == $col->Field && $q !== '' && $q !== '0'){
 					switch ($col->Field) {
+						case 'province':
+						case 'district':
+							if($q !== '00' && $q !== '000'){
+								$sql.= " AND `".$col->Field."` = '".$q."' ";
+							}
+							break;
 						case 'price':
 							$bw = explode('-', $q);
 							if(count($bw) == 2){
@@ -26,7 +32,6 @@
 								$sql.=" AND `price` ".$q."000000 ";
 							}
 							break;
-							
 						case 'count':
 							if($q == '1'){
 								$sql.=" AND (`count` <> '' OR `count` <> '0' ) ";
@@ -36,9 +41,6 @@
 							break;
 						case 'tag':
 							$sql.= " AND `".$col->Field."` LIKE '%".$q."%' ";
-							break;
-						case 'sale':
-							$sql.= " AND `sale` <> '' ";
 							break;
 
 						default:

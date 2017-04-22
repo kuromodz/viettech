@@ -1,10 +1,9 @@
-<a target="_blank" href="intent:#Intent;action=com.zing.zalo.intent.action.SEND;type=text/plain;S.android.intent.extra.SUBJECT=Zalo Article;S.android.intent.extra.TEXT=<?=pageUrl()?>;B.postFeed=true;B.backToSource=true;end"><img src="admin/assets/images/zalo.png"></a>
-<a target="_blank" class="btn btn-default button_facebook" href="https://www.facebook.com/dialog/share?app_id=140586622674265&display=popup&href=<?=pageUrl()?>"><i class="fa fa-facebook fa-fw"></i></a>
-<a target="_blank" class="btn btn-default button_twitter" href="http://www.twitter.com/share?url=<?=pageUrl()?>"><i class="fa fa-twitter fa-fw"></i> </a>
-<a target="_blank" class="btn btn-default button_google_plusone_share" href="https://plus.google.com/share?url=<?=pageUrl()?>"><i class="fa fa-google-plus fa-fw"></i> </a>
-<a target="_blank" class="btn btn-default button_youtube" href="<?=pageUrl()?>"><i class="fa fa-youtube fa-fw"></i> </a>
-<a target="_blank" class="btn btn-default button_linkedin" href="<?=pageUrl()?>"><i class="fa fa-linkedin fa-fw"></i> </a>
-<a target="_blank" class="btn btn-default button_email" href="mailto:?&body=<?=pageUrl()?>"><i class="fa fa-envelope fa-fw"></i> </a>
+<a target="_blank" class="btn btn-sm btn-default button_facebook" href="https://www.facebook.com/dialog/share?app_id=140586622674265&display=popup&href=<?=pageUrl()?>"><i class="fa fa-facebook fa-fw"></i></a>
+<a target="_blank" class="btn btn-sm btn-default button_twitter" href="http://www.twitter.com/share?url=<?=pageUrl()?>"><i class="fa fa-twitter fa-fw"></i> </a>
+<a target="_blank" class="btn btn-sm btn-default button_google_plusone_share" href="https://plus.google.com/share?url=<?=pageUrl()?>"><i class="fa fa-google-plus fa-fw"></i> </a>
+<a target="_blank" class="btn btn-sm btn-default button_youtube" href="<?=pageUrl()?>"><i class="fa fa-youtube fa-fw"></i> </a>
+<a target="_blank" class="btn btn-sm btn-default button_linkedin" href="<?=pageUrl()?>"><i class="fa fa-linkedin fa-fw"></i> </a>
+<a target="_blank" class="btn btn-sm btn-default button_email" href="mailto:?&body=<?=pageUrl()?>"><i class="fa fa-envelope fa-fw"></i> </a>
 
 <style type="text/css">
     .btn.button_facebook{background-color:rgb(59, 89, 152)!important;}

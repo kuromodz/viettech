@@ -27,6 +27,18 @@
             <script src="plugins/tag/bootstrap-tagsinput.js"></script>
           </div>
         </div>
+        <?php if($menuPage->file == 'product'){ foreach($listSl as $sl){ $col = $sl->name;?>
+        <div class="form-group">
+          <label class="control-label col-md-3"><?=$sl->title?></label>
+          <div class="col-md-9">
+            <select class="form-control" name="<?=$col?>">
+              <?php $listOp = $db->list_data($sl->name); foreach($listOp as $op){?>
+              <option <?=($op->id == $page->$col)?'selected':''?> value="<?=$op->id?>"><?=$op->name?></option>
+              <?php } ?>
+            </select>
+          </div>
+        </div>
+        <?php }}?>
 
         <?php foreach($configMenu->listF as $data){ $dataCol = $data->col; ?>
         <div class="form-group">

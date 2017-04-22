@@ -41,12 +41,13 @@
                 $db->breadcrumb($page);
                 $thisIsProducts = true;
             eval($contentHead);
+            include('modules/template/searchBox.php');
             include('modules/template/box.php');
             eval($contentFooter);
             $listData = $db->listData($page->menu);
-            if(count($listData)){
+            if(count($listData) > 1){
                 eval($boxHead);
-                echo $menuPage->title.' khác'; 
+                echo 'Các sản phẩm liên quan'; 
                 eval($contentHead);
                 include('modules/template/box.php');
                 eval($contentFooter);
@@ -56,26 +57,15 @@
                 $idList = $menuPage->id;
                 $page = $menuPage;
             }
-            $listMenuChild = $db->listMenuChild($idList);
-            if(count($listMenuChild)){ 
-                /*$listData = $db->listData($idList);*/
-                foreach($listMenuChild as $menuChild){
-                    $listData = $db->allListDataChild($menuChild->id);
-                    eval($boxHead); 
-                    $db->breadcrumbMenu($menuChild);  
-                    eval($contentHead);
-                    include('modules/template/box.php');
-                    eval($contentFooter);
-                } 
-            }else{
-                $listData = $db->allListDataChild($idList,$start,$config->limit);
-                $allListData = $db->allListDataChild($idList);
-                eval($boxHead);
-                    $db->breadcrumbMenu($page); 
-                eval($contentHead);
-                include('modules/template/box.php');
-                eval($contentFooter);
-            }
+            
+            $listData = $db->allListDataChild($idList,$start,$config->limit);
+            $allListData = $db->allListDataChild($idList);
+            eval($boxHead);
+                $db->breadcrumbMenu($page); 
+            eval($contentHead);
+            include('modules/template/searchBox.php');
+            include('modules/template/box.php');
+            eval($contentFooter);
         }
         eval($footerHtml);
     }

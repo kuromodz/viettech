@@ -167,6 +167,9 @@ function returnIcon($file){
         case 'backlink':
             $icon = 'link';
             break;
+        case 'mod':
+            $icon = 'user-secret';
+            break;
         case 'home':
             $icon = 'dashboard';
             break;

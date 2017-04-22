@@ -1,56 +1,9 @@
 <?php
-if(isset($id)){
-?>
-<form role="form" method="POST" class="form-horizontal" enctype="multipart/form-data">
-  <input type="hidden" name="table" value="data"/>
-  <input type="hidden" name="id" value="<?=$id?>"/>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="titleUser">Tên:</label>
-      <input id="titleUser" class="form-control" value="<?=$page->title?>" name="title"/>
-    </div>
-    <div class="form-group">
-      <label for="user">User:</label>
-      <input class="form-control" value="<?=$page->name?>" name="name"/>
-    </div>
-    <div class="form-group">
-      <label for="pwd">Password:</label>
-      <input id="pwd" class="form-control" value="<?=$page->password?>" name="password"/>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <label class="col-md-12">Được chỉnh sửa các danh mục: </label>
-    <?php foreach($listMenuAdmin as $menu){ if($menu->file !=='search'){
-      $checkedMenu = false;
-      $listMenuCheck = explode(',', $page->type);
-      if(in_array($menu->id,$listMenuCheck)){
-        $checkedMenu = true;
-      }
-    ?>
-    <div class="col-md-6">
-      <div class="col-md-3">
-        <div class="onoffswitch">
-            <input type="hidden" name="type[<?=$menu->id?>]" value="0" />
-            <input type="checkbox" <?=returnWhere('checked',$checkedMenu,true)?> name="type[<?=$menu->id?>]" class="onoffswitch-checkbox" id="switchhide<?=$menu->id ?>" value="1" />
-            <label class="onoffswitch-label" for="switchhide<?=$menu->id ?>"></label>
-        </div>
-      </div>
-      <div class="col-md-9">
-        <?=$menu->title?>
-      </div>
-    </div>
-    <?php }} ?>
-  </div>
-  
-  <button type="submit" class="btn btn-success form-control"> <i class="fa fa-save"></i> Lưu (Alt + S)</button>
-</form>
-<?php
-}else{
-  $listData = $db->listData($menuPage->id);  
+  $listData = $db->list_data('user');  
 ?>
 <div class="box-header">
   <h3 class="box-title">
-    <a <?=linkAddId($menuPage->id)?> >
+    <a <?=linkAddId($menuPage->id,'user')?> >
       <i class="fa fa-plus"></i> Thêm thành viên
     </a>
   </h3>
@@ -60,7 +13,9 @@ if(isset($id)){
     <thead>
       <tr>
         <th>Tên</th>
-        <th>User</th>
+        <th>Email</th>
+        <th>Số điện thoại</th>
+        <th>Xác nhận</th>
         <th>Hành động</th>
       </tr>
     </thead>
@@ -69,22 +24,21 @@ if(isset($id)){
       foreach($listData as $key=>$data){
     ?>
       <tr align="center" data-id="<?=$data->id?>">
-       <td>
-          <a <?=linkId($data,$name)?>>
-            <?=$data->title?>
-          </a>
+        <td><?=$data->title?></td>
+        <td><?=$data->email?></td>
+        <td><?=$data->phone?></td>
+        <td>
+          <?php if($data->confirm == 0){ ?>
+          <span class="text-danger"><i class="fa fa-close"></i> Chưa xác nhận email</span>
+          <?php }else{ ?>
+          <span class="text-success"><i class="fa fa-check"></i> Đã xác nhận</span>
+          <?php } ?>
         </td>
-       <td>
-          <a <?=linkId($data,$name)?>>
-            <?=$data->name?>
-          </a>
+        <td class="action">
+          <a <?=linkDelId($data->id,'user'); ?>><i class="fa fa-trash"></i></a>
         </td>
-       <td class="action">
-        <a <?=linkDelId($data->id); ?>><i class="fa fa-trash"></i></a>
-       </td>
       </tr>
     <?php } ?>
     </tbody>
   </table>
 </div>
-<?php } ?>

@@ -2,7 +2,7 @@
 <html class='no-js' lang='en' ng-app="myApp">
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
-    <base href="<?php echo baseUrl?>admin/" />
+    <base href="<?php echo baseUrl?>admin/" data-url="<?=baseUrl?>" />
     <meta charset='utf-8'>
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
     <title>Edit: <?=$title?></title>

@@ -230,3 +230,15 @@ function loadFunction(){
         });
     }
 }
+function acceptPost(id){
+    $.ajax({
+        type: "GET",
+        contentType: false,
+        processData: false,
+        url: '../modules/action.php?do=acceptPost&id='+id,
+        success: function(data)
+        {
+            getAjax(document.URL);
+        }
+    });  
+}

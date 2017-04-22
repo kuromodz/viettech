@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="vi" lang="vi" data-load="<?=$menuPage->name?>" >
 <head>
-    <base href="<?=baseUrl?>"/>
+    <base href="<?=baseUrl?>" data-url="<?=baseUrl?>"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="shortcut icon" type="image/x-icon" href="upload/<?=$infoPage->logo ?>" />
+    <link rel="shortcut icon" type="image/x-icon" href="views/template/favicon.ico" />
     <title><?=$title ?></title>
     <meta name="title" content="<?=$title?>"/>
     <meta name="description" content="<?=$des?>" />
@@ -37,8 +37,8 @@
     <script type="text/javascript" src="admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <link rel="stylesheet" type="text/css" href="admin/plugins/font-awesome/css/font-awesome.min.css" />
     
-    <link rel="stylesheet" type="text/css" href="admin/plugins/bootstrap/css/bootstrap.min.css" />
-    <script defer type="text/javascript" src="admin/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="admin/plugins/bootstrap/css/bootstrap.min.css" />
+    <script defer type="text/javascript" src="admin/plugins/bootstrap/js/bootstrap.min.js"></script> -->
 
     <!-- <link rel="stylesheet" type="text/css" href="admin/plugins/simplyscroll/jquery.simplyscroll.css"/>
     <script defer type="text/javascript" src="admin/plugins/simplyscroll/jquery.simplyscroll.js"></script> -->
@@ -47,8 +47,8 @@
     <script defer type="text/javascript" src="admin/plugins/fancybox/jquery.fancybox.pack.js"></script>
     <script defer type="text/javascript" src="admin/plugins/fancybox/jquery.mousewheel-3.0.6.pack.js"></script> -->
 
-    <!-- <link rel="stylesheet" type="text/css" href="admin/plugins/bxslider/jquery.bxslider.css"/>
-    <script defer type="text/javascript" src="admin/plugins/bxslider/jquery.bxslider.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="admin/plugins/bxslider/jquery.bxslider.css"/>
+    <script defer type="text/javascript" src="admin/plugins/bxslider/jquery.bxslider.min.js"></script>
     
     <script defer type="text/javascript" src="admin/plugins/nprogress/nprogress.js"></script>
     <link rel="stylesheet" type="text/css" href="admin/plugins/nprogress/nprogress.css"/>

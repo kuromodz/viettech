@@ -191,6 +191,18 @@ $(document).ready(function(){
         window.history.pushState("", "", document.URL);
     });
 
+    $('body').on('change','select[name=province]',function(e){
+        $.ajax({
+            type:'GET',
+            url:$('base').data('url')+'modules/api.php?do=getListDistrict&province='+$(this).val()
+        }).success(function(res){
+            $('select[name=district]').html(res);
+            if($('base').attr('href') == $('base').data('url') && $('.formSearch.searchAjax').length){
+                $('.formSearch.searchAjax').submit();
+            }
+        })
+    });
+
     $(window).on('popstate', function (e) {
         var state = e.originalEvent.state;
         if (state !== null) {
@@ -223,11 +235,13 @@ $(document).ready(function(){
                 $('[name=content]').val(content);
                 break;
         }
-        var formData =  $(this).serialize();
+        var formData =  new FormData($(this)[0]);
         $.ajax({
           type: "POST",
           url: $('base').attr('href')+'/modules/action.php?do='+action,
           data: formData,
+          processData: false,
+          contentType: false,
           beforeSend:function(){
             $('[type=submit]').find('i').attr('class', 'fa fa-spin fa-spinner');
           },
@@ -237,13 +251,15 @@ $(document).ready(function(){
             $('[type=submit]').find('i').attr('class', 'fa fa-send');
             $('[type=submit]').removeAttr("disabled");
             switch(action) {
-                case 'register':
                 case 'login':
                     if(data.error == 0){
-                        document.cookie = "email="+data.email;
-                        document.cookie = "password="+data.password;
                         window.location.reload();
-                    }    
+                    }
+                break;
+                case 'post':
+                    if(data.error == 0){
+                        $('.contactAjax[action=post]').find("input[type=text], textarea").val("");
+                    }
                 break;
                 case 'cart':
                 if(data.error == 0){
@@ -304,8 +320,8 @@ function reloadScript(){
 }
 function logout(){
     if(confirm('Bạn thật sự muốn thoát ?')){
-        document.cookie = "email=";
-        document.cookie = "password=";
+        document.cookie = 'email=; path=/; expires=' + new Date(0).toUTCString();
+        document.cookie = 'password=; path=/; expires=' + new Date(0).toUTCString();
         window.location.reload();
     }
 }

@@ -128,7 +128,7 @@
 											'img'=>$uploadFile['img'],
 										);
 										$db->insertImage('data',$post);
-									}					
+									}
 								}
 								break;
 							case 'listImageType':
@@ -253,6 +253,7 @@
 			$menuPage = $db->alone_data_where('menu','name',$name);
 			$idMenu = $menuPage->id;
 
+			
 			if (isset($id)) {
 				$page = $db->alone_data_where('data','id',$id);
 				if($page){
@@ -272,6 +273,7 @@
 					$errorPage = true;
 				}
 			}
+			
 		}
 	}
 
@@ -307,7 +309,7 @@
 		if($des == '') $des = $menuPage->des;
 		$keywords = $menuPage->keywords;
 	}
-	if(isset($name) && $menuPage->file !== 'search'){
+	if(isset($name) && $menuPage->file !== 'search' && $menuPage->file !== 'user'){
 		if(!checkObject($listMenu,'name',$name)) $errorPage = true;
 	}
 	foreach($allListMenu as $menu){

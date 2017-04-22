@@ -210,3 +210,7 @@ legend{
 .ace-monokai .ace_print-margin{
   background:none!important;
 }
+[for=imgMenu] img{
+  max-width: 100px;
+  max-height: 50px;
+}

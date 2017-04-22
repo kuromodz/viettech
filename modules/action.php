@@ -25,10 +25,56 @@ if (isset($_GET['do'])) {
           $checkAdmin = true;
         }
     }
+    if (isset($_COOKIE['password']) && isset($_COOKIE['email']) ) {
+        $user = $db->alone_data_where_where('user','email',$_COOKIE['email'],'password',$_COOKIE['password']);
+        if($user){
+            $checkAdmin = true;
+        }else{
+            unset($user);
+        }
+    }
     $listPass = array('post','contact','register','login');
     if(in_array($do,$listPass)) $checkAdmin = true;
     if($checkAdmin){
         switch ($do) {
+            case 'acceptPost':
+                if(isset($_GET['id'])){
+                    $id = $_GET['id'];
+                    $data = $db->alone_data_where('data','id',$id);
+                    $arP['menu'] = $data->menuPost;
+                    if($db->updateRow('data',$arP,'id',$id)){
+                        $result['error'] = 0;
+                    }
+                }
+            break;
+            case 'changePassword':
+                if(count($_POST) == 3){
+                    if(md5($_POST['password']) == $user->password && $_POST['passwordNew'] === $_POST['passwordNewRepeat']){
+                        $ar['password'] = md5($_POST['passwordNew']);
+                        if($db->updateRow('user',$ar,'id',$user->id)){
+                            $result['error'] = 0;
+                            unset($_COOKIE['password']);
+                            setcookie('password', $ar['password'], time() + (86400 * 30), "/");
+                            $result['text'] = 'Thay đổi thành công !';
+                        }
+                    }else{
+                        $result['text'] = 'Nội dung nhập không chính xác !';
+                    }
+                }
+                break;
+            case 'changeInfo':
+                if(isset($_POST['email'])){unset($_POST['email']);}
+                foreach($_POST as $key=>$p){
+                    if($p == ''){
+                        unset($_POST[$key]);
+                    }
+                }
+                if(count($_POST)){
+                    $db->updateRow('user',$_POST,'id',$user->id);
+                }
+                $result['error'] = 0;
+                $result['text'] = '';
+                break;
             case 'cart':
                 $menuShop = $db->alone_data_where("menu","file","shop");
                 if($menuShop){
@@ -68,37 +114,52 @@ if (isset($_GET['do'])) {
             break;
 
             case 'post':
-                $countF = count((array)$listF);
-                if(isset($_POST['listImg']) && (count($_POST) > $countF) ){
-                    $listImg = $post = [];
-                    foreach($_POST['listImg'] as $key=>$img){
-                        $img = $purifier->purify($img);
-                        if($img !== '') $listImg[$key] = $img;
+                $arP=[];
+                $uploadOk = true;
+                $errorText = '';
+                if($_FILES['img']['type'] !== ''){
+                    $check = getimagesize($_FILES["img"]["tmp_name"]);
+                    if(!$check) {
+                        $uploadOk = false;
+                        $errorText = 'Chỉ được up hình !';
                     }
-                    if(count($listImg)){
-                        unset($_POST['listImg']);
-                        $listPass = array('content','link');
+                    // Check file size
+                    if ($_FILES["img"]["size"] > 1000000) {
+                        $errorText = 'Dung lượng ảnh quá lớn !';
+                        $uploadOk = false;
+                    }
+                    if($uploadOk){
                         foreach($_POST as $key=>$p){
-                            $pCheck = $purifier->purify($p);
-                            if( ($pCheck == '') && (!in_array($key,$listPass)) ){
-                                $result['text'] = 'Dữ liệu nhập vào không hợp lệ !';
-                                break;
+                            if($p !== ''){
+                                $arP[$key] = htmlentities($p);
+                            }
+                        }
+                        if(count($_POST) == count($arP)){
+                            //upload File
+                            $f = $_FILES['img'];
+                            $uploadFile = uploadFile($fileName = $f['name'],$f['tmp_name']);
+                            if($uploadFile['success']){
+                                $menuPost = $db->alone_data_where('menu','file','post');
+                                $arP['img'] = $uploadFile['img'];
+                                $arP['menu'] = $menuPost->id;
+                                if($db->insertData('data',$arP)){
+                                    $result['error'] = 0;
+                                    $errorText = 'Bạn đã đăng tin thành công, chúng tôi sẽ kiểm duyệt và đưa lên sớm nhất !';
+                                }else{
+                                    $errorText = 'Không cập nhật được cơ sở dữ liệu !';
+                                }
                             }else{
-                                $post[$key] = $pCheck;
+                                $errorText = 'Up hình không thành công !';    
                             }
+                        }else{
+                            $errorText = 'Nội dung nhập không đầy đủ !';
                         }
-                        if(count($post) >= $countF){
-                            $menuPost = $db->alone_data_where('menu','file','post');
-                            $post['menu'] = $menuPost->id;
-                            if($db->insertData('data',$post)){
-                                //xu li up anh
-                                /*var_dump($listImg);*/
-                            }
-                        }
+
                     }
                 }else{
-                    $result['text'] = 'Dữ liệu gửi không đủ yêu cầu !';
+                    $errorText = 'Vui lòng up hình';
                 }
+                $result['text'] = $errorText;
                 break;
             case 'export':
                 if(isset($_GET['menu'])){
@@ -159,54 +220,106 @@ if (isset($_GET['do'])) {
                 }
                 break;
             case 'register':
-                require_once('recaptchalib.php');
+                /*require_once('recaptchalib.php');
                 $resp = recaptcha_check_answer('6LdyfQsUAAAAAG3LgRecDNeT1mgmERMI51QwfxMz', $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
                 
                 if (!$resp->is_valid) {
                     $result['text'] = 'Sai mã capcha!';
-                } else {
+                } else { 
                     unset($_POST['recaptcha_challenge_field']);
                     unset($_POST['recaptcha_response_field']);
-                    foreach ($_POST as $key => $data) {
-                        if (strlen($data)) {
-                            $post[$key] = $data;
-                        }
-                    }
+                }*/
                     
-                    if (count($post) == count($_POST)) {
-                        $menuUser = $db->alone_data_where('menu', 'file', 'user');
-                        if ($post['password'] == $post['passwordCheck']) {
-                            $listUser = $db->listData($menuUser->id);
-                            $check    = 0;
-                            foreach ($listUser as $data) {
-                                if ($data->email == $post['email']) {
-                                    $result['text'] = 'Thành viên đã tồn tại';
-                                    $check          = 1;
-                                    break;
-                                }
+                foreach ($_POST as $key => $data) {
+                    if (strlen($data)) {
+                        $post[$key] = $data;
+                    }
+                }
+                
+                if (count($post) == count($_POST)) {
+                    
+                    if ($post['password'] == $post['passwordCheck']) {
+                        $check    = 0;
+                        $checkUser = $db->alone_data_where('user','phone',$post['phone']);
+                        if($checkUser){
+                            $result['text'] = 'Thành viên đã tồn tại';
+                            if($checkUser->confirm == 0){
+                                $result['text'] = 'Tài khoản chưa được xác nhận email !';
                             }
-                            if ($check == 0) {
-                                unset($post['passwordCheck']);
-                                if ($db->insertData('data', $post)) {
-                                    $rs = array(
-                                        'email',
-                                        'password'
-                                    );
-                                    foreach ($rs as $data) {
-                                        $result[$data] = $post[$data];
-                                    }
-                                    
-                                    $result['error'] = 0;
-                                    $result['text']  = 'Đăng ký thành công !';
-                                } else {
-                                    var_dump($db->insertDataError('data', $post));
+                            $check          = 1;
+                        }
+                        if ($check == 0) {
+                            $post['code'] = md5($post['phone'].time());
+                            unset($post['passwordCheck']);
+                            $post['password'] = md5($post['password']);
+                            if ($db->insertData('user', $post)) {
+                                //send Mail confirm
+                                ob_start();
+                                require('template/confirmRegister.php');
+                                $content = ob_get_clean();
+                                require 'phpmailer/class.phpmailer.php';
+                                require 'phpmailer/PHPMailerAutoload.php';
+                                
+                                $mail            = new PHPMailer;
+                                $mail->CharSet   = 'UTF-8';
+                                $mail->SMTPDebug = false; // Enable verbose debug output
+                                $mail->isSMTP(); // Set mailer to use SMTP
+                                $mail->Host       = 'smtp.gmail.com'; // Specify main and backup SMTP servers
+                                $mail->SMTPAuth   = true; // Enable SMTP authentication
+                                $mail->Username   = 'viettech.customer@gmail.com'; // SMTP username
+                                $mail->Password   = '@viettechcorp'; // SMTP password
+                                $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
+                                $mail->Port       = 587;
+                                $mail->From       = ' viettech.customer@gmail.com';
+                                $mail->FromName   = 'Xác nhận đăng ký từ trang'.baseUrl; //Title 
+                                $mail->addAddress($post['email'], $post['email']);
+                                $mail->isHTML(true);
+                                
+                                $mail->Subject = 'Xác nhận đăng ký';
+                                $mail->Body = $content;
+                                if (!$mail->send()) {
+                                    $result['text'] = $mail->ErrorInfo;
                                 }
+                                $result = array_merge($post,$result);
+                                $result['error'] = 0;
+                                $result['text']  = 'Đăng ký thành công ! Vui lòng xác thực tài khoản tại email '.$post['email'];
+                            } else {
+                                var_dump($db->insertDataError('user', $post));
                             }
-                        } else {
-                            $result['text'] = 'Mật khẩu nhập lại không chính xác !';
                         }
                     } else {
-                        $result['text'] = 'Vui lòng nhập đầy đủ thông tin !';
+                        $result['text'] = 'Mật khẩu nhập lại không chính xác !';
+                    }
+                } else {
+                    $result['text'] = 'Vui lòng nhập đầy đủ thông tin !';
+                }
+                break;
+            case 'confirmRegister':
+                if(isset($_GET['code'])){
+                    $userCheck = $db->alone_data_where('user','code',$_GET['code']);
+                    if($userCheck && $userCheck->confirm == 0){
+                        $array['confirm'] = 1;
+                        if($db->updateRow('user',$array,'id',$userCheck->id)){
+                            ?>
+                            <center><h4><strong>Xác nhận đăng ký thành công ! Bấm vào <a href="<?=baseUrl?>">đây</a> để về trang chủ.</strong></h4></center>
+                            <?php
+                        }
+                    }
+                    exit();
+                }
+                break;
+            case 'login':
+                if(isset($_POST['email']) && isset($_POST['password'])){
+                    $dataUser = $db->alone_data_where_where('user','email',$_POST['email'],'password',md5($_POST['password']));
+                    if($dataUser){
+                        //set Cookie
+                        foreach($_POST as $key=>$p){
+                            unset($_COOKIE[$key]);
+                            setcookie($key, $dataUser->$key, time() + (86400 * 30), "/");
+                        }
+                        $result['error'] = 0;
+                    }else{
+                        $result['text']  = 'Sai tài khoản hoặc mật khẩu !';
                     }
                 }
                 break;
