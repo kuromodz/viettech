@@ -258,6 +258,7 @@
 				$page = $db->alone_data_where('data','id',$id);
 				if($page){
 					$update["view"] = $page->view + 1;
+					$update["time"] = $page->time;
 					$db->updateRow("data",$update,'id',$id);
 					$idMenu = $page->menu;
 					if($page->data_parent !== '0') $errorPage = true;

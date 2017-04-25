@@ -370,7 +370,7 @@ class DB extends database
 		return $this->execute();
 	}
 	public function updateRow($table,$array,$where,$value){
-		if($table == 'data'){
+		if($table == 'data' && !isset($array['time'])){
 			$array['time'] = timeNow();
 		}
 		$sql = "UPDATE `".dbPrefix."$table` SET ";

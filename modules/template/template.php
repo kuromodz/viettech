@@ -10,6 +10,7 @@
   .phoneFixed a{color:#fff;font-size:20px;}
   .phoneFixed{position:fixed;z-index:9999;border-radius:5px;bottom:1%;left:1%;min-width:50px}
   input{outline:none}
+  .btn-default{color:white;}
   input[type=search]{-webkit-appearance:textfield;-webkit-box-sizing:content-box;font-family:inherit;font-size:100%}
   input::-webkit-search-decoration,input::-webkit-search-cancel-button{display:none}
   input[type=search]{background:#ededed url(http://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center}
