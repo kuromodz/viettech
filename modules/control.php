@@ -183,7 +183,9 @@
 										    	$listItem = [];
 										        for ($col = 0; $col < $highestColumnIndex; ++ $col) {
 										            $cell = $worksheet->getCellByColumnAndRow($col, $row);
-										            $listItem[$listCols[$col]] = $cell->getFormattedValue();
+										            if($listCols[$col] !== ''){
+										            	$listItem[$listCols[$col]] = $cell->getFormattedValue();
+										            }
 										    	}
 											    $listData[] = $listItem;
 										    }

@@ -285,7 +285,7 @@
                 <label for="file-upload" class="custom-file-upload btn btn-info btn-sm">
                     <i class="fa fa-upload"></i> Up dữ liệu (*.xls)
                 </label>
-                <input class="hidden" id="file-upload" name='importFile' accept="application/vnd.ms-excel" type="file"/>
+                <input class="hidden" id="file-upload" name='importFile' accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" type="file"/>
                 <button data-target=".tableData<?=$idList?> >tbody > tr.selected" type="button" data-menu="<?=$idList?>" class="exportAll btn btn-primary btn-sm">
                   <i class="fa fa-download"></i> Xuất dữ liệu (*.xls)
                 </button>
