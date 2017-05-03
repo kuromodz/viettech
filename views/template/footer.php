@@ -9,10 +9,7 @@
                 <p><i class="fa fa-phone fa-fw"></i> Số điện thoại: <?=$infoPage->phone?></p>
                 <p><i class="fa fa-envelope fa-fw"></i> Email: <?=$infoPage->gmail?></p>
             </div>
-            <div class="col-md-4">
-                <h4><b>Thống kê truy cập</b></h4>
-                <?php include('modules/template/counter.php'); ?>
-            </div>
+            
             <div class="col-md-4">
                 <h4><b>Fanpage</b></h4>
                 <?php include('modules/template/fanpage.php'); ?>

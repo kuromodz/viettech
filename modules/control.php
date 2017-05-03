@@ -177,17 +177,19 @@
 										    $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumn);
 										    for ($col = 0; $col < $highestColumnIndex; ++ $col) {
 									            $cell = $worksheet->getCellByColumnAndRow($col, 2);
-									            $listCols[] = $cell->getValue();
+									            $listCols[] = $cell->getFormattedValue();
 									        }
 										    for ($row = 3; $row <= $highestRow; ++ $row) {
 										    	$listItem = [];
 										        for ($col = 0; $col < $highestColumnIndex; ++ $col) {
 										            $cell = $worksheet->getCellByColumnAndRow($col, $row);
-										            $listItem[$listCols[$col]] = $cell->getValue();
+										            $listItem[$listCols[$col]] = $cell->getFormattedValue();
 										    	}
 											    $listData[] = $listItem;
 										    }
 										}
+										var_dump($listData[0]);
+										exit();
 										//insertdata to $_POST['id']
 										foreach($listData as $data){
 											$data['menu'] = $idMenu;
