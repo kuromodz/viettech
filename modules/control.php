@@ -188,8 +188,6 @@
 											    $listData[] = $listItem;
 										    }
 										}
-										var_dump($listData[0]);
-										exit();
 										//insertdata to $_POST['id']
 										foreach($listData as $data){
 											$data['menu'] = $idMenu;
