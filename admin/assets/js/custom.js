@@ -222,6 +222,11 @@ $(document).ready(function(){
         var action = $(this).attr('action');
         $(this).find('[type=submit]').prop('disabled', true);
         switch(action) {
+            case 'post':
+                for ( instance in CKEDITOR.instances ) {
+                    CKEDITOR.instances[instance].updateElement();
+                }
+                break;
             case 'cart':
                 $.each($(this).find('.cookie'),function(){
                     var nameCookie = 'user_' + $(this).attr('name');

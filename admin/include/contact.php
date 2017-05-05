@@ -19,11 +19,11 @@
     <?php foreach($listData as $key=>$data) {?>
         <tr>
           <td><?=$key+1 ?></td>
-          <td><?=$purifier->purify($data->title)?></td>
-          <td><?=$purifier->purify($data->phone)?></td>
-          <td><?=$purifier->purify($data->email)?></td>
-          <td><?=$purifier->purify($data->content)?></td>
-          <td><?=$purifier->purify($data->time)?></td>
+          <td><?=($data->title)?></td>
+          <td><?=($data->phone)?></td>
+          <td><?=($data->email)?></td>
+          <td><?=($data->content)?></td>
+          <td><?=($data->time)?></td>
           
           <td>
             <a <?=linkDelId($data->id)?>><i class="fa fa-close"></i> Xóa</a>
