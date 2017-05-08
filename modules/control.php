@@ -78,6 +78,10 @@
 									}
 									break;
 								case 'data':
+									$listDataChild = $db->listDataChild($value);
+									foreach($listDataChild as $dataChild){
+										if(isset($dataChild->img)) delImg($dataChild->img);
+									}
 									$sql.='DELETE FROM `'.dbPrefix.'data` WHERE `data_parent` = "'.$value.'"; ';
 									break;
 							}
