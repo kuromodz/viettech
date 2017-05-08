@@ -117,8 +117,6 @@ if (isset($_GET['do'])) {
                 $arP=[];
                 $uploadOk = true;
                 $errorText = '';
-                var_dump($_FILES);
-                exit;
                 if($_FILES['img']['type'] !== ''){
                     $check = getimagesize($_FILES["img"]["tmp_name"]);
                     if(!$check) {
