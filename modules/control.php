@@ -307,7 +307,7 @@
 	if( (isset($page) || isset($id)) && $page ){
 		$title = $page->title;
 		$image = $page->img;
-		if($des == '') $des = $page->des;
+		if($page->des != '') $des = $page->des;
 		if(isset($page->keywords) && strlen($page->keywords) > 0) $keywords = $page->keywords;
 		if(isset($id) && $page->price !== '0' && $page->price !== '') $des = $page->price.' - '.$des;
 	}else if( (isset($menuPage)) && ($menuPage) && ($menuPage->file !== 'home')){
