@@ -112,9 +112,9 @@ class DB extends database
 			$sql.=" ) ";
 		}
 		if($where !== '' && $value !==''){
-			$sql.=" AND ".$where." = ".$value." ";
+			$sql.=" AND `".$where."` = '".$value."' ";
 		}
-		$sql .= ' ORDER BY `'.$order.'` '.$type;
+		$sql .= ' ORDER BY '.$order.' '.$type;
 		if(is_numeric($limit)){
 			$sql.= " LIMIT $start,$limit";
 		}
